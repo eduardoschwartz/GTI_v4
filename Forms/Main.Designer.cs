@@ -721,6 +721,7 @@
             this.SairButton.Name = "SairButton";
             this.SairButton.Size = new System.Drawing.Size(52, 52);
             this.SairButton.Text = "Sair do sistema";
+            this.SairButton.Click += new System.EventHandler(this.SairButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -1034,6 +1035,7 @@
             this.Text = "Gestão de Tributação Municipal Integrada  (G.T.I.) - Prefeitura Municipal de Jabo" +
     "ticabal - Versão:  4.0.1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.MenuBarStrip.ResumeLayout(false);
             this.MenuBarStrip.PerformLayout();

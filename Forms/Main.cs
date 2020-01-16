@@ -38,6 +38,7 @@ namespace GTI_v4.Forms {
             BarStatus.Items.Insert(17, new ToolStripControlHost(t));
             MaquinaToolStripStatus.Text = Environment.MachineName;
             DataBaseToolStripStatus.Text = Properties.Settings.Default.DataBaseReal;
+            
         }
 
         private void SbDataBase_CloseUp(object sender, EventArgs e) {
@@ -59,29 +60,31 @@ namespace GTI_v4.Forms {
 
         private void Main_Load(object sender, EventArgs e) {
             IsMdiContainer = true;
+            CorFundo();
             Refresh();
+            
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             ServidorToolStripStatus.Text = Properties.Settings.Default.ServerName;
-
+            
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             VersaoToolStripStatus.Text = $"{version.Major}" + "." + $"{version.Minor}" + "." + $"{version.Build}";
             this.Text += VersaoToolStripStatus.Text;
 
             LockForm(true);
-            //Forms.Login login = new Forms.Login();
-            //login.ShowDialog();
+            Forms.Login login = new Forms.Login();
+            login.ShowDialog();
 
         }
 
         public void LockForm(bool bLocked) {
-            foreach (ToolStripItem ts in TopBarToolStrip.Items) {
-                ts.Enabled = !bLocked;
-            }
+            //foreach (ToolStripItem ts in TopBarToolStrip.Items) {
+            //    ts.Enabled = !bLocked;
+            //}
 
-            List<ToolStripMenuItem> mItems = GtiCore.GetItems(this.MenuBarStrip);
-            foreach (var item in mItems) {
-                item.Enabled = !bLocked;
-            }
+            //List<ToolStripMenuItem> mItems = GtiCore.GetItems(this.MenuBarStrip);
+            //foreach (var item in mItems) {
+            //    item.Enabled = !bLocked;
+            //}
             Dv1Option.Enabled = !bLocked;
             Dv2Option.Enabled = !bLocked;
             DVText.ReadOnly = bLocked;
@@ -90,7 +93,33 @@ namespace GTI_v4.Forms {
             DV3label.Enabled = !bLocked;
         }
 
+        private void CorFundo() {
+            MdiClient ctlMDI;
 
+            foreach (Control ctl in this.Controls) {
+                try {
+                    ctlMDI = (MdiClient)ctl;
+                    ctlMDI.BackColor = Color.LightSteelBlue;
 
+                } catch {
+                }
+            }
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e) {
+            Application.Exit();
+        }
+
+        private void SairButton_Click(object sender, EventArgs e) {
+            if (MessageBox.Show("Deseja fechar todas as janelas e retornar a tela de login?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+                Form[] charr = this.MdiChildren;
+                foreach (Form chform in charr) {
+                    chform.Close();
+                }
+                LockForm(true);
+                Forms.Login login = new Forms.Login();
+                login.ShowDialog();
+            }
+        }
     }
 }

@@ -162,6 +162,10 @@ namespace GTI_v4.Classes {
             }
         }
 
+        public static string Retorna_Last_User() {
+            return Properties.Settings.Default.LastUser;
+        }
+
     }
 
     public class MySR : ToolStripSystemRenderer {
