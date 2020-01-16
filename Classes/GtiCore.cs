@@ -1,6 +1,8 @@
-﻿using System;
+﻿using GTI_v4.Forms;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -18,6 +20,14 @@ namespace GTI_v4.Classes {
         private static readonly byte[] iv = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
         private static readonly Random getrandom = new Random();
         private static readonly object syncLock = new object();
+
+        private static string _up;
+        private static string _baseDados;
+        private static string _ul;
+        
+        public static string BaseDados { get => _baseDados; set => _baseDados = value; }
+        public static string Ul { get => _ul; set => _ul = value; }
+        public static string Up { get => _up; set => _up = value; }
 
         public static List<ToolStripMenuItem> GetItems(MenuStrip menuStrip) {
             List<ToolStripMenuItem> myItems = new List<ToolStripMenuItem>();
@@ -166,6 +176,46 @@ namespace GTI_v4.Classes {
             return Properties.Settings.Default.LastUser;
         }
 
+
+        /// <summary>Retorna a string de conexão.
+        /// </summary>
+        /// <returns>Nome da Conexão</returns>
+        public static string Connection_Name() {
+            string connString = "";
+            Ul = "gtisys"; Up = "everest";
+            Main f1 = (Main)Application.OpenForms["Main"];
+            try {
+                BaseDados = f1.DataBaseToolStripStatus.Text;
+                connString = CreateConnectionString(Properties.Settings.Default.ServerName, Properties.Settings.Default.DataBaseTeste, Ul, Up);//Base de testes por enquanto
+            } catch (Exception) {
+            }
+            return connString;
+        }
+
+        /// <summary>Retorna a string de conexão de base alternativa.
+        /// </summary>
+        /// <returns>Nome da Conexão</returns>
+        public static string Connection_Name(string DataBase_Name) {
+            string connString = "";
+            Ul = "gtisys"; Up = "everest";
+            try {
+                BaseDados = DataBase_Name;
+                connString = CreateConnectionString(Properties.Settings.Default.ServerName, DataBase_Name, Ul, Up);
+            } catch (Exception) {
+            }
+            return connString;
+        }
+
+        public static string CreateConnectionString(string ServerName, string DataBaseName, string LoginName, string Pwd) {
+            SqlConnectionStringBuilder sqlBuilder = new SqlConnectionStringBuilder();
+            sqlBuilder.DataSource = ServerName;
+            sqlBuilder.InitialCatalog = DataBaseName;
+            sqlBuilder.IntegratedSecurity = false;
+            sqlBuilder.UserID = LoginName;
+            sqlBuilder.Password = Pwd;
+            return sqlBuilder.ConnectionString;
+        }
+
     }
 
     public class MySR : ToolStripSystemRenderer {
@@ -180,6 +230,9 @@ namespace GTI_v4.Classes {
             }
         }
     }
+
+
+
 
 }
 

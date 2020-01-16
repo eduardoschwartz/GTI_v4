@@ -1,4 +1,7 @@
 ﻿using GTI_v4.Classes;
+using GTI_v4.Interfaces;
+using GTI_v4.Models;
+using GTI_v4.Repository;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -94,6 +97,7 @@ namespace GTI_v4.Forms {
         #endregion
 
         public Int32 OriginSize;
+        private readonly ISistemaRepository _sistemaRepository=new SistemaRepository();
 
         public Login() {
             m_aeroEnabled = false;
@@ -148,7 +152,6 @@ namespace GTI_v4.Forms {
                     if (txtPwd1.Text.Length < 6)
                         MessageBox.Show("Senha deve ter no mínimo 6 caracteres.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else {
-                        //string _connection = gtiCore.Connection_Name();
                         //Sistema_bll sistemaClass = new Sistema_bll(_connection);
                         //string sPwd = sistemaClass.Retorna_User_Password(txtLogin.Text);
                         //if (!string.IsNullOrEmpty(sPwd) && gtiCore.Decrypt(sPwd) != txtPwd.Text) {
@@ -195,42 +198,41 @@ namespace GTI_v4.Forms {
             Properties.Settings.Default.ServerName = txtServer.Text;
             Properties.Settings.Default.Save();
 
-            //string _connection = gtiCore.Connection_Name();
-            //Sistema_bll sistema_Class = new Sistema_bll(_connection);
-            //try {
-            //    string sUser = sistema_Class.Retorna_User_FullName(txtLogin.Text);
-            //    GtiCore.Liberado(this);
-            //    if (string.IsNullOrEmpty(sUser)) {
-            //        GtiCore.Liberado(this);
-            //        MessageBox.Show("Usuário não cadastrado!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        return;
-            //    }
-            //    string sPwd = sistema_Class.Retorna_User_Password(txtLogin.Text);
-            //    if (string.IsNullOrEmpty(sPwd)) {
-            //        GtiCore.Liberado(this);
-            //        MessageBox.Show("Por favor cadastre uma senha!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        SenhaButton_Click(null, null);
-            //        return;
-            //    } else {
-            //        if (string.Compare(txtPwd.Text, GtiCore.Decrypt(sPwd)) != 0) {
-            //            GtiCore.Liberado(this);
-            //            MessageBox.Show("Senha inválida.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            return;
-            //        }
-            //    }
-            //} catch (Exception ex) {
-            //    GtiCore.Liberado(this);
-            //    MessageBox.Show(ex.InnerException.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            string _connection = GtiCore.Connection_Name();
+            try {
+                string sUser = _sistemaRepository.Retorna_User_FullName(txtLogin.Text);
+                GtiCore.Liberado(this);
+                if (string.IsNullOrEmpty(sUser)) {
+                    GtiCore.Liberado(this);
+                    MessageBox.Show("Usuário não cadastrado!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                string sPwd = _sistemaRepository.Retorna_User_Password(txtLogin.Text);
+                if (string.IsNullOrEmpty(sPwd)) {
+                    GtiCore.Liberado(this);
+                    MessageBox.Show("Por favor cadastre uma senha!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    SenhaButton_Click(null, null);
+                    return;
+                } else {
+                    if (string.Compare(txtPwd.Text, GtiCore.Decrypt(sPwd)) != 0) {
+                        GtiCore.Liberado(this);
+                        MessageBox.Show("Senha inválida.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            } catch (Exception ex) {
+                GtiCore.Liberado(this);
+                MessageBox.Show(ex.InnerException.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             Properties.Settings.Default.ServerName = txtServer.Text.ToUpper();
             Properties.Settings.Default.LastUser = txtLogin.Text.ToUpper();
-            //Properties.Settings.Default.UserId = sistema_Class.Retorna_User_LoginId(txtLogin.Text);
+            Properties.Settings.Default.UserId = _sistemaRepository.Retorna_User_LoginId(txtLogin.Text);
             Properties.Settings.Default.Save();
 
-            //int nId = Properties.Settings.Default.UserId;
-            //usuarioStruct cUser = sistema_Class.Retorna_Usuario(nId);
-            //int? nSetor = cUser.Setor_atual;
+            int nId = Properties.Settings.Default.UserId;
+            usuarioStruct cUser = _sistemaRepository.Retorna_Usuario(nId);
+            int? nSetor = cUser.Setor_atual;
             //if (nSetor == null || nSetor == 0) {
             //    Usuario_Setor form = new Usuario_Setor();
             //    form.nId = nId;
@@ -238,7 +240,7 @@ namespace GTI_v4.Forms {
             //    if (result != DialogResult.OK)
             //        return;
             //}
-            //GtiCore.UpdateUserBinary();
+            GtiCore.UpdateUserBinary();
 
             //#######################
             //Update user Binary
