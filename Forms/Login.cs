@@ -152,33 +152,30 @@ namespace GTI_v4.Forms {
                     if (txtPwd1.Text.Length < 6)
                         MessageBox.Show("Senha deve ter no mínimo 6 caracteres.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else {
-                        //Sistema_bll sistemaClass = new Sistema_bll(_connection);
-                        //string sPwd = sistemaClass.Retorna_User_Password(txtLogin.Text);
-                        //if (!string.IsNullOrEmpty(sPwd) && gtiCore.Decrypt(sPwd) != txtPwd.Text) {
-                        //    MessageBox.Show("Senha atual inválida!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //} else {
-                        //    GTI_Models.Models.Usuario reg = new GTI_Models.Models.Usuario {
-                        //        Nomelogin = txtLogin.Text.ToUpper(),
-                        //        Senha2 = gtiCore.Encrypt(txtPwd1.Text)
-                        //    };
-                        //    Exception ex = sistemaClass.Alterar_Senha(reg);
-                        //    if (ex != null) {
-                        //        ErrorBox eBox = new ErrorBox("Atenção", "Erro ao gravar nova senha.", ex);
-                        //        eBox.ShowDialog();
-                        //    } else {
-                        //        MessageBox.Show("Senha alterada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //        txtLogin.Enabled = true;
-                        //        SenhaButton.Enabled = true;
-                        //        LoginButton.Enabled = true;
-                        //        SairButton.Enabled = true;
-                        //        txtPwd.Text = txtPwd1.Text;
-                        //        this.Size = new Size(this.Size.Width, OriginSize);
-                        //    }
-                        //}
+                        string sPwd = _sistemaRepository.Retorna_User_Password(txtLogin.Text);
+                        if (!string.IsNullOrEmpty(sPwd) && GtiCore.Decrypt(sPwd) != txtPwd.Text) {
+                            MessageBox.Show("Senha inválida!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        } else {
+                            Usuario reg = new Usuario {
+                                Nomelogin = txtLogin.Text.ToUpper(),
+                                Senha2 = GtiCore.Encrypt(txtPwd1.Text)
+                            };
+                                Exception ex = _sistemaRepository.Alterar_Senha(reg);
+                            if (ex != null) {
+                                MessageBox.Show("Erro ao gravar a nova senha.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } else {
+                                MessageBox.Show("Senha alterada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                txtLogin.Enabled = true;
+                                SenhaButton.Enabled = true;
+                                LoginButton.Enabled = true;
+                                SairButton.Enabled = true;
+                                txtPwd.Text = txtPwd1.Text;
+                                this.Size = new Size(this.Size.Width, OriginSize);
+                            }
+                        }
                     }
                 }
             }
-
         }
 
         private void BtCancelar_Click(object sender, EventArgs e) {
@@ -198,7 +195,6 @@ namespace GTI_v4.Forms {
             Properties.Settings.Default.ServerName = txtServer.Text;
             Properties.Settings.Default.Save();
 
-            string _connection = GtiCore.Connection_Name();
             try {
                 string sUser = _sistemaRepository.Retorna_User_FullName(txtLogin.Text);
                 GtiCore.Liberado(this);
@@ -231,15 +227,16 @@ namespace GTI_v4.Forms {
             Properties.Settings.Default.Save();
 
             int nId = Properties.Settings.Default.UserId;
-            usuarioStruct cUser = _sistemaRepository.Retorna_Usuario(nId);
+            UsuarioStruct cUser = _sistemaRepository.Retorna_Usuario(nId);
             int? nSetor = cUser.Setor_atual;
-            //if (nSetor == null || nSetor == 0) {
-            //    Usuario_Setor form = new Usuario_Setor();
-            //    form.nId = nId;
-            //    var result = form.ShowDialog(this);
-            //    if (result != DialogResult.OK)
-            //        return;
-            //}
+            if (nSetor == null || nSetor == 0) {
+                Usuario_Setor form = new Usuario_Setor {
+                    Id = nId
+                };
+                var result = form.ShowDialog(this);
+                if (result != DialogResult.OK)
+                    return;
+            }
             GtiCore.UpdateUserBinary();
 
             //#######################

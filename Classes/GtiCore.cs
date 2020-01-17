@@ -1,4 +1,5 @@
 ﻿using GTI_v4.Forms;
+using GTI_v4.Repository;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -176,10 +177,6 @@ namespace GTI_v4.Classes {
             return Properties.Settings.Default.LastUser;
         }
 
-
-        /// <summary>Retorna a string de conexão.
-        /// </summary>
-        /// <returns>Nome da Conexão</returns>
         public static string Connection_Name() {
             string connString = "";
             Ul = "gtisys"; Up = "everest";
@@ -192,9 +189,6 @@ namespace GTI_v4.Classes {
             return connString;
         }
 
-        /// <summary>Retorna a string de conexão de base alternativa.
-        /// </summary>
-        /// <returns>Nome da Conexão</returns>
         public static string Connection_Name(string DataBase_Name) {
             string connString = "";
             Ul = "gtisys"; Up = "everest";
@@ -216,23 +210,21 @@ namespace GTI_v4.Classes {
             return sqlBuilder.ConnectionString;
         }
 
-    }
-
-    public class MySR : ToolStripSystemRenderer {
-        public MySR() { }
-
-        protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e) {
-            if (e.ToolStrip.GetType() == typeof(ToolStrip)) {
-                // skip render border
-            } else {
-                // do render border
-                base.OnRenderToolStripBorder(e);
+        public static void UpdateUserBinary() {
+            string _connection = GtiCore.Connection_Name();
+            SistemaRepository _sistemaRepository = new SistemaRepository();
+            string sTmp = _sistemaRepository.GetUserBinary(Properties.Settings.Default.UserId);
+            int nSize = _sistemaRepository.GetSizeofBinary();
+            GtiTypes.UserBinary = GtiCore.Decrypt(sTmp);
+            if (nSize > GtiTypes.UserBinary.Length) {
+                int nDif = nSize - GtiTypes.UserBinary.Length;
+                sTmp = new string('0', nDif);
+                GtiTypes.UserBinary += sTmp;
             }
         }
+
+
     }
-
-
-
 
 }
 

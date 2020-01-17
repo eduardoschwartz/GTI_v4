@@ -22,7 +22,7 @@ namespace GTI_v4.Models {
         public string Userbinary { get; set; }
     }
 
-    public class usuarioStruct {
+    public class UsuarioStruct {
         [Key]
         public string Nome_login { get; set; }
         public string Nome_completo { get; set; }

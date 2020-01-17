@@ -18,6 +18,8 @@ namespace GTI_v4 {
             base.OnModelCreating(modelBuilder);
         }
 
+        public DbSet<Centrocusto> Centrocusto { get; set; }
+        public DbSet<Security_event> Security_Event { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
 
 

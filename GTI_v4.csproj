@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\GtiCore.cs" />
+    <Compile Include="Classes\GtiTypes.cs" />
+    <Compile Include="Classes\MySR.cs" />
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,17 +75,31 @@
     <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Usuario_Setor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Usuario_Setor.Designer.cs">
+      <DependentUpon>Usuario_Setor.cs</DependentUpon>
+    </Compile>
     <Compile Include="GTI_Context.cs" />
+    <Compile Include="Interfaces\IProtocoloRepository.cs" />
     <Compile Include="Interfaces\ISistemaRepository.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\centrocusto.cs" />
+    <Compile Include="Models\security_event.cs" />
+    <Compile Include="Models\usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\iprotocolorepository.cs" />
+    <Compile Include="Repository\ProtocoloRepository.cs" />
     <Compile Include="Repository\SistemaRepository.cs" />
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Usuario_Setor.resx">
+      <DependentUpon>Usuario_Setor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
