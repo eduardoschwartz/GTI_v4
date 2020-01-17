@@ -73,12 +73,12 @@
             this.AdministrativoMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.CalculoImpostoMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.JanelaMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.minimizarTodasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.restaurarTodasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fecharTodasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MinimizarTodasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RestaurarTodasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FecharTodasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.emCascataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ladoALadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EmCascataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LadoALadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TopBarToolStrip = new System.Windows.Forms.ToolStrip();
             this.ImobiliarioButton = new System.Windows.Forms.ToolStripButton();
             this.MobiliarioButton = new System.Windows.Forms.ToolStripButton();
@@ -448,7 +448,7 @@
             // ConfigMenu
             // 
             this.ConfigMenu.Name = "ConfigMenu";
-            this.ConfigMenu.Size = new System.Drawing.Size(180, 22);
+            this.ConfigMenu.Size = new System.Drawing.Size(152, 22);
             this.ConfigMenu.Text = "Configuração";
             this.ConfigMenu.Click += new System.EventHandler(this.ConfigMenu_Click);
             // 
@@ -459,7 +459,7 @@
             this.CadastroEventoMenu,
             this.AtribuicaoAcessoMenu});
             this.SecurityMenu.Name = "SecurityMenu";
-            this.SecurityMenu.Size = new System.Drawing.Size(180, 22);
+            this.SecurityMenu.Size = new System.Drawing.Size(152, 22);
             this.SecurityMenu.Text = "Segurança";
             // 
             // CadastroUsuariosMenu
@@ -485,7 +485,7 @@
             this.AdministrativoMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CalculoImpostoMenu});
             this.AdministrativoMenu.Name = "AdministrativoMenu";
-            this.AdministrativoMenu.Size = new System.Drawing.Size(180, 22);
+            this.AdministrativoMenu.Size = new System.Drawing.Size(152, 22);
             this.AdministrativoMenu.Text = "Administrativo";
             // 
             // CalculoImpostoMenu
@@ -497,50 +497,55 @@
             // JanelaMenu
             // 
             this.JanelaMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.minimizarTodasToolStripMenuItem,
-            this.restaurarTodasToolStripMenuItem,
-            this.fecharTodasToolStripMenuItem,
+            this.MinimizarTodasToolStripMenuItem,
+            this.RestaurarTodasToolStripMenuItem,
+            this.FecharTodasToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.emCascataToolStripMenuItem,
-            this.ladoALadoToolStripMenuItem});
+            this.EmCascataToolStripMenuItem,
+            this.LadoALadoToolStripMenuItem});
             this.JanelaMenu.Name = "JanelaMenu";
             this.JanelaMenu.Size = new System.Drawing.Size(51, 20);
             this.JanelaMenu.Text = "Janela";
             // 
-            // minimizarTodasToolStripMenuItem
+            // MinimizarTodasToolStripMenuItem
             // 
-            this.minimizarTodasToolStripMenuItem.Name = "minimizarTodasToolStripMenuItem";
-            this.minimizarTodasToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.minimizarTodasToolStripMenuItem.Text = "Minimizar todas";
+            this.MinimizarTodasToolStripMenuItem.Name = "MinimizarTodasToolStripMenuItem";
+            this.MinimizarTodasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MinimizarTodasToolStripMenuItem.Text = "Minimizar todas";
+            this.MinimizarTodasToolStripMenuItem.Click += new System.EventHandler(this.MinimizarTodasToolStripMenuItem_Click);
             // 
-            // restaurarTodasToolStripMenuItem
+            // RestaurarTodasToolStripMenuItem
             // 
-            this.restaurarTodasToolStripMenuItem.Name = "restaurarTodasToolStripMenuItem";
-            this.restaurarTodasToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.restaurarTodasToolStripMenuItem.Text = "Restaurar todas";
+            this.RestaurarTodasToolStripMenuItem.Name = "RestaurarTodasToolStripMenuItem";
+            this.RestaurarTodasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RestaurarTodasToolStripMenuItem.Text = "Restaurar todas";
+            this.RestaurarTodasToolStripMenuItem.Click += new System.EventHandler(this.RestaurarTodasToolStripMenuItem_Click);
             // 
-            // fecharTodasToolStripMenuItem
+            // FecharTodasToolStripMenuItem
             // 
-            this.fecharTodasToolStripMenuItem.Name = "fecharTodasToolStripMenuItem";
-            this.fecharTodasToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.fecharTodasToolStripMenuItem.Text = "Fechar todas";
+            this.FecharTodasToolStripMenuItem.Name = "FecharTodasToolStripMenuItem";
+            this.FecharTodasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.FecharTodasToolStripMenuItem.Text = "Fechar todas";
+            this.FecharTodasToolStripMenuItem.Click += new System.EventHandler(this.FecharTodasToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
-            // emCascataToolStripMenuItem
+            // EmCascataToolStripMenuItem
             // 
-            this.emCascataToolStripMenuItem.Name = "emCascataToolStripMenuItem";
-            this.emCascataToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.emCascataToolStripMenuItem.Text = "Em cascata";
+            this.EmCascataToolStripMenuItem.Name = "EmCascataToolStripMenuItem";
+            this.EmCascataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.EmCascataToolStripMenuItem.Text = "Em cascata";
+            this.EmCascataToolStripMenuItem.Click += new System.EventHandler(this.EmCascataToolStripMenuItem_Click);
             // 
-            // ladoALadoToolStripMenuItem
+            // LadoALadoToolStripMenuItem
             // 
-            this.ladoALadoToolStripMenuItem.Name = "ladoALadoToolStripMenuItem";
-            this.ladoALadoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.ladoALadoToolStripMenuItem.Text = "Lado a lado";
+            this.LadoALadoToolStripMenuItem.Name = "LadoALadoToolStripMenuItem";
+            this.LadoALadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LadoALadoToolStripMenuItem.Text = "Lado a lado";
+            this.LadoALadoToolStripMenuItem.Click += new System.EventHandler(this.LadoALadoToolStripMenuItem_Click);
             // 
             // TopBarToolStrip
             // 
@@ -881,14 +886,16 @@
             // baseRealToolStripMenuItem
             // 
             this.baseRealToolStripMenuItem.Name = "baseRealToolStripMenuItem";
-            this.baseRealToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.baseRealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.baseRealToolStripMenuItem.Text = "Base Real";
+            this.baseRealToolStripMenuItem.Click += new System.EventHandler(this.baseRealToolStripMenuItem_Click);
             // 
             // baseDeTestesToolStripMenuItem
             // 
             this.baseDeTestesToolStripMenuItem.Name = "baseDeTestesToolStripMenuItem";
-            this.baseDeTestesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.baseDeTestesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.baseDeTestesToolStripMenuItem.Text = "Base de Testes";
+            this.baseDeTestesToolStripMenuItem.Click += new System.EventHandler(this.baseDeTestesToolStripMenuItem_Click);
             // 
             // DataBaseToolStripStatus
             // 
@@ -993,6 +1000,7 @@
             this.Dv2Option.TabStop = true;
             this.Dv2Option.Text = "Documento";
             this.Dv2Option.UseVisualStyleBackColor = false;
+            this.Dv2Option.CheckedChanged += new System.EventHandler(this.Dv2Option_CheckedChanged);
             // 
             // Dv1Option
             // 
@@ -1003,6 +1011,7 @@
             this.Dv1Option.TabIndex = 16;
             this.Dv1Option.Text = "Processo";
             this.Dv1Option.UseVisualStyleBackColor = false;
+            this.Dv1Option.CheckedChanged += new System.EventHandler(this.Dv1Option_CheckedChanged);
             // 
             // lblDV2
             // 
@@ -1023,6 +1032,7 @@
             this.DVText.Name = "DVText";
             this.DVText.Size = new System.Drawing.Size(80, 20);
             this.DVText.TabIndex = 13;
+            this.DVText.Enter += new System.EventHandler(this.DVText_Enter);
             // 
             // Main
             // 
@@ -1102,12 +1112,12 @@
         private System.Windows.Forms.ToolStripMenuItem AdministrativoMenu;
         private System.Windows.Forms.ToolStripMenuItem CalculoImpostoMenu;
         private System.Windows.Forms.ToolStripMenuItem JanelaMenu;
-        private System.Windows.Forms.ToolStripMenuItem minimizarTodasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restaurarTodasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fecharTodasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MinimizarTodasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RestaurarTodasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FecharTodasToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem emCascataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ladoALadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem EmCascataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LadoALadoToolStripMenuItem;
         public System.Windows.Forms.ToolStrip TopBarToolStrip;
         private System.Windows.Forms.ToolStripButton ImobiliarioButton;
         private System.Windows.Forms.ToolStripButton MobiliarioButton;

@@ -23,7 +23,28 @@ namespace GTI_v4.Repository {
             }
         }
 
+        ///<summary> Retorna o dígito verificador de um número de processo.
+        ///O dígito verificador é o mesmo para todos os números iguais, independente do ano do processo.
+        ///</summary>
+        public int DvProcesso(int Numero) {
+            int soma = 0, index = 0, Mult = 6;
+            string sNumProc = Numero.ToString().PadLeft(5, '0');
+            while (index < 5) {
+                int nChar = Convert.ToInt32(sNumProc.Substring(index, 1));
+                soma += (Mult * nChar);
+                Mult--;
+                index++;
+            }
 
+            int DigAux = soma % 11;
+            int Digito = 11 - DigAux;
+            if (Digito == 10)
+                Digito = 0;
+            if (Digito == 11)
+                Digito = 1;
+
+            return Digito;
+        }
 
     }
 }

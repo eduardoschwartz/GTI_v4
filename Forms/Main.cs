@@ -1,4 +1,6 @@
 ﻿using GTI_v4.Classes;
+using GTI_v4.Interfaces;
+using GTI_v4.Repository;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -6,6 +8,9 @@ using System.Windows.Forms;
 
 namespace GTI_v4.Forms {
     public partial class Main : Form {
+
+        private readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository();
+        private readonly ISistemaRepository _sistemaRepository = new SistemaRepository();
         private const int CP_NOCLOSE_BUTTON = 0x200;
         protected override CreateParams CreateParams {
             get {
@@ -133,5 +138,83 @@ namespace GTI_v4.Forms {
         private void ConfigButton_Click(object sender, EventArgs e) {
             ConfigMenu_Click(sender, e);
         }
+
+        private void baseRealToolStripMenuItem_Click(object sender, EventArgs e) {
+            Form[] charr = this.MdiChildren;
+            foreach (Form chform in charr)
+                chform.Close();
+
+            DataBaseToolStripStatus.Text = Properties.Settings.Default.DataBaseReal;
+            GtiCore.UpdateUserBinary();
+            this.Refresh();
+        }
+
+        private void baseDeTestesToolStripMenuItem_Click(object sender, EventArgs e) {
+            Form[] charr = this.MdiChildren;
+            foreach (Form chform in charr)
+                chform.Close();
+
+            DataBaseToolStripStatus.Text = Properties.Settings.Default.DataBaseTeste;
+            GtiCore.UpdateUserBinary();
+            this.Refresh();
+        }
+
+        private void MinimizarTodasToolStripMenuItem_Click(object sender, EventArgs e) {
+            Form[] charr = this.MdiChildren;
+            foreach (Form chform in charr)
+                chform.WindowState = FormWindowState.Minimized;
+        }
+
+        private void RestaurarTodasToolStripMenuItem_Click(object sender, EventArgs e) {
+            Form[] charr = this.MdiChildren;
+            foreach (Form chform in charr)
+                chform.WindowState = FormWindowState.Normal;
+        }
+
+        private void FecharTodasToolStripMenuItem_Click(object sender, EventArgs e) {
+            Form[] charr = this.MdiChildren;
+            foreach (Form chform in charr)
+                chform.Close();
+        }
+
+        private void EmCascataToolStripMenuItem_Click(object sender, EventArgs e) {
+            LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
+        }
+
+        private void LadoALadoToolStripMenuItem_Click(object sender, EventArgs e) {
+            LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
+        }
+
+        private void Dv1Option_CheckedChanged(object sender, EventArgs e) {
+            DVLabel.Text = RetornaDV().ToString();
+            DVText.Focus();
+        }
+
+        private void Dv2Option_CheckedChanged(object sender, EventArgs e) {
+            DVLabel.Text = RetornaDV().ToString();
+            DVText.Focus();
+        }
+
+        private short RetornaDV() {
+            short ret = 0;
+            if (DVText.Text == "") DVText.Text = "0";
+            int Numero = Convert.ToInt32(DVText.Text);
+            if (Dv1Option.Checked) {
+                ret = Convert.ToInt16(_protocoloRepository.DvProcesso(Numero));
+            } else {
+                Tributario_bll clsTributario = new Tributario_bll(_connection);
+                ret = Convert.ToInt16(clsTributario.DvDocumento(Numero));
+            }
+
+            return ret;
+        }
+
+        private void DVText_Enter(object sender, EventArgs e) {
+            DVText.SelectionStart = 0;
+            DVText.SelectionLength = DVText.Text.Length;
+        }
+
+
+
     }
 }
