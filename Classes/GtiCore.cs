@@ -212,7 +212,7 @@ namespace GTI_v4.Classes {
 
         public static void UpdateUserBinary() {
             string _connection = GtiCore.Connection_Name();
-            SistemaRepository _sistemaRepository = new SistemaRepository();
+            SistemaRepository _sistemaRepository = new SistemaRepository(_connection);
             string sTmp = _sistemaRepository.GetUserBinary(Properties.Settings.Default.UserId);
             int nSize = _sistemaRepository.GetSizeofBinary();
             GtiTypes.UserBinary = GtiCore.Decrypt(sTmp);
@@ -223,7 +223,22 @@ namespace GTI_v4.Classes {
             }
         }
 
-
+        /// <summary>
+        /// Retorna a string de acesso do usuário
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static bool GetBinaryAccess(int index) {
+            string _acesso = GtiTypes.UserBinary;
+            if (_acesso.Length < index)
+                return false;
+            else {
+                if (_acesso.Substring(index - 1, 1) == "1")
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
 
 }

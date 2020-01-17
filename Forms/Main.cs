@@ -10,7 +10,7 @@ namespace GTI_v4.Forms {
     public partial class Main : Form {
 
         private readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository();
-        private readonly ISistemaRepository _sistemaRepository = new SistemaRepository();
+        private readonly ITributarioRepository _tributarioRepository = new TributarioRepository();
         private const int CP_NOCLOSE_BUTTON = 0x200;
         protected override CreateParams CreateParams {
             get {
@@ -202,8 +202,7 @@ namespace GTI_v4.Forms {
             if (Dv1Option.Checked) {
                 ret = Convert.ToInt16(_protocoloRepository.DvProcesso(Numero));
             } else {
-                Tributario_bll clsTributario = new Tributario_bll(_connection);
-                ret = Convert.ToInt16(clsTributario.DvDocumento(Numero));
+                ret = Convert.ToInt16(_tributarioRepository.DvDocumento(Numero));
             }
 
             return ret;
@@ -214,7 +213,26 @@ namespace GTI_v4.Forms {
             DVText.SelectionLength = DVText.Text.Length;
         }
 
+        private void CadastroCidadaoMenu_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroCidadao);
+            if (bAllow) {
+                var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Cidadao);
+                if (formToShow != null) {
+                    formToShow.Show();
+                } else {
+                    Cidadao f1 = new Cidadao {
+                        Tag = "Menu",
+                        MdiParent = this
+                    };
+                    f1.Show();
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+        }
 
+        private void CidadaoButton_Click(object sender, EventArgs e) {
+            CadastroCidadaoMenu_Click(sender, e);
+        }
     }
 }

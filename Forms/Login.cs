@@ -97,7 +97,7 @@ namespace GTI_v4.Forms {
         #endregion
 
         public Int32 OriginSize;
-        private readonly ISistemaRepository _sistemaRepository=new SistemaRepository();
+        private readonly ISistemaRepository _sistemaRepository=new SistemaRepository(GtiCore.Connection_Name());
 
         public Login() {
             m_aeroEnabled = false;

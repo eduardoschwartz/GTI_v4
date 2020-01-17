@@ -298,6 +298,7 @@
             this.CadastroCidadaoMenu.Name = "CadastroCidadaoMenu";
             this.CadastroCidadaoMenu.Size = new System.Drawing.Size(196, 22);
             this.CadastroCidadaoMenu.Text = "Cadastro de cidadão";
+            this.CadastroCidadaoMenu.Click += new System.EventHandler(this.CadastroCidadaoMenu_Click);
             // 
             // ExtratoMenu
             // 
@@ -510,40 +511,40 @@
             // MinimizarTodasToolStripMenuItem
             // 
             this.MinimizarTodasToolStripMenuItem.Name = "MinimizarTodasToolStripMenuItem";
-            this.MinimizarTodasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MinimizarTodasToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.MinimizarTodasToolStripMenuItem.Text = "Minimizar todas";
             this.MinimizarTodasToolStripMenuItem.Click += new System.EventHandler(this.MinimizarTodasToolStripMenuItem_Click);
             // 
             // RestaurarTodasToolStripMenuItem
             // 
             this.RestaurarTodasToolStripMenuItem.Name = "RestaurarTodasToolStripMenuItem";
-            this.RestaurarTodasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RestaurarTodasToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.RestaurarTodasToolStripMenuItem.Text = "Restaurar todas";
             this.RestaurarTodasToolStripMenuItem.Click += new System.EventHandler(this.RestaurarTodasToolStripMenuItem_Click);
             // 
             // FecharTodasToolStripMenuItem
             // 
             this.FecharTodasToolStripMenuItem.Name = "FecharTodasToolStripMenuItem";
-            this.FecharTodasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.FecharTodasToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.FecharTodasToolStripMenuItem.Text = "Fechar todas";
             this.FecharTodasToolStripMenuItem.Click += new System.EventHandler(this.FecharTodasToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 6);
             // 
             // EmCascataToolStripMenuItem
             // 
             this.EmCascataToolStripMenuItem.Name = "EmCascataToolStripMenuItem";
-            this.EmCascataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.EmCascataToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.EmCascataToolStripMenuItem.Text = "Em cascata";
             this.EmCascataToolStripMenuItem.Click += new System.EventHandler(this.EmCascataToolStripMenuItem_Click);
             // 
             // LadoALadoToolStripMenuItem
             // 
             this.LadoALadoToolStripMenuItem.Name = "LadoALadoToolStripMenuItem";
-            this.LadoALadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LadoALadoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.LadoALadoToolStripMenuItem.Text = "Lado a lado";
             this.LadoALadoToolStripMenuItem.Click += new System.EventHandler(this.LadoALadoToolStripMenuItem_Click);
             // 
@@ -603,6 +604,7 @@
             this.CidadaoButton.Size = new System.Drawing.Size(52, 52);
             this.CidadaoButton.Text = "toolStripButton1";
             this.CidadaoButton.ToolTipText = "Cadastro de Cidadão";
+            this.CidadaoButton.Click += new System.EventHandler(this.CidadaoButton_Click);
             // 
             // EmissaoGuiaButton
             // 
@@ -886,14 +888,14 @@
             // baseRealToolStripMenuItem
             // 
             this.baseRealToolStripMenuItem.Name = "baseRealToolStripMenuItem";
-            this.baseRealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.baseRealToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.baseRealToolStripMenuItem.Text = "Base Real";
             this.baseRealToolStripMenuItem.Click += new System.EventHandler(this.baseRealToolStripMenuItem_Click);
             // 
             // baseDeTestesToolStripMenuItem
             // 
             this.baseDeTestesToolStripMenuItem.Name = "baseDeTestesToolStripMenuItem";
-            this.baseDeTestesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.baseDeTestesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.baseDeTestesToolStripMenuItem.Text = "Base de Testes";
             this.baseDeTestesToolStripMenuItem.Click += new System.EventHandler(this.baseDeTestesToolStripMenuItem_Click);
             // 

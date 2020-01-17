@@ -6,25 +6,28 @@ using System.Linq;
 
 namespace GTI_v4.Repository {
     public class SistemaRepository:ISistemaRepository {
+        public string Connection { get; }
 
-        private static string _connection=GtiCore.Connection_Name();
-
+        public SistemaRepository(string _connection) {
+            Connection = _connection;
+        }
+        
         public string Retorna_User_Password(string login) {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 string Sql = (from u in db.Usuario where u.Nomelogin == login select u.Senha2).FirstOrDefault();
                 return Sql;
             }
         }
 
         public string Retorna_User_FullName(string login) {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 string Sql = (from u in db.Usuario where u.Nomelogin == login select u.Senha2).FirstOrDefault();
                 return Sql;
             }
         }
 
         public int Retorna_User_LoginId(string login) {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 int Sql = (from u in db.Usuario where u.Nomelogin == login select (int)u.Id).FirstOrDefault();
                 return Sql;
             }
@@ -32,7 +35,7 @@ namespace GTI_v4.Repository {
 
 
         public Exception Alterar_Usuario(Usuario reg) {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 Usuario b = db.Usuario.First(i => i.Id == reg.Id);
                 b.Nomecompleto = reg.Nomecompleto;
                 b.Nomelogin = reg.Nomelogin;
@@ -48,7 +51,7 @@ namespace GTI_v4.Repository {
         }
 
         public Exception Alterar_Senha(Usuario reg) {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 string sLogin = reg.Nomelogin;
                 Usuario b = db.Usuario.First(i => i.Nomelogin == sLogin);
                 b.Senha2 = reg.Senha2;
@@ -62,7 +65,7 @@ namespace GTI_v4.Repository {
         }
 
         public UsuarioStruct Retorna_Usuario(int Id) {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 var reg = (from t in db.Usuario
                            join cc in db.Centrocusto on t.Setor_atual equals cc.Codigo into tcc from cc in tcc.DefaultIfEmpty()
                            where t.Id == Id
@@ -85,14 +88,14 @@ namespace GTI_v4.Repository {
         }
 
         public int GetSizeofBinary() {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 int nSize = (from t in db.Security_Event orderby t.Id descending select t.Id).FirstOrDefault();
                 return nSize;
             }
         }
 
         public string GetUserBinary(int id) {
-            using (GTI_Context db = new GTI_Context(_connection)) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
                 string Sql = (from u in db.Usuario where u.Id == id select u.Userbinary).FirstOrDefault();
                 if (Sql == null) {
                     Sql = "0";

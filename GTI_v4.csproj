@@ -64,6 +64,13 @@
     <Compile Include="Classes\GtiCore.cs" />
     <Compile Include="Classes\GtiTypes.cs" />
     <Compile Include="Classes\MySR.cs" />
+    <Compile Include="Classes\TAcesso.cs" />
+    <Compile Include="Forms\Cidadao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cidadao.Designer.cs">
+      <DependentUpon>Cidadao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Config.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,15 +96,26 @@
       <DependentUpon>Usuario_Setor.cs</DependentUpon>
     </Compile>
     <Compile Include="GTI_Context.cs" />
+    <Compile Include="Interfaces\ICidadaoRepository.cs" />
+    <Compile Include="Interfaces\IEmpresaRepository.cs" />
+    <Compile Include="Interfaces\IImobiliarioRepository.cs" />
     <Compile Include="Interfaces\IProtocoloRepository.cs" />
     <Compile Include="Interfaces\ISistemaRepository.cs" />
+    <Compile Include="Interfaces\ITributarioRepository.cs" />
     <Compile Include="Models\centrocusto.cs" />
     <Compile Include="Models\security_event.cs" />
     <Compile Include="Models\usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CidadaoRepository.cs" />
+    <Compile Include="Repository\EmpresaRepository.cs" />
+    <Compile Include="Repository\ImobiliarioRepository.cs" />
     <Compile Include="Repository\ProtocoloRepository.cs" />
     <Compile Include="Repository\SistemaRepository.cs" />
+    <Compile Include="Repository\TributarioRepository.cs" />
+    <EmbeddedResource Include="Forms\Cidadao.resx">
+      <DependentUpon>Cidadao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Config.resx">
       <DependentUpon>Config.cs</DependentUpon>
     </EmbeddedResource>
