@@ -14,32 +14,11 @@
     <Setting Name="DataBaseTeste" Type="System.String" Scope="User">
       <Value Profile="(Default)">TributacaoTeste</Value>
     </Setting>
-    <Setting Name="Form_Extrato_width" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">900</Value>
-    </Setting>
-    <Setting Name="Form_Extrato_height" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">600</Value>
-    </Setting>
     <Setting Name="UserId" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="Form_Processo_Tramite_width" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">690</Value>
-    </Setting>
-    <Setting Name="Form_Processo_Tramite_height" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">368</Value>
-    </Setting>
-    <Setting Name="Form_Processo_Lista_width" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">810</Value>
-    </Setting>
-    <Setting Name="Form_Processo_Lista_height" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">490</Value>
-    </Setting>
-    <Setting Name="Path_Anexo_Local" Type="System.String" Scope="User">
+    <Setting Name="Path_Anexo" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Trabalho\GTI\Documentos\</Value>
-    </Setting>
-    <Setting Name="Path_Anexo_Net" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\\192.168.200.130\atualizagti\documentos\</Value>
     </Setting>
     <Setting Name="gti_001_version" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -53,11 +32,11 @@
     <Setting Name="gti_004_version" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="Form_Report_width" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">700</Value>
+    <Setting Name="Form_Config_Size" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">255, 463</Value>
     </Setting>
-    <Setting Name="Form_Report_height" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">600</Value>
+    <Setting Name="Form_Config_Location" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">50, 50</Value>
     </Setting>
   </Settings>
 </SettingsFile>

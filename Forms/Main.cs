@@ -1,6 +1,7 @@
 ﻿using GTI_v4.Classes;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GTI_v4.Forms {
@@ -60,7 +61,7 @@ namespace GTI_v4.Forms {
             
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             VersaoToolStripStatus.Text = $"{version.Major}" + "." + $"{version.Minor}" + "." + $"{version.Build}";
-            this.Text += VersaoToolStripStatus.Text;
+            Text += VersaoToolStripStatus.Text;
 
             LockForm(true);
             Forms.Login login = new Forms.Login();
@@ -113,6 +114,24 @@ namespace GTI_v4.Forms {
                 Forms.Login login = new Forms.Login();
                 login.ShowDialog();
             }
+        }
+
+        private void ConfigMenu_Click(object sender, EventArgs e) {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Config);
+            if (formToShow != null) {
+                formToShow.Show();
+            } else {
+                Forms.Config f1 = new Forms.Config {
+                    Tag = "Menu",
+                    MdiParent = this
+                };
+                f1.Show();
+                f1.BringToFront();
+            }
+        }
+
+        private void ConfigButton_Click(object sender, EventArgs e) {
+            ConfigMenu_Click(sender, e);
         }
     }
 }

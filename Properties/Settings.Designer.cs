@@ -73,30 +73,6 @@ namespace GTI_v4.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("900")]
-        public int Form_Extrato_width {
-            get {
-                return ((int)(this["Form_Extrato_width"]));
-            }
-            set {
-                this["Form_Extrato_width"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("600")]
-        public int Form_Extrato_height {
-            get {
-                return ((int)(this["Form_Extrato_height"]));
-            }
-            set {
-                this["Form_Extrato_height"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int UserId {
             get {
@@ -109,73 +85,13 @@ namespace GTI_v4.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("690")]
-        public int Form_Processo_Tramite_width {
-            get {
-                return ((int)(this["Form_Processo_Tramite_width"]));
-            }
-            set {
-                this["Form_Processo_Tramite_width"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("368")]
-        public int Form_Processo_Tramite_height {
-            get {
-                return ((int)(this["Form_Processo_Tramite_height"]));
-            }
-            set {
-                this["Form_Processo_Tramite_height"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("810")]
-        public int Form_Processo_Lista_width {
-            get {
-                return ((int)(this["Form_Processo_Lista_width"]));
-            }
-            set {
-                this["Form_Processo_Lista_width"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("490")]
-        public int Form_Processo_Lista_height {
-            get {
-                return ((int)(this["Form_Processo_Lista_height"]));
-            }
-            set {
-                this["Form_Processo_Lista_height"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\Trabalho\\GTI\\Documentos\\")]
-        public string Path_Anexo_Local {
+        public string Path_Anexo {
             get {
-                return ((string)(this["Path_Anexo_Local"]));
+                return ((string)(this["Path_Anexo"]));
             }
             set {
-                this["Path_Anexo_Local"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\192.168.200.130\\atualizagti\\documentos\\")]
-        public string Path_Anexo_Net {
-            get {
-                return ((string)(this["Path_Anexo_Net"]));
-            }
-            set {
-                this["Path_Anexo_Net"] = value;
+                this["Path_Anexo"] = value;
             }
         }
         
@@ -229,25 +145,25 @@ namespace GTI_v4.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("700")]
-        public int Form_Report_width {
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 463")]
+        public global::System.Drawing.Size Form_Config_Size {
             get {
-                return ((int)(this["Form_Report_width"]));
+                return ((global::System.Drawing.Size)(this["Form_Config_Size"]));
             }
             set {
-                this["Form_Report_width"] = value;
+                this["Form_Config_Size"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("600")]
-        public int Form_Report_height {
+        [global::System.Configuration.DefaultSettingValueAttribute("50, 50")]
+        public global::System.Drawing.Point Form_Config_Location {
             get {
-                return ((int)(this["Form_Report_height"]));
+                return ((global::System.Drawing.Point)(this["Form_Config_Location"]));
             }
             set {
-                this["Form_Report_height"] = value;
+                this["Form_Config_Location"] = value;
             }
         }
     }

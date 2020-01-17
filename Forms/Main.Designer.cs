@@ -448,8 +448,9 @@
             // ConfigMenu
             // 
             this.ConfigMenu.Name = "ConfigMenu";
-            this.ConfigMenu.Size = new System.Drawing.Size(152, 22);
+            this.ConfigMenu.Size = new System.Drawing.Size(180, 22);
             this.ConfigMenu.Text = "Configuração";
+            this.ConfigMenu.Click += new System.EventHandler(this.ConfigMenu_Click);
             // 
             // SecurityMenu
             // 
@@ -458,7 +459,7 @@
             this.CadastroEventoMenu,
             this.AtribuicaoAcessoMenu});
             this.SecurityMenu.Name = "SecurityMenu";
-            this.SecurityMenu.Size = new System.Drawing.Size(152, 22);
+            this.SecurityMenu.Size = new System.Drawing.Size(180, 22);
             this.SecurityMenu.Text = "Segurança";
             // 
             // CadastroUsuariosMenu
@@ -484,7 +485,7 @@
             this.AdministrativoMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CalculoImpostoMenu});
             this.AdministrativoMenu.Name = "AdministrativoMenu";
-            this.AdministrativoMenu.Size = new System.Drawing.Size(152, 22);
+            this.AdministrativoMenu.Size = new System.Drawing.Size(180, 22);
             this.AdministrativoMenu.Text = "Administrativo";
             // 
             // CalculoImpostoMenu
@@ -680,6 +681,7 @@
             this.ConfigButton.Name = "ConfigButton";
             this.ConfigButton.Size = new System.Drawing.Size(52, 52);
             this.ConfigButton.Text = "Configuração do sistema";
+            this.ConfigButton.Click += new System.EventHandler(this.ConfigButton_Click);
             // 
             // SecurityButton
             // 
