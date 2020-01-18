@@ -97,16 +97,21 @@ namespace GTI_v4.Repository {
 
         public string GetUserBinary(int id) {
             using (GTI_Context db = new GTI_Context(Connection)) {
-                string Sql = (from u in db.Usuario where u.Id == id select u.Userbinary).FirstOrDefault();
-                if (Sql == null) {
-                    Sql = "0";
-                    int nSize = GetSizeofBinary();
-                    int nDif = nSize - Sql.Length;
-                    string sZero = new string('0', nDif);
-                    Sql += sZero;
-                    return GtiCore.Encrypt(Sql);
+                try {
+                    string Sql = (from u in db.Usuario where u.Id == id select u.Userbinary).FirstOrDefault();
+                    if (Sql == null) {
+                        Sql = "0";
+                        int nSize = GetSizeofBinary();
+                        int nDif = nSize - Sql.Length;
+                        string sZero = new string('0', nDif);
+                        Sql += sZero;
+                        return GtiCore.Encrypt(Sql);
+                    }
+                    return Sql;
+                } catch (Exception ex) {
+                    throw ex;
                 }
-                return Sql;
+
             }
         }
 

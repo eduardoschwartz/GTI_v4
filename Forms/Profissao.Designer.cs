@@ -104,7 +104,6 @@
             this.lstMain.Name = "lstMain";
             this.lstMain.Size = new System.Drawing.Size(311, 290);
             this.lstMain.TabIndex = 27;
-            this.lstMain.SelectedIndexChanged += new System.EventHandler(this.lstMain_SelectedIndexChanged);
             this.lstMain.DoubleClick += new System.EventHandler(this.lstMain_DoubleClick);
             // 
             // Profissao
@@ -119,6 +118,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Profissões";
+            this.Load += new System.EventHandler(this.Profissao_Load);
             this.tBar.ResumeLayout(false);
             this.tBar.PerformLayout();
             this.ResumeLayout(false);

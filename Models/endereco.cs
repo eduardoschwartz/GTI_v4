@@ -1,8 +1,11 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations;
+
 namespace GTI_v4.Models {
     public class Endereco {
-
+        [Key]
+        public int Id_Endereco { get; set; }
         public int Id_pais { get; set; }
         public string Nome_pais { get; set; }
         public string Sigla_uf { get; set; }

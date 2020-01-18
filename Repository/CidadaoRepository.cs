@@ -245,5 +245,56 @@ namespace GTI_v4.Repository {
             }
         }
 
+        public Exception Incluir_profissao(Profissao reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var maxCod = (from p in db.Profissao select p.Codigo).Max();
+                int nMax = Convert.ToInt32(maxCod + 1);
+                reg.Codigo = nMax;
+                db.Profissao.Add(reg);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Alterar_Profissao(Profissao reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    int _id_profissao = reg.Codigo;
+                    Profissao b = db.Profissao.First(i => i.Codigo == _id_profissao);
+                    b.Nome = reg.Nome;
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Excluir_Profissao(Profissao reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+
+                int _id_profissao = reg.Codigo;
+                Profissao b = db.Profissao.First(i => i.Codigo == _id_profissao);
+                try {
+                    db.Profissao.Remove(b);
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public bool Profissao_cidadao(int id_profissao) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var cntCod1 = (from c in db.Cidadao where c.Codprofissao == id_profissao select c.Codcidadao).Count();
+                return cntCod1 > 0 ? true : false;
+            }
+        }
+
     }
 }

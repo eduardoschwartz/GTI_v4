@@ -35,7 +35,7 @@ namespace GTI_v4.Forms {
         }
 
         private void Carrega_Profissao() {
-            List<Profissao> lista = _cidadaoRepository.Lista_Profissao();
+            List<Models.Profissao> lista = _cidadaoRepository.Lista_Profissao();
             ProfissaoList.DataSource = lista;
             ProfissaoList.DisplayMember = "nome";
             ProfissaoList.ValueMember = "codigo";
@@ -458,6 +458,7 @@ namespace GTI_v4.Forms {
                     ex = _cidadaoRepository.Alterar_cidadao(reg);
                     if (ex != null) {
                         MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     } else {
                         ControlBehaviour(true);
                     }

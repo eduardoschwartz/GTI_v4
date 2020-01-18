@@ -37,7 +37,7 @@ namespace GTI_v4.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DEUTSCH")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SKYNET")]
         public string ServerName {
             get {
                 return ((string)(this["ServerName"]));
