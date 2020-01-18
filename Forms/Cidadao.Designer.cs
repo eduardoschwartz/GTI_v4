@@ -33,7 +33,7 @@
             this.ComplementoRText = new System.Windows.Forms.TextBox();
             this.TemFoneCCheck = new System.Windows.Forms.CheckBox();
             this.WhatsAppCCheck = new System.Windows.Forms.CheckBox();
-            this.EtiquetaCButton = new System.Windows.Forms.RadioButton();
+            this.EtiquetaCCheck = new System.Windows.Forms.RadioButton();
             this.BairroRText = new System.Windows.Forms.TextBox();
             this.FoneCText = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -144,6 +144,7 @@
             this.EtiquetaRCheck.TabStop = true;
             this.EtiquetaRCheck.Text = "Endereço Principal";
             this.EtiquetaRCheck.UseVisualStyleBackColor = true;
+            this.EtiquetaRCheck.CheckedChanged += new System.EventHandler(this.EtiquetaRCheck_CheckedChanged);
             // 
             // PaisRText
             // 
@@ -231,19 +232,20 @@
             this.Ttp.SetToolTip(this.WhatsAppCCheck, "Possui WhatsApp");
             this.WhatsAppCCheck.UseVisualStyleBackColor = true;
             // 
-            // EtiquetaCButton
+            // EtiquetaCCheck
             // 
-            this.EtiquetaCButton.AutoSize = true;
-            this.EtiquetaCButton.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.EtiquetaCButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EtiquetaCButton.ForeColor = System.Drawing.Color.Navy;
-            this.EtiquetaCButton.Location = new System.Drawing.Point(320, -1);
-            this.EtiquetaCButton.Name = "EtiquetaCButton";
-            this.EtiquetaCButton.Size = new System.Drawing.Size(114, 17);
-            this.EtiquetaCButton.TabIndex = 15;
-            this.EtiquetaCButton.TabStop = true;
-            this.EtiquetaCButton.Text = "Endereço Principal";
-            this.EtiquetaCButton.UseVisualStyleBackColor = true;
+            this.EtiquetaCCheck.AutoSize = true;
+            this.EtiquetaCCheck.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.EtiquetaCCheck.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EtiquetaCCheck.ForeColor = System.Drawing.Color.Navy;
+            this.EtiquetaCCheck.Location = new System.Drawing.Point(320, -1);
+            this.EtiquetaCCheck.Name = "EtiquetaCCheck";
+            this.EtiquetaCCheck.Size = new System.Drawing.Size(114, 17);
+            this.EtiquetaCCheck.TabIndex = 15;
+            this.EtiquetaCCheck.TabStop = true;
+            this.EtiquetaCCheck.Text = "Endereço Principal";
+            this.EtiquetaCCheck.UseVisualStyleBackColor = true;
+            this.EtiquetaCCheck.CheckedChanged += new System.EventHandler(this.EtiquetaCCheck_CheckedChanged);
             // 
             // BairroRText
             // 
@@ -616,6 +618,7 @@
             this.AddEnderecoRButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Ttp.SetToolTip(this.AddEnderecoRButton, "Adicionar/Alterar o endereço residencial");
             this.AddEnderecoRButton.UseVisualStyleBackColor = true;
+            this.AddEnderecoRButton.Click += new System.EventHandler(this.AddEnderecoRButton_Click);
             // 
             // FindCodigoButton
             // 
@@ -655,6 +658,7 @@
             this.Profissao_DelButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Ttp.SetToolTip(this.Profissao_DelButton, "Limpar campo de profissão");
             this.Profissao_DelButton.UseVisualStyleBackColor = true;
+            this.Profissao_DelButton.Click += new System.EventHandler(this.Profissao_DelButton_Click);
             // 
             // Profissao_EditButton
             // 
@@ -668,6 +672,7 @@
             this.Profissao_EditButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Ttp.SetToolTip(this.Profissao_EditButton, "Atualizar a lista de profissões");
             this.Profissao_EditButton.UseVisualStyleBackColor = true;
+            this.Profissao_EditButton.Click += new System.EventHandler(this.Profissao_EditButton_Click);
             // 
             // ProfissaoText
             // 
@@ -735,6 +740,7 @@
             this.ProfissaoList.Name = "ProfissaoList";
             this.ProfissaoList.Size = new System.Drawing.Size(312, 21);
             this.ProfissaoList.TabIndex = 173;
+            this.ProfissaoList.SelectedIndexChanged += new System.EventHandler(this.ProfissaoList_SelectedIndexChanged);
             // 
             // PessoaList
             // 
@@ -956,7 +962,7 @@
             // 
             this.EndCPanel.Controls.Add(this.TemFoneCCheck);
             this.EndCPanel.Controls.Add(this.WhatsAppCCheck);
-            this.EndCPanel.Controls.Add(this.EtiquetaCButton);
+            this.EndCPanel.Controls.Add(this.EtiquetaCCheck);
             this.EndCPanel.Controls.Add(this.FoneCText);
             this.EndCPanel.Controls.Add(this.label4);
             this.EndCPanel.Controls.Add(this.label24);
@@ -1017,6 +1023,7 @@
             this.CancelarButton.Size = new System.Drawing.Size(23, 22);
             this.CancelarButton.Text = "btCancelar";
             this.CancelarButton.ToolTipText = "Cancelar inclusão/alteração";
+            this.CancelarButton.Click += new System.EventHandler(this.CancelarButton_Click);
             // 
             // GravarButton
             // 
@@ -1027,6 +1034,7 @@
             this.GravarButton.Size = new System.Drawing.Size(23, 22);
             this.GravarButton.Text = "btGravar";
             this.GravarButton.ToolTipText = "Gravar os dados";
+            this.GravarButton.Click += new System.EventHandler(this.GravarButton_Click);
             // 
             // ExitButton
             // 
@@ -1037,6 +1045,7 @@
             this.ExitButton.Size = new System.Drawing.Size(23, 22);
             this.ExitButton.Text = "toolStripButton5";
             this.ExitButton.ToolTipText = "Sair";
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // FindButton
             // 
@@ -1057,6 +1066,7 @@
             this.DelButton.Size = new System.Drawing.Size(23, 22);
             this.DelButton.Text = "toolStripButton3";
             this.DelButton.ToolTipText = "Excluir registro";
+            this.DelButton.Click += new System.EventHandler(this.DelButton_Click);
             // 
             // EditButton
             // 
@@ -1067,6 +1077,7 @@
             this.EditButton.Size = new System.Drawing.Size(23, 22);
             this.EditButton.Text = "toolStripButton2";
             this.EditButton.ToolTipText = "Alterar registro";
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // BarToolStrip
             // 
@@ -1101,6 +1112,7 @@
             this.AddButton.Size = new System.Drawing.Size(23, 22);
             this.AddButton.Text = "toolStripButton1";
             this.AddButton.ToolTipText = "Novo registro";
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // Cidadao
             // 
@@ -1167,7 +1179,7 @@
         private System.Windows.Forms.TextBox ComplementoRText;
         private System.Windows.Forms.CheckBox TemFoneCCheck;
         private System.Windows.Forms.CheckBox WhatsAppCCheck;
-        private System.Windows.Forms.RadioButton EtiquetaCButton;
+        private System.Windows.Forms.RadioButton EtiquetaCCheck;
         private System.Windows.Forms.TextBox BairroRText;
         internal System.Windows.Forms.TextBox FoneCText;
         internal System.Windows.Forms.Label label24;

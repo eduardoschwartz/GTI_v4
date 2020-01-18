@@ -21,7 +21,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public CidadaoStruct LoadReg(Int32 nCodigo) {
+        public CidadaoStruct LoadReg(int nCodigo) {
             using (GTI_Context db = new GTI_Context(_connection)) {
                 var reg = (from c in db.Cidadao
                            join l in db.Logradouro on c.Codlogradouro equals l.Codlogradouro into cl1 from l in cl1.DefaultIfEmpty()
@@ -129,6 +129,92 @@ namespace GTI_v4.Repository {
             return bRet;
         }
 
+        public Exception Incluir_cidadao(Cidadao reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var cntCod = (from c in db.Cidadao select c).Count();
+                int nMax;
+                if (cntCod > 0) {
+                    var maxCod = (from c in db.Cidadao select c.Codcidadao).Max();
+                    nMax = Convert.ToInt32(maxCod + 1);
+                } else
+                    nMax = 1;
+                reg.Codcidadao = nMax;
+                db.Cidadao.Add(reg);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
 
+        public int Retorna_Ultimo_Codigo_Cidadao() {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var Sql = (from c in db.Cidadao orderby c.Codcidadao descending select c.Codcidadao).FirstOrDefault();
+                return Sql;
+            }
+        }
+
+        public Exception Alterar_cidadao(Cidadao reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                Cidadao b = db.Cidadao.First(i => i.Codcidadao == reg.Codcidadao);
+                b.Nomecidadao = reg.Nomecidadao;
+                b.Rg = reg.Rg;
+                b.Juridica = reg.Juridica;
+                b.Cnpj = reg.Cnpj;
+                b.Cpf = reg.Cpf;
+                b.Data_nascimento = reg.Data_nascimento;
+                b.Codprofissao = reg.Codprofissao;
+
+                b.Etiqueta = reg.Etiqueta;
+                b.Codlogradouro = reg.Codlogradouro;
+                b.Numimovel = reg.Numimovel;
+                b.Complemento = reg.Complemento;
+                b.Codbairro = reg.Codbairro;
+                b.Codcidade = reg.Codcidade;
+                b.Siglauf = reg.Siglauf;
+                b.Cep = reg.Cep;
+                b.Pais = reg.Pais;
+                b.Telefone = reg.Telefone;
+                b.Email = reg.Email;
+                b.Temfone = reg.Temfone;
+                b.Whatsapp = reg.Whatsapp;
+
+                b.Etiqueta2 = reg.Etiqueta2;
+                b.Codlogradouro2 = reg.Codlogradouro2;
+                b.Numimovel2 = reg.Numimovel2;
+                b.Complemento2 = reg.Complemento2;
+                b.Codbairro2 = reg.Codbairro2;
+                b.Codcidade2 = reg.Codcidade2;
+                b.Siglauf2 = reg.Siglauf2;
+                b.Cep2 = reg.Cep2;
+                b.Pais2 = reg.Pais2;
+                b.Telefone2 = reg.Telefone2;
+                b.Email2 = reg.Email2;
+                b.Temfone2 = reg.Temfone2;
+                b.Whatsapp2 = reg.Whatsapp2;
+
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Excluir_cidadao(int Codigo) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    Cidadao b = db.Cidadao.First(i => i.Codcidadao == Codigo);
+                    db.Cidadao.Remove(b);
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
     }
 }

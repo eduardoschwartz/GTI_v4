@@ -12,12 +12,10 @@ using System.Windows.Forms;
 namespace GTI_v4.Forms {
     public partial class Cidadao : Form {
         readonly string _connection = GtiCore.Connection_Name();
-        private readonly ISistemaRepository _sistemaRepository = new SistemaRepository(GtiCore.Connection_Name());
         private readonly ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
 
         bool bAddNew;
         int _CodCidadao = 0;
-        
 
         public int CodCidadao {
             get { return (_CodCidadao); }
@@ -104,7 +102,7 @@ namespace GTI_v4.Forms {
             ProfissaoList.Visible = !bStart;
             JuridicaCheck.Enabled = !bStart;
             EtiquetaRCheck.Enabled = !bStart;
-            EtiquetaCButton.Enabled = !bStart;
+            EtiquetaCCheck.Enabled = !bStart;
         }
 
         private void Clear_Reg() {
@@ -143,7 +141,7 @@ namespace GTI_v4.Forms {
             UFCText.Text = "";
             CepCText.Text = "";
             PaisCText.Text = "";
-            EtiquetaCButton.Checked = false;
+            EtiquetaCCheck.Checked = false;
             TemFoneCCheck.Checked = false;
             WhatsAppCCheck.Checked = false;
         }
@@ -230,7 +228,7 @@ namespace GTI_v4.Forms {
                 PaisCText.Tag = reg.CodigoPaisC.ToString();
                 CepCText.Text = reg.CepC.ToString();
                 EmailCText.Text = reg.EmailC;
-                EtiquetaCButton.Checked = reg.EtiquetaC == "S";
+                EtiquetaCCheck.Checked = reg.EtiquetaC == "S";
                 FoneCText.Text = reg.TelefoneC ?? "";
                 TemFoneCCheck.Checked = reg.Temfone2 == null ? false : (bool)reg.Temfone2;
                 WhatsAppCCheck.Checked = reg.Whatsapp2 == null ? false : (bool)reg.Whatsapp2;
@@ -249,12 +247,12 @@ namespace GTI_v4.Forms {
                 CepCText.Text = "";
                 EmailCText.Text = "";
                 FoneCText.Text = "";
-                EtiquetaCButton.Checked = false;
+                EtiquetaCCheck.Checked = false;
                 TemFoneCCheck.Checked = false;
                 WhatsAppCCheck.Checked = false;
             }
 
-            if (!EtiquetaRCheck.Checked && !EtiquetaCButton.Checked) EtiquetaRCheck.Checked = true;
+            if (!EtiquetaRCheck.Checked && !EtiquetaCCheck.Checked) EtiquetaRCheck.Checked = true;
         }
 
         private void PessoaList_SelectedIndexChanged(object sender, EventArgs e) {
@@ -282,6 +280,280 @@ namespace GTI_v4.Forms {
                 } else
                     MessageBox.Show("Cidadão não cadastrado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 GtiCore.Liberado(this);
+            }
+
+        }
+
+        private void AddButton_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroCidadao_Alterar_Total);
+            if (bAllow) {
+                bAddNew = true;
+                Clear_Reg();
+                ControlBehaviour(false);
+                NomeText.Focus();
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void EditButton_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroCidadao_Alterar_Total);
+            if (bAllow) {
+                if (Convert.ToInt32(CodigoText.Text) == 0)
+                    MessageBox.Show("Selecione um cidadão.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else {
+                    bAddNew = false;
+                    ControlBehaviour(false);
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void GravarButton_Click(object sender, EventArgs e) {
+            if (ValidateReg()) {
+                SaveReg();
+                FindCodigoButton.Focus();
+            }
+        }
+
+        private void CancelarButton_Click(object sender, EventArgs e) {
+            Int32 nCod = Convert.ToInt32(CodigoText.Text);
+            if (nCod > 0)
+                LoadReg(nCod);
+            ControlBehaviour(true);
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e) {
+            Close();
+        }
+
+        private bool ValidateReg() {
+            if (!GtiCore.IsEmptyDate(DataNasctoMask.Text) && !GtiCore.IsDate(DataNasctoMask.Text)) {
+                MessageBox.Show("Data de nascimento inválida.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(LogradouroRText.Text) & string.IsNullOrEmpty(LogradouroCText.Text)) {
+                MessageBox.Show("Digite um endereço válido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!EtiquetaRCheck.Checked & !EtiquetaCCheck.Checked) {
+                MessageBox.Show("Selecione o endereço principal.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (EtiquetaRCheck.Checked & EtiquetaCCheck.Checked) {
+                MessageBox.Show("Selecione apenas um endereço como principal.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if ((string.IsNullOrEmpty(LogradouroCText.Text) & EtiquetaCCheck.Checked) || (string.IsNullOrEmpty(LogradouroRText.Text) & EtiquetaRCheck.Checked)) {
+                MessageBox.Show("Endereço principal inválido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (PessoaList.SelectedIndex == 0 && !CPFMask.MaskFull) {
+                MessageBox.Show("Digite um CPF válido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (PessoaList.SelectedIndex == 0 && !GtiCore.Valida_CPF(CPFMask.Text)) {
+                MessageBox.Show("Digite um CPF válido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (PessoaList.SelectedIndex == 1 && !CNPJMask.MaskFull) {
+                MessageBox.Show("Digite um CNPJ válido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (PessoaList.SelectedIndex == 1 && !GtiCore.Valida_CNPJ(CNPJMask.Text)) {
+                MessageBox.Show("Digite um CNPJ válido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(EmailRText.Text) & !GtiCore.Valida_Email(EmailRText.Text)) {
+                MessageBox.Show("Endereço de email inválido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(EmailCText.Text) & !GtiCore.Valida_Email(EmailCText.Text)) {
+                MessageBox.Show("Endereço de email inválido.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void SaveReg() {
+            if (MessageBox.Show("Gravar os dados?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+                Models.Cidadao reg = new Models.Cidadao {
+                    Nomecidadao = NomeText.Text,
+                    Rg = String.IsNullOrWhiteSpace(RGText.Text) ? null : RGText.Text,
+                    Orgao = String.IsNullOrWhiteSpace(OrgaoText.Text) ? null : OrgaoText.Text
+                };
+                if (PessoaList.SelectedIndex == 0) {
+                    if (CPFMask.Text != "")
+                        reg.Cpf = CPFMask.Text;
+                } else {
+                    if (CNPJMask.Text != "")
+                        reg.Cnpj = CNPJMask.Text;
+                }
+
+                reg.Juridica = JuridicaCheck.Checked ? true : false;
+                if (DataNasctoMask.MaskCompleted && GtiCore.IsDate(DataNasctoMask.Text))
+                    reg.Data_nascimento = Convert.ToDateTime(DataNasctoMask.Text);
+                else
+                    reg.Data_nascimento = null;
+                if (ProfissaoList.SelectedIndex > -1)
+                    reg.Codprofissao = Convert.ToInt32(ProfissaoList.SelectedValue);
+
+                if (!string.IsNullOrWhiteSpace(LogradouroRText.Text)) {
+                    reg.Codpais = PaisRText.Tag == null ? 0 : Convert.ToInt32(PaisRText.Tag.ToString());
+                    reg.Siglauf = UFRText.Text;
+                    reg.Codcidade = string.IsNullOrWhiteSpace(CidadeRText.Tag.ToString()) ? (short)0 : Convert.ToInt16(CidadeRText.Tag.ToString());
+                    reg.Codbairro = string.IsNullOrWhiteSpace(BairroRText.Tag.ToString()) ? (short)0 : Convert.ToInt16(BairroRText.Tag.ToString());
+                    reg.Codlogradouro = string.IsNullOrWhiteSpace(LogradouroRText.Tag.ToString()) ? 0 : Convert.ToInt32(LogradouroRText.Tag.ToString());
+                    reg.Nomelogradouro = reg.Codcidade != 413 ? LogradouroRText.Text : "";
+                    reg.Numimovel = NumeroRText.Text == "" ? (short)0 : Convert.ToInt16(NumeroRText.Text);
+                    reg.Complemento = ComplementoRText.Text;
+                    reg.Cep = reg.Codcidade != 413 ? CepRText.Text == "" ? 0 : Convert.ToInt32(CepRText.Text) : 0;
+                    reg.Email = EmailRText.Text;
+                    reg.Etiqueta = EtiquetaRCheck.Checked ? "S" : "N";
+                    reg.Telefone = String.IsNullOrWhiteSpace(FoneRText.Text) ? null : FoneRText.Text;
+                    reg.Temfone = TemFoneRCheck.Checked;
+                    reg.Whatsapp = WhatsAppRCheck.Checked;
+                }
+
+                if (!string.IsNullOrWhiteSpace(LogradouroCText.Text)) {
+                    reg.Codpais2 = PaisCText.Tag == null ? 0 : Convert.ToInt32(PaisCText.Tag.ToString());
+                    reg.Siglauf2 = UFCText.Text;
+                    reg.Codcidade2 = string.IsNullOrWhiteSpace(CidadeCText.Tag.ToString()) ? (short)0 : Convert.ToInt16(CidadeCText.Tag.ToString());
+                    reg.Codbairro2 = string.IsNullOrWhiteSpace(BairroCText.Tag.ToString()) ? (short)0 : Convert.ToInt16(BairroCText.Tag.ToString());
+                    reg.Codlogradouro2 = string.IsNullOrWhiteSpace(LogradouroCText.Tag.ToString()) ? 0 : Convert.ToInt32(LogradouroCText.Tag.ToString());
+                    reg.Nomelogradouro2 = reg.Codcidade2 != 413 ? LogradouroCText.Text : "";
+                    reg.Numimovel2 = NumeroCText.Text == "" ? (short)0 : Convert.ToInt16(NumeroCText.Text);
+                    reg.Complemento2 = ComplementoCText.Text;
+                    reg.Cep2 = reg.Codcidade2 != 413 ? CepCText.Text == "" ? 0 : Convert.ToInt32(CepCText.Text) : 0;
+                    reg.Email2 = EmailCText.Text;
+                    reg.Etiqueta2 = EtiquetaCCheck.Checked ? "S" : "N";
+                    reg.Telefone2 = String.IsNullOrWhiteSpace(FoneCText.Text) ? null : FoneCText.Text;
+                    reg.Temfone2 = TemFoneCCheck.Checked;
+                    reg.Whatsapp2 = WhatsAppCCheck.Checked;
+                }
+
+                Exception ex;
+
+                if (bAddNew) {
+                    ex = _cidadaoRepository.Incluir_cidadao(reg);
+                    if (ex != null) {
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    } else {
+                        int nLastCod = _cidadaoRepository.Retorna_Ultimo_Codigo_Cidadao();
+                        LoadReg(nLastCod);
+                        ControlBehaviour(true);
+                    }
+                } else {
+                    reg.Codcidadao = Convert.ToInt32(CodigoText.Text);
+                    ex = _cidadaoRepository.Alterar_cidadao(reg);
+                    if (ex != null) {
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    } else {
+                        ControlBehaviour(true);
+                    }
+                }
+
+                int nCodigo = 0;
+                if (bAddNew)
+                    nCodigo = _cidadaoRepository.Retorna_Ultimo_Codigo_Cidadao();
+                else
+                    nCodigo = Convert.ToInt32(CodigoText.Text);
+                CodigoText.Text = nCodigo.ToString();
+            }
+        }
+
+        private void DelButton_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroCidadao_Alterar_Total);
+            if (bAllow) {
+                int nCodigo = Convert.ToInt32(CodigoText.Text);
+                if (nCodigo == 0)
+                    MessageBox.Show("Selecione um cidadão.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else {
+                    if (MessageBox.Show("Excluir este registro?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+                        Exception ex = _cidadaoRepository.Excluir_cidadao(nCodigo);
+                        if (ex != null) {
+                            MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        } else
+                            Clear_Reg();
+                    }
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void Profissao_DelButton_Click(object sender, EventArgs e) {
+            ProfissaoList.SelectedIndex = -1;
+        }
+
+        private void Profissao_EditButton_Click(object sender, EventArgs e) {
+            Carrega_Profissao();
+        }
+
+        private void ProfissaoList_SelectedIndexChanged(object sender, EventArgs e) {
+            ProfissaoText.Text = ProfissaoList.Text;
+            if (ProfissaoList.SelectedIndex == -1)
+                ProfissaoText.Tag = "";
+            else
+                ProfissaoText.Tag = ProfissaoList.SelectedValue.ToString();
+        }
+
+        private void EtiquetaRCheck_CheckedChanged(object sender, EventArgs e) {
+            EtiquetaCCheck.Checked = !EtiquetaRCheck.Checked;
+        }
+
+        private void EtiquetaCCheck_CheckedChanged(object sender, EventArgs e) {
+            EtiquetaRCheck.Checked = !EtiquetaCCheck.Checked;
+        }
+
+        private void AddEnderecoRButton_Click(object sender, EventArgs e) {
+            Models.Endereco reg = new Models.Endereco {
+                Id_pais = string.IsNullOrWhiteSpace(PaisRText.Text) ? 1 : Convert.ToInt32(PaisRText.Tag.ToString()),
+                Sigla_uf = UFRText.Text == "" ? "SP" : UFRText.Text,
+                Id_cidade = string.IsNullOrWhiteSpace(CidadeRText.Text) ? 413 : Convert.ToInt32(CidadeRText.Tag.ToString()),
+                Id_bairro = string.IsNullOrWhiteSpace(BairroRText.Text) ? 0 : Convert.ToInt32(BairroRText.Tag.ToString())
+            };
+            if (LogradouroRText.Tag == null) LogradouroRText.Tag = "0";
+            if (string.IsNullOrWhiteSpace(LogradouroRText.Tag.ToString()))
+                LogradouroRText.Tag = "0";
+            reg.Id_logradouro = string.IsNullOrWhiteSpace(LogradouroRText.Text) ? 0 : Convert.ToInt32(LogradouroRText.Tag.ToString());
+            reg.Nome_logradouro = reg.Id_cidade != 413 ? LogradouroRText.Text : "";
+            reg.Numero_imovel = NumeroRText.Text == "" ? 0 : Convert.ToInt32(NumeroRText.Text);
+            reg.Complemento = ComplementoRText.Text;
+            reg.Email = EmailRText.Text;
+            reg.Cep = reg.Id_cidade != 413 ? CepRText.Text == "" ? 0 : Convert.ToInt32(GtiCore.ExtractNumber(CepRText.Text)) : 0;
+            reg.Telefone = FoneRText.Text;
+            reg.TemFone = TemFoneRCheck.Checked;
+            reg.WhatsApp = WhatsAppRCheck.Checked;
+
+            Endereco f1 = new Endereco(reg, false, true, true, true);
+            f1.ShowDialog();
+            if (!f1.EndRetorno.Cancelar) {
+                PaisRText.Text = f1.EndRetorno.Nome_pais;
+                PaisRText.Tag = f1.EndRetorno.Id_pais.ToString();
+                UFRText.Text = f1.EndRetorno.Sigla_uf;
+                CidadeRText.Text = f1.EndRetorno.Nome_cidade;
+                CidadeRText.Tag = f1.EndRetorno.Id_cidade.ToString();
+                BairroRText.Text = f1.EndRetorno.Nome_bairro;
+                BairroRText.Tag = f1.EndRetorno.Id_bairro.ToString();
+                LogradouroRText.Text = f1.EndRetorno.Nome_logradouro;
+                LogradouroRText.Tag = f1.EndRetorno.Id_logradouro.ToString();
+                NumeroRText.Text = f1.EndRetorno.Numero_imovel.ToString();
+                ComplementoRText.Text = f1.EndRetorno.Complemento;
+                EmailRText.Text = f1.EndRetorno.Email;
+                CepRText.Text = f1.EndRetorno.Cep.ToString("00000-000");
+                FoneRText.Text = f1.EndRetorno.Telefone;
+                TemFoneRCheck.Checked = (bool)f1.EndRetorno.TemFone;
+                WhatsAppRCheck.Checked = (bool)f1.EndRetorno.WhatsApp;
             }
 
         }

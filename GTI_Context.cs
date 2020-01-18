@@ -23,6 +23,7 @@ namespace GTI_v4 {
         public DbSet<Cep> Cep { get; set; }
         public DbSet<Cidadao> Cidadao { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
+        public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Logradouro> Logradouro { get; set; }
         public DbSet<Mobiliario> Mobiliario { get; set; }
         public DbSet<Mobiliarioproprietario> MobiliarioProprietario { get; set; }
