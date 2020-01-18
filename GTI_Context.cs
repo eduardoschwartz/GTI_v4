@@ -28,6 +28,7 @@ namespace GTI_v4 {
         public DbSet<Mobiliarioproprietario> MobiliarioProprietario { get; set; }
         public DbSet<Pais> Pais { get; set; }
         public DbSet<Processocidadao> ProcessoCidadao { get; set; }
+        public DbSet<Profissao> Profissao { get; set; }
         public DbSet<Security_event> Security_Event { get; set; }
         public DbSet<Uf> Uf { get; set; }
         public DbSet<Usuario> Usuario { get; set; }

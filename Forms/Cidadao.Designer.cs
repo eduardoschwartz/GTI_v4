@@ -629,6 +629,7 @@
             this.FindCodigoButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Ttp.SetToolTip(this.FindCodigoButton, "Carregar dados de um cidadão pelo código");
             this.FindCodigoButton.UseVisualStyleBackColor = true;
+            this.FindCodigoButton.Click += new System.EventHandler(this.FindCodigoButton_Click);
             // 
             // CpfCnpjButton
             // 
@@ -746,6 +747,7 @@
             this.PessoaList.Name = "PessoaList";
             this.PessoaList.Size = new System.Drawing.Size(94, 21);
             this.PessoaList.TabIndex = 168;
+            this.PessoaList.SelectedIndexChanged += new System.EventHandler(this.PessoaList_SelectedIndexChanged);
             // 
             // DataNasctoMask
             // 

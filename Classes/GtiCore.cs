@@ -239,6 +239,95 @@ namespace GTI_v4.Classes {
                     return false;
             }
         }
+
+        public static char Tweak(System.Windows.Forms.TextBox txt, char sKey, ETweakMode Mode, int DecimalPlaces) {
+            int nKey = Convert.ToInt16(sKey);
+            char ch = (char)nKey;
+            int Curpos = txt.SelectionStart;
+            int nPos = 0;
+
+            if (nKey == 8)
+                return (ch);
+
+            switch (Mode) {
+                case ETweakMode.Normal:
+                    return (ch);
+                case ETweakMode.AllLetters:
+                    if (IsCAPS(nKey) || IsSmall(nKey))
+                        return (ch);
+                    break;
+                case ETweakMode.AllLettersAllCaps:
+                    if (IsCAPS(nKey))
+                        return (ch);
+                    if (IsSmall(nKey)) {
+                        nKey -= 32;
+                        return (Convert.ToChar(nKey));
+                    }
+                    break;
+                case ETweakMode.AllLettersAllSmall:
+                    if (IsSmall(nKey))
+                        return (ch);
+                    if (IsCAPS(nKey)) {
+                        nKey += 32;
+                        return (Convert.ToChar(nKey));
+                    }
+                    break;
+                case ETweakMode.AlphaNumeric:
+                    if (IsCAPS(nKey) || IsSmall(nKey) || IsDigit(nKey))
+                        return (ch);
+                    break;
+                case ETweakMode.IntegerPositive:
+                    if (IsDigit(nKey))
+                        return (ch);
+                    break;
+                case ETweakMode.DecimalPositive:
+                    if (IsDigit(nKey)) {
+                        if (txt.Text.Length == 0)
+                            return (ch);
+                        nPos = txt.Text.IndexOf(",", 0);
+                        if (nPos == -1)
+                            return (ch);
+                        else {
+                            if (txt.TextLength - txt.Text.IndexOf(",", 1) < DecimalPlaces + 1)
+                                return (ch);
+                        }
+                    }
+                    if (txt.Text.Length == 0)
+                        return (ch);
+                    nPos = txt.Text.IndexOf(",", 0);
+                    if (ch == ',' && nPos == -1)
+                        return (ch);
+                    break;
+                default:
+                    return (ch);
+            }//End switch
+            ch = '\0';
+            return (ch);
+        }//End tweak()
+
+
+        private static bool IsCAPS(int nKey) {
+            bool bRet = false;
+            if (nKey > 64 && nKey < 91)
+                bRet = true;
+            return bRet;
+        }
+
+        private static bool IsSmall(int nKey) {
+            bool bRet = false;
+            if (nKey > 96 && nKey < 123)
+                bRet = true;
+            return bRet;
+        }
+
+        private static bool IsDigit(int nKey) {
+            bool bRet = false;
+            if (nKey > 47 && nKey < 58)
+                bRet = true;
+            return bRet;
+        }
+
+
     }
 
 }
