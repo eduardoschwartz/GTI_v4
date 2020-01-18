@@ -117,20 +117,20 @@ namespace GTI_v4.Forms {
         }
 
         private void SenhaButton_Click(object sender, EventArgs e) {
-            if (this.Size.Height < 300) {
+            if (Size.Height < 300) {
                 txtPwd1.Text = "";
                 txtPwd2.Text = "";
                 txtLogin.Enabled = false;
                 SenhaButton.Enabled = false;
                 LoginButton.Enabled = false;
                 SairButton.Enabled = false;
-                this.Size = new Size(this.Size.Width, 321);
+                Size = new Size(Size.Width, 321);
             } else {
                 txtLogin.Enabled = true;
                 SenhaButton.Enabled = true;
                 LoginButton.Enabled = true;
                 SairButton.Enabled = true;
-                this.Size = new Size(this.Size.Width, OriginSize);
+                Size = new Size(Size.Width, OriginSize);
             }
         }
 

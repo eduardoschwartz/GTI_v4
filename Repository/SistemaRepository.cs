@@ -2,6 +2,7 @@
 using GTI_v4.Interfaces;
 using GTI_v4.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GTI_v4.Repository {
@@ -109,6 +110,61 @@ namespace GTI_v4.Repository {
             }
         }
 
+        public List<UsuarioStruct> Lista_Usuarios() {
+            using (GTI_Context db = new GTI_Context(Connection)) {
+                var reg = (from t in db.Usuario
+                           join cc in db.Centrocusto on t.Setor_atual equals cc.Codigo into tcc from cc in tcc.DefaultIfEmpty()
+                           where t.Ativo == 1
+                           orderby t.Nomecompleto select new { t.Nomelogin, t.Nomecompleto, t.Ativo, t.Id, t.Senha, t.Setor_atual, cc.Descricao }).ToList();
+                List<UsuarioStruct> Lista = new List<UsuarioStruct>();
+                foreach (var item in reg) {
+                    UsuarioStruct Linha = new UsuarioStruct {
+                        Nome_login = item.Nomelogin,
+                        Nome_completo = item.Nomecompleto,
+                        Ativo = item.Ativo,
+                        Id = item.Id,
+                        Senha = item.Senha,
+                        Setor_atual = item.Setor_atual,
+                        Nome_setor = item.Descricao
+                    };
+                    Lista.Add(Linha);
+                }
+                return Lista;
+            }
+        }
+
+        public string Retorna_User_LoginName(int idUser) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
+                string Sql = (from u in db.Usuario where u.Id == idUser select u.Nomelogin).FirstOrDefault();
+                return Sql;
+            }
+        }
+
+        public List<Security_event> Lista_Sec_Eventos() {
+            using (GTI_Context db = new GTI_Context(Connection)) {
+                var reg = (from t in db.Security_Event orderby t.Id select t).ToList();
+                List<Security_event> Lista = new List<Security_event>();
+                foreach (var item in reg) {
+                    Security_event Linha = new Security_event { Id = item.Id, IdMaster = item.IdMaster, Descricao = item.Descricao };
+                    Lista.Add(Linha);
+                }
+                return Lista;
+            }
+        }
+
+        public Exception SaveUserBinary(Usuario reg) {
+            using (GTI_Context db = new GTI_Context(Connection)) {
+                int nId = (int)reg.Id;
+                Usuario b = db.Usuario.First(i => i.Id == nId);
+                b.Userbinary = reg.Userbinary;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
 
     }
 }

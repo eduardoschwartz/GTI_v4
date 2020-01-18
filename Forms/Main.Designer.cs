@@ -480,6 +480,7 @@
             this.AtribuicaoAcessoMenu.Name = "AtribuicaoAcessoMenu";
             this.AtribuicaoAcessoMenu.Size = new System.Drawing.Size(188, 22);
             this.AtribuicaoAcessoMenu.Text = "Atribuição de acessos";
+            this.AtribuicaoAcessoMenu.Click += new System.EventHandler(this.AtribuicaoAcessoMenu_Click);
             // 
             // AdministrativoMenu
             // 
@@ -721,6 +722,7 @@
             this.AtribuicaoDeAcessoMenu.Name = "AtribuicaoDeAcessoMenu";
             this.AtribuicaoDeAcessoMenu.Size = new System.Drawing.Size(188, 22);
             this.AtribuicaoDeAcessoMenu.Text = "Atribuição de acessos";
+            this.AtribuicaoDeAcessoMenu.Click += new System.EventHandler(this.AtribuicaoDeAcessoMenu_Click);
             // 
             // SairButton
             // 
@@ -1034,7 +1036,9 @@
             this.DVText.Name = "DVText";
             this.DVText.Size = new System.Drawing.Size(80, 20);
             this.DVText.TabIndex = 13;
+            this.DVText.TextChanged += new System.EventHandler(this.DVText_TextChanged);
             this.DVText.Enter += new System.EventHandler(this.DVText_Enter);
+            this.DVText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DVText_KeyPress);
             // 
             // Main
             // 

@@ -234,5 +234,37 @@ namespace GTI_v4.Forms {
         private void CidadaoButton_Click(object sender, EventArgs e) {
             CadastroCidadaoMenu_Click(sender, e);
         }
+
+        private void AtribuicaoDeAcessoMenu_Click(object sender, EventArgs e) {
+            AtribuicaoAcessoMenu_Click(sender, e);
+        }
+
+        private void AtribuicaoAcessoMenu_Click(object sender, EventArgs e) {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.SecurityUserForm);
+            if (formToShow != null) {
+                formToShow.Show();
+            } else {
+                Forms.SecurityUserForm f1 = new Forms.SecurityUserForm {
+                    Tag = "Menu",
+                    MdiParent = this
+                };
+                f1.Show();
+                f1.BringToFront();
+            }
+        }
+
+        private void DVText_TextChanged(object sender, EventArgs e) {
+            if (DVText.Text == "")
+                DVLabel.Text = "X";
+            else
+                DVLabel.Text = RetornaDV().ToString();
+        }
+
+        private void DVText_KeyPress(object sender, KeyPressEventArgs e) {
+            const char Delete = (char)8;
+            e.Handled = !Char.IsDigit(e.KeyChar) && e.KeyChar != Delete;
+        }
+
+
     }
 }

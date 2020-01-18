@@ -183,7 +183,7 @@ namespace GTI_v4.Classes {
             Main f1 = (Main)Application.OpenForms["Main"];
             try {
                 BaseDados = f1.DataBaseToolStripStatus.Text;
-                connString = CreateConnectionString(Properties.Settings.Default.ServerName, Properties.Settings.Default.DataBaseTeste, Ul, Up);//Base de testes por enquanto
+                connString = CreateConnectionString(Properties.Settings.Default.ServerName, Properties.Settings.Default.DataBaseReal, Ul, Up);//Base de testes por enquanto
             } catch (Exception) {
             }
             return connString;

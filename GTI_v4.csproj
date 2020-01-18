@@ -89,6 +89,12 @@
     <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SecurityUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SecurityUserForm.Designer.cs">
+      <DependentUpon>SecurityUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Usuario_Setor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SecurityUserForm.resx">
+      <DependentUpon>SecurityUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Usuario_Setor.resx">
       <DependentUpon>Usuario_Setor.cs</DependentUpon>
