@@ -557,5 +557,101 @@ namespace GTI_v4.Forms {
             }
 
         }
+
+        private void AddEnderecoCButton_Click(object sender, EventArgs e) {
+            Models.Endereco reg = new Models.Endereco {
+                Id_pais = string.IsNullOrWhiteSpace(PaisCText.Text) ? 1 : Convert.ToInt32(PaisCText.Tag.ToString()),
+                Sigla_uf = UFCText.Text == "" ? "SP" : UFCText.Text,
+                Id_cidade = string.IsNullOrWhiteSpace(CidadeCText.Text) ? 413 : Convert.ToInt32(CidadeCText.Tag.ToString()),
+                Id_bairro = string.IsNullOrWhiteSpace(BairroCText.Text) ? 0 : Convert.ToInt32(BairroCText.Tag.ToString())
+            };
+            if (LogradouroCText.Tag == null) LogradouroCText.Tag = "0";
+            if (string.IsNullOrWhiteSpace(LogradouroCText.Tag.ToString()))
+                LogradouroCText.Tag = "0";
+            reg.Id_logradouro = string.IsNullOrWhiteSpace(LogradouroCText.Text) ? 0 : Convert.ToInt32(LogradouroCText.Tag.ToString());
+            reg.Nome_logradouro = reg.Id_cidade != 413 ? LogradouroCText.Text : "";
+            reg.Numero_imovel = NumeroCText.Text == "" ? 0 : Convert.ToInt32(NumeroCText.Text);
+            reg.Complemento = ComplementoCText.Text;
+            reg.Email = EmailCText.Text;
+            reg.Telefone = FoneCText.Text;
+            reg.Cep = reg.Id_cidade != 413 ? CepCText.Text == "" ? 0 : Convert.ToInt32(GtiCore.ExtractNumber(CepCText.Text)) : 0;
+            reg.TemFone = TemFoneCCheck.Checked;
+            reg.WhatsApp = WhatsAppCCheck.Checked;
+
+            Forms.Endereco f1 = new Forms.Endereco(reg, false, true, true, true);
+            f1.ShowDialog();
+            if (!f1.EndRetorno.Cancelar) {
+                PaisCText.Text = f1.EndRetorno.Nome_pais;
+                PaisCText.Tag = f1.EndRetorno.Id_pais.ToString();
+                UFCText.Text = f1.EndRetorno.Sigla_uf;
+                CidadeCText.Text = f1.EndRetorno.Nome_cidade;
+                CidadeCText.Tag = f1.EndRetorno.Id_cidade.ToString();
+                BairroCText.Text = f1.EndRetorno.Nome_bairro;
+                BairroCText.Tag = f1.EndRetorno.Id_bairro.ToString();
+                LogradouroCText.Text = f1.EndRetorno.Nome_logradouro;
+                LogradouroCText.Tag = f1.EndRetorno.Id_logradouro.ToString();
+                NumeroCText.Text = f1.EndRetorno.Numero_imovel.ToString();
+                ComplementoCText.Text = f1.EndRetorno.Complemento;
+                EmailCText.Text = f1.EndRetorno.Email;
+                CepCText.Text = f1.EndRetorno.Cep.ToString("00000-000");
+                FoneCText.Text = f1.EndRetorno.Telefone;
+                TemFoneCCheck.Checked = (bool)f1.EndRetorno.TemFone;
+                WhatsAppCCheck.Checked = (bool)f1.EndRetorno.WhatsApp;
+            }
+        }
+
+        private void DelEnderecoRButton_Click(object sender, EventArgs e) {
+            PaisRText.Text = "";
+            PaisRText.Tag = "";
+            UFRText.Text = "";
+            CidadeRText.Text = "";
+            CidadeRText.Tag = "";
+            BairroRText.Text = "";
+            BairroRText.Tag = "";
+            LogradouroRText.Text = "";
+            LogradouroRText.Tag = "";
+            NumeroRText.Text = "";
+            ComplementoRText.Text = "";
+            EmailRText.Text = "";
+            CepRText.Text = "";
+            FoneRText.Text = "";
+            TemFoneRCheck.Checked = false;
+            WhatsAppRCheck.Checked = false;
+        }
+
+        private void DelEnderecoCButton_Click(object sender, EventArgs e) {
+            PaisCText.Text = "";
+            PaisCText.Tag = "";
+            UFCText.Text = "";
+            CidadeCText.Text = "";
+            CidadeCText.Tag = "";
+            BairroCText.Text = "";
+            BairroCText.Tag = "";
+            LogradouroCText.Text = "";
+            LogradouroCText.Tag = "";
+            NumeroCText.Text = "";
+            ComplementoCText.Text = "";
+            EmailCText.Text = "";
+            CepCText.Text = "";
+            FoneCText.Text = "";
+            TemFoneCCheck.Checked = false;
+            WhatsAppCCheck.Checked = false;
+        }
+
+        private void HistoricoButton_Click(object sender, EventArgs e) {
+            if (NomeText.Text != "") {
+                Cidadao_Historico frm = new Cidadao_Historico(Convert.ToInt32(CodigoText.Text), "H");
+                frm.ShowDialog();
+            }
+        }
+
+        private void ObservaçãoButton_Click(object sender, EventArgs e) {
+            if (NomeText.Text != "") {
+                Cidadao_Historico frm = new Cidadao_Historico(Convert.ToInt32(CodigoText.Text), "O");
+                frm.ShowDialog();
+            }
+        }
+
+
     }
 }

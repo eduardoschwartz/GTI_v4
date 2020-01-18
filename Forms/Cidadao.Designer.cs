@@ -582,6 +582,7 @@
             this.DelEnderecoCButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Ttp.SetToolTip(this.DelEnderecoCButton, "Apagar o endereço comercial");
             this.DelEnderecoCButton.UseVisualStyleBackColor = true;
+            this.DelEnderecoCButton.Click += new System.EventHandler(this.DelEnderecoCButton_Click);
             // 
             // AddEnderecoCButton
             // 
@@ -594,6 +595,7 @@
             this.AddEnderecoCButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Ttp.SetToolTip(this.AddEnderecoCButton, "Adicionar/Alterar o endereço comercial");
             this.AddEnderecoCButton.UseVisualStyleBackColor = true;
+            this.AddEnderecoCButton.Click += new System.EventHandler(this.AddEnderecoCButton_Click);
             // 
             // DelEnderecoRButton
             // 
@@ -606,6 +608,7 @@
             this.DelEnderecoRButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Ttp.SetToolTip(this.DelEnderecoRButton, "Apagar o endereço residencial");
             this.DelEnderecoRButton.UseVisualStyleBackColor = true;
+            this.DelEnderecoRButton.Click += new System.EventHandler(this.DelEnderecoRButton_Click);
             // 
             // AddEnderecoRButton
             // 
@@ -1001,6 +1004,7 @@
             this.ObservaçãoButton.Size = new System.Drawing.Size(93, 22);
             this.ObservaçãoButton.Text = "Observação";
             this.ObservaçãoButton.ToolTipText = "Abrir campo de observação do cidadão";
+            this.ObservaçãoButton.Click += new System.EventHandler(this.ObservaçãoButton_Click);
             // 
             // HistoricoButton
             // 
@@ -1012,6 +1016,7 @@
             this.HistoricoButton.Size = new System.Drawing.Size(79, 22);
             this.HistoricoButton.Text = "Histórico";
             this.HistoricoButton.ToolTipText = "Exibir o histórico do cidadão";
+            this.HistoricoButton.Click += new System.EventHandler(this.HistoricoButton_Click);
             // 
             // CancelarButton
             // 
