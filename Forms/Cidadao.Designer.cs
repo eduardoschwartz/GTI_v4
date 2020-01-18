@@ -103,7 +103,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.EndCPanel = new System.Windows.Forms.GroupBox();
-            this.ObservaçãoButton = new System.Windows.Forms.ToolStripButton();
+            this.ObservacaoButton = new System.Windows.Forms.ToolStripButton();
             this.HistoricoButton = new System.Windows.Forms.ToolStripButton();
             this.CancelarButton = new System.Windows.Forms.ToolStripButton();
             this.GravarButton = new System.Windows.Forms.ToolStripButton();
@@ -994,17 +994,17 @@
             this.EndCPanel.TabStop = false;
             this.EndCPanel.Text = "Endereço Comercial";
             // 
-            // ObservaçãoButton
+            // ObservacaoButton
             // 
-            this.ObservaçãoButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.ObservaçãoButton.Image = global::GTI_v4.Properties.Resources.comment;
-            this.ObservaçãoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ObservaçãoButton.Name = "ObservaçãoButton";
-            this.ObservaçãoButton.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.ObservaçãoButton.Size = new System.Drawing.Size(93, 22);
-            this.ObservaçãoButton.Text = "Observação";
-            this.ObservaçãoButton.ToolTipText = "Abrir campo de observação do cidadão";
-            this.ObservaçãoButton.Click += new System.EventHandler(this.ObservaçãoButton_Click);
+            this.ObservacaoButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ObservacaoButton.Image = global::GTI_v4.Properties.Resources.comment;
+            this.ObservacaoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ObservacaoButton.Name = "ObservacaoButton";
+            this.ObservacaoButton.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ObservacaoButton.Size = new System.Drawing.Size(93, 22);
+            this.ObservacaoButton.Text = "Observação";
+            this.ObservacaoButton.ToolTipText = "Abrir campo de observação do cidadão";
+            this.ObservacaoButton.Click += new System.EventHandler(this.ObservacaoButton_Click);
             // 
             // HistoricoButton
             // 
@@ -1100,7 +1100,7 @@
             this.GravarButton,
             this.CancelarButton,
             this.HistoricoButton,
-            this.ObservaçãoButton});
+            this.ObservacaoButton});
             this.BarToolStrip.Location = new System.Drawing.Point(0, 433);
             this.BarToolStrip.Name = "BarToolStrip";
             this.BarToolStrip.Padding = new System.Windows.Forms.Padding(6, 0, 1, 0);
@@ -1253,7 +1253,7 @@
         internal System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.GroupBox EndCPanel;
-        private System.Windows.Forms.ToolStripButton ObservaçãoButton;
+        private System.Windows.Forms.ToolStripButton ObservacaoButton;
         private System.Windows.Forms.ToolStripButton HistoricoButton;
         private System.Windows.Forms.ToolStripButton CancelarButton;
         private System.Windows.Forms.ToolStripButton GravarButton;

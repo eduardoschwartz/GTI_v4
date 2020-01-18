@@ -145,9 +145,11 @@
     <Compile Include="Models\cidadao.cs" />
     <Compile Include="Models\cidade.cs" />
     <Compile Include="Models\endereco.cs" />
+    <Compile Include="Models\historico_cidadao.cs" />
     <Compile Include="Models\logradouro.cs" />
     <Compile Include="Models\mobiliario.cs" />
     <Compile Include="Models\mobiliarioproprietario.cs" />
+    <Compile Include="Models\obscidadao.cs" />
     <Compile Include="Models\pais.cs" />
     <Compile Include="Models\processocidadao.cs" />
     <Compile Include="Models\profissao.cs" />
@@ -165,6 +167,9 @@
     <Compile Include="Repository\TributarioRepository.cs" />
     <EmbeddedResource Include="Forms\Cidadao.resx">
       <DependentUpon>Cidadao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Cidadao_Historico.resx">
+      <DependentUpon>Cidadao_Historico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Config.resx">
       <DependentUpon>Config.cs</DependentUpon>

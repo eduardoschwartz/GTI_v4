@@ -645,13 +645,11 @@ namespace GTI_v4.Forms {
             }
         }
 
-        private void ObservaçãoButton_Click(object sender, EventArgs e) {
+        private void ObservacaoButton_Click(object sender, EventArgs e) {
             if (NomeText.Text != "") {
                 Cidadao_Historico frm = new Cidadao_Historico(Convert.ToInt32(CodigoText.Text), "O");
                 frm.ShowDialog();
             }
         }
-
-
     }
 }
