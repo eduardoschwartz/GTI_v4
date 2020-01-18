@@ -119,6 +119,12 @@
     <Compile Include="Forms\Pais.Designer.cs">
       <DependentUpon>Pais.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Profissao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Profissao.Designer.cs">
+      <DependentUpon>Profissao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SecurityUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     <Compile Include="Repository\ProtocoloRepository.cs" />
     <Compile Include="Repository\SistemaRepository.cs" />
     <Compile Include="Repository\TributarioRepository.cs" />
+    <EmbeddedResource Include="Forms\Bairro.resx">
+      <DependentUpon>Bairro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Cidadao.resx">
       <DependentUpon>Cidadao.cs</DependentUpon>
     </EmbeddedResource>
@@ -185,6 +194,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Pais.resx">
+      <DependentUpon>Pais.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Profissao.resx">
+      <DependentUpon>Profissao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SecurityUserForm.resx">
       <DependentUpon>SecurityUserForm.cs</DependentUpon>

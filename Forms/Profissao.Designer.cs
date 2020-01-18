@@ -1,5 +1,5 @@
 ﻿namespace GTI_v4.Forms {
-    partial class Pais {
+    partial class Profissao {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -43,10 +43,10 @@
             this.btEdit,
             this.btDel,
             this.btExit});
-            this.tBar.Location = new System.Drawing.Point(0, 274);
+            this.tBar.Location = new System.Drawing.Point(0, 295);
             this.tBar.Name = "tBar";
             this.tBar.Padding = new System.Windows.Forms.Padding(6, 0, 1, 0);
-            this.tBar.Size = new System.Drawing.Size(304, 25);
+            this.tBar.Size = new System.Drawing.Size(311, 25);
             this.tBar.TabIndex = 28;
             this.tBar.Text = "toolStrip1";
             // 
@@ -96,26 +96,29 @@
             // 
             // lstMain
             // 
+            this.lstMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstMain.FormattingEnabled = true;
-            this.lstMain.Location = new System.Drawing.Point(6, 3);
+            this.lstMain.Location = new System.Drawing.Point(0, 0);
             this.lstMain.Name = "lstMain";
-            this.lstMain.Size = new System.Drawing.Size(291, 264);
-            this.lstMain.Sorted = true;
+            this.lstMain.Size = new System.Drawing.Size(311, 290);
             this.lstMain.TabIndex = 27;
+            this.lstMain.SelectedIndexChanged += new System.EventHandler(this.lstMain_SelectedIndexChanged);
             this.lstMain.DoubleClick += new System.EventHandler(this.lstMain_DoubleClick);
             // 
-            // Pais
+            // Profissao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 299);
+            this.ClientSize = new System.Drawing.Size(311, 320);
             this.Controls.Add(this.tBar);
             this.Controls.Add(this.lstMain);
             this.MaximizeBox = false;
-            this.Name = "Pais";
+            this.Name = "Profissao";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cadastro de Países";
+            this.Text = "Cadastro de Profissões";
             this.tBar.ResumeLayout(false);
             this.tBar.PerformLayout();
             this.ResumeLayout(false);

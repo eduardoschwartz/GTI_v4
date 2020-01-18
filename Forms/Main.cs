@@ -265,6 +265,56 @@ namespace GTI_v4.Forms {
             e.Handled = !Char.IsDigit(e.KeyChar) && e.KeyChar != Delete;
         }
 
+        private void CadastroBairroMenu_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroBairro);
+            if (bAllow) {
+                var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Bairro);
+                if (formToShow != null) {
+                    formToShow.Show();
+                } else {
+                    Forms.Bairro f1 = new Forms.Bairro {
+                        Tag = "Menu",
+                        MdiParent = this
+                    };
+                    f1.Show();
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
+        private void CadastroPaisMenu_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroPais);
+            if (bAllow) {
+                var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Pais);
+                if (formToShow != null) {
+                    formToShow.Show();
+                } else {
+                    Pais f1 = new Pais {
+                        Tag = "Menu",
+                        MdiParent = this
+                    };
+                    f1.Show();
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void CadastroProfissaoMenu_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroProfissao);
+            if (bAllow) {
+                var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Profissao);
+                if (formToShow != null) {
+                    formToShow.Show();
+                } else {
+                    Profissao f1 = new Profissao {
+                        Tag = "Menu",
+                        MdiParent = this
+                    };
+                    f1.Show();
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

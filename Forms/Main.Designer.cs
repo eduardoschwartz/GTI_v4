@@ -168,18 +168,21 @@
             this.CadastroBairroMenu.Name = "CadastroBairroMenu";
             this.CadastroBairroMenu.Size = new System.Drawing.Size(193, 22);
             this.CadastroBairroMenu.Text = "Cadastro de Bairros";
+            this.CadastroBairroMenu.Click += new System.EventHandler(this.CadastroBairroMenu_Click);
             // 
             // CadastroPaisMenu
             // 
             this.CadastroPaisMenu.Name = "CadastroPaisMenu";
             this.CadastroPaisMenu.Size = new System.Drawing.Size(193, 22);
             this.CadastroPaisMenu.Text = "Cadastro de Países";
+            this.CadastroPaisMenu.Click += new System.EventHandler(this.CadastroPaisMenu_Click);
             // 
             // CadastroProfissaoMenu
             // 
             this.CadastroProfissaoMenu.Name = "CadastroProfissaoMenu";
             this.CadastroProfissaoMenu.Size = new System.Drawing.Size(193, 22);
             this.CadastroProfissaoMenu.Text = "Cadastro de Profissões";
+            this.CadastroProfissaoMenu.Click += new System.EventHandler(this.CadastroProfissaoMenu_Click);
             // 
             // ImobiliarioMenu
             // 
@@ -197,25 +200,25 @@
             this.CadastroCondominioMenu,
             this.FaceQuadraMenu});
             this.CadastroImobMenu.Name = "CadastroImobMenu";
-            this.CadastroImobMenu.Size = new System.Drawing.Size(121, 22);
+            this.CadastroImobMenu.Size = new System.Drawing.Size(180, 22);
             this.CadastroImobMenu.Text = "Cadastro";
             // 
             // CadastroImovelMenu
             // 
             this.CadastroImovelMenu.Name = "CadastroImovelMenu";
-            this.CadastroImovelMenu.Size = new System.Drawing.Size(156, 22);
+            this.CadastroImovelMenu.Size = new System.Drawing.Size(180, 22);
             this.CadastroImovelMenu.Text = "Imóvel";
             // 
             // CadastroCondominioMenu
             // 
             this.CadastroCondominioMenu.Name = "CadastroCondominioMenu";
-            this.CadastroCondominioMenu.Size = new System.Drawing.Size(156, 22);
+            this.CadastroCondominioMenu.Size = new System.Drawing.Size(180, 22);
             this.CadastroCondominioMenu.Text = "Condomínios";
             // 
             // FaceQuadraMenu
             // 
             this.FaceQuadraMenu.Name = "FaceQuadraMenu";
-            this.FaceQuadraMenu.Size = new System.Drawing.Size(156, 22);
+            this.FaceQuadraMenu.Size = new System.Drawing.Size(180, 22);
             this.FaceQuadraMenu.Text = "Face de Quadra";
             // 
             // RelatorioImobMenu
@@ -223,7 +226,7 @@
             this.RelatorioImobMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ComunicadoIsencaoMenu});
             this.RelatorioImobMenu.Name = "RelatorioImobMenu";
-            this.RelatorioImobMenu.Size = new System.Drawing.Size(121, 22);
+            this.RelatorioImobMenu.Size = new System.Drawing.Size(180, 22);
             this.RelatorioImobMenu.Text = "Relatório";
             // 
             // ComunicadoIsencaoMenu
