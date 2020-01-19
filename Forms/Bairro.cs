@@ -57,6 +57,8 @@ namespace GTI_v4.Forms {
 
         private void EditButton_Click(object sender, EventArgs e) {
             if (BairroListBox.SelectedItem == null) return;
+            Models.Bairro _item = (Models.Bairro)BairroListBox.SelectedItem;
+            if (_item.Descbairro.Substring(0, 1) == "(") return;
             bool bAllowLocal = GtiCore.GetBinaryAccess((int)TAcesso.CadastroBairro_Alterar_Local);
             bool bAllowFora = GtiCore.GetBinaryAccess((int)TAcesso.CadastroBairro_Alterar_Fora);
 
@@ -100,6 +102,8 @@ namespace GTI_v4.Forms {
 
         private void DelButton_Click(object sender, EventArgs e) {
             if (BairroListBox.SelectedItem == null) return;
+            Models.Bairro _item = (Models.Bairro)BairroListBox.SelectedItem;
+            if (_item.Descbairro.Substring(0, 1) == "(") return;
             string _uf = UFCombo.SelectedValue.ToString();
             int _cidade = Convert.ToInt32(CidadeCombo.SelectedValue);
             int _bairro = Convert.ToInt32(BairroListBox.SelectedValue);

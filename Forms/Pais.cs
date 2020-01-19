@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace GTI_v4.Forms {
     public partial class Pais : Form {
-        readonly string _connection = GtiCore.Connection_Name();
         private readonly IEnderecoRepository _enderecoRepository = new EnderecoRepository(GtiCore.Connection_Name());
         private readonly ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
 
@@ -45,6 +44,8 @@ namespace GTI_v4.Forms {
 
         private void btEdit_Click(object sender, EventArgs e) {
             if (lstMain.SelectedItem == null) return;
+            Models.Pais _item = (Models.Pais)lstMain.SelectedItem;
+            if (_item.Nome_pais.Substring(0, 1) == "(") return;
             bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroPais_Alterar);
             if (!bAllow) {
                 MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -79,6 +80,8 @@ namespace GTI_v4.Forms {
 
         private void btDel_Click(object sender, EventArgs e) {
             if (lstMain.SelectedItem == null) return;
+            Models.Pais _item = (Models.Pais)lstMain.SelectedItem;
+            if (_item.Nome_pais.Substring(0, 1) == "(") return;
             bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroPais_Alterar);
             if (!bAllow) {
                 MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);

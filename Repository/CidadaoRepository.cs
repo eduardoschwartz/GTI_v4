@@ -118,7 +118,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public bool ExisteCidadao(int nCodigo) {
+        public bool Existe_Cidadao(int nCodigo) {
             bool bRet = false;
             using (GTI_Context db = new GTI_Context(_connection)) {
                 var existingReg = db.Cidadao.Count(a => a.Codcidadao == nCodigo);
@@ -317,6 +317,17 @@ namespace GTI_v4.Repository {
             }
             return bRet;
         }
+
+        public bool Existe_Profissao(int Profissao) {
+            bool bRet = false;
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var existingReg = db.Cidadao.Count(a => a.Codprofissao == Profissao);
+                if (existingReg != 0)
+                    bRet = true;
+            }
+            return bRet;
+        }
+
 
     }
 }

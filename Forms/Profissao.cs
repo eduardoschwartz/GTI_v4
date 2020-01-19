@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 namespace GTI_v4.Forms {
     public partial class Profissao : Form {
-        readonly string _connection = GtiCore.Connection_Name();
         private readonly ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
 
         public Profissao() {
@@ -25,20 +24,28 @@ namespace GTI_v4.Forms {
 
             string sCod = iBox.Show("", "Informação", "Digite o nome da profissão.", 100);
             if (!string.IsNullOrEmpty(sCod)) {
-                Models.Profissao reg = new Models.Profissao {
-                    Nome = sCod.ToUpper()
-                };
-                Exception ex = _cidadaoRepository.Incluir_profissao(reg);
-                if (ex != null) {
-                    ErrorBox eBox = new ErrorBox("Atenção", "Profissão já cadastrada.", ex);
-                    eBox.ShowDialog();
-                } else
-                    Carrega_Lista();
+                int index = lstMain.FindString(sCod);
+                if (index == -1) {
+
+                    Models.Profissao reg = new Models.Profissao {
+                        Nome = sCod.ToUpper()
+                    };
+                    Exception ex = _cidadaoRepository.Incluir_profissao(reg);
+                    if (ex != null) {
+                        ErrorBox eBox = new ErrorBox("Atenção", "Profissão já cadastrada.", ex);
+                        eBox.ShowDialog();
+                    } else
+                        Carrega_Lista();
+                }else
+                    MessageBox.Show("Profissão já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btEdit_Click(object sender, System.EventArgs e) {
             if (lstMain.SelectedItem == null) return;
+            Models.Profissao _item =  (Models.Profissao)lstMain.SelectedItem;
+            if (_item.Nome.Substring(0,1)=="(") return;
+
             bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroProfissao_Alterar);
             if (!bAllow) {
                 MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -47,26 +54,44 @@ namespace GTI_v4.Forms {
             InputBox iBox = new InputBox();
             String sCod = iBox.Show(lstMain.Text, "Informação", "Digite o nome da profissão.", 100);
             if (!string.IsNullOrEmpty(sCod)) {
-                Models.Profissao reg = new Models.Profissao {
-                    Codigo = Convert.ToInt16(lstMain.SelectedValue.ToString()),
-                    Nome = sCod.ToUpper()
-                };
-                Exception ex = _cidadaoRepository.Alterar_Profissao(reg);
-                if (ex != null) {
-                    ErrorBox eBox = new ErrorBox("Atenção", "Profissão já cadastrada.", ex);
-                    eBox.ShowDialog();
-                } else
-                    Carrega_Lista();
+
+                bool _find = false;
+                foreach (Models.Pais item in lstMain.Items) {
+                    if (item.Nome_pais == sCod.ToUpper() && item.Id_pais != Convert.ToInt32(lstMain.SelectedValue))
+                        _find = true;
+                }
+                if (!_find) {
+                    Models.Profissao reg = new Models.Profissao {
+                        Codigo = Convert.ToInt16(lstMain.SelectedValue.ToString()),
+                        Nome = sCod.ToUpper()
+                    };
+                    Exception ex = _cidadaoRepository.Alterar_Profissao(reg);
+                    if (ex != null) {
+                        ErrorBox eBox = new ErrorBox("Atenção", "Profissão já cadastrada.", ex);
+                        eBox.ShowDialog();
+                    } else
+                        Carrega_Lista();
+                }else
+                    MessageBox.Show("Profissão já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btDel_Click(object sender, System.EventArgs e) {
             if (lstMain.SelectedItem == null) return;
+            Models.Profissao _item = (Models.Profissao)lstMain.SelectedItem;
+            if (_item.Nome.Substring(0, 1) == "(") return;
             bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroProfissao_Alterar);
             if (!bAllow) {
                 MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            bool _existe = _cidadaoRepository.Existe_Profissao(Convert.ToInt32(lstMain.SelectedValue));
+            if (_existe) {
+                MessageBox.Show("Existem contribuintes com esta profissão cadastrada.", "Exclusão não permitida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (MessageBox.Show("Excluir esta profissão?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
                 Models.Profissao reg = new Models.Profissao {
                     Codigo = Convert.ToInt16(lstMain.SelectedValue.ToString())

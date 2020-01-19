@@ -274,7 +274,7 @@ namespace GTI_v4.Forms {
             String sCod = z.Show("", "Informação", "Digite o código do cidadão.", 6, GtiCore.ETweakMode.IntegerPositive);
             if (!string.IsNullOrEmpty(sCod)) {
                 GtiCore.Ocupado(this);
-                if (_cidadaoRepository.ExisteCidadao(Convert.ToInt32(sCod))) {
+                if (_cidadaoRepository.Existe_Cidadao(Convert.ToInt32(sCod))) {
                     Clear_Reg();
                     LoadReg(Convert.ToInt32(sCod));
                 } else
