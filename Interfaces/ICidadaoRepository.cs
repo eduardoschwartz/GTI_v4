@@ -8,6 +8,7 @@ namespace GTI_v4.Interfaces {
         Exception Alterar_Profissao(Profissao reg);
         Exception Excluir_cidadao(int Codigo);
         Exception Excluir_Profissao(Profissao reg);
+        bool Existe_Bairro(string UF, int Cidade, int Bairro);
         bool ExisteCidadao(int nCodigo);
         Exception Incluir_cidadao(Cidadao reg);
         Exception Incluir_observacao_cidadao(ObsCidadao reg);

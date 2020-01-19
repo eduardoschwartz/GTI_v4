@@ -19,14 +19,18 @@ namespace GTI_v4 {
         }
 
         public DbSet<Bairro> Bairro { get; set; }
+        public DbSet<Cadimob> Cadimob { get; set; }
         public DbSet<Centrocusto> Centrocusto { get; set; }
         public DbSet<Cep> Cep { get; set; }
         public DbSet<Cidadao> Cidadao { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
+        public DbSet<Condominio> Condominio { get; set; }
+        public DbSet<Endentrega> EndEntrega { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Historicocidadao> HistoricoCidadao { get; set; }
         public DbSet<Logradouro> Logradouro { get; set; }
         public DbSet<Mobiliario> Mobiliario { get; set; }
+        public DbSet<Mobiliarioendentrega> MobiliarioEndEntrega { get; set; }
         public DbSet<Mobiliarioproprietario> MobiliarioProprietario { get; set; }
         public DbSet<ObsCidadao> ObsCidadao { get; set; }
         public DbSet<Pais> Pais { get; set; }

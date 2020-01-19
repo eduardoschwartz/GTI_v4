@@ -296,5 +296,17 @@ namespace GTI_v4.Repository {
             }
         }
 
+        public bool Existe_Bairro(string UF, int Cidade, int Bairro) {
+            bool bRet = false;
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var existingReg = db.Cidadao.Count(a => a.Siglauf == UF && a.Codcidade == Cidade && a.Codbairro == Bairro);
+                var existingReg2 = db.Cidadao.Count(a => a.Siglauf2 == UF && a.Codcidade2 == Cidade && a.Codbairro2 == Bairro);
+                if (existingReg != 0 || existingReg2!=0) {
+                    bRet = true;
+                }
+            }
+            return bRet;
+        }
+
     }
 }

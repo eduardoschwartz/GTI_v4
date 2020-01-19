@@ -152,14 +152,18 @@
     <Compile Include="Interfaces\ISistemaRepository.cs" />
     <Compile Include="Interfaces\ITributarioRepository.cs" />
     <Compile Include="Models\bairro.cs" />
+    <Compile Include="Models\cadimob.cs" />
     <Compile Include="Models\centrocusto.cs" />
     <Compile Include="Models\cep.cs" />
     <Compile Include="Models\cidadao.cs" />
     <Compile Include="Models\cidade.cs" />
+    <Compile Include="Models\condominio.cs" />
+    <Compile Include="Models\endentrega.cs" />
     <Compile Include="Models\endereco.cs" />
     <Compile Include="Models\historico_cidadao.cs" />
     <Compile Include="Models\logradouro.cs" />
     <Compile Include="Models\mobiliario.cs" />
+    <Compile Include="Models\mobiliarioendentrega.cs" />
     <Compile Include="Models\mobiliarioproprietario.cs" />
     <Compile Include="Models\obscidadao.cs" />
     <Compile Include="Models\pais.cs" />
@@ -226,6 +230,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
