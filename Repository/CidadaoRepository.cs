@@ -308,5 +308,15 @@ namespace GTI_v4.Repository {
             return bRet;
         }
 
+        public bool Existe_Pais( int Pais) {
+            bool bRet = false;
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var existingReg = db.Cidadao.Count(a => a.Codpais == Pais || a.Codpais2 == Pais );
+                if (existingReg != 0 ) 
+                    bRet = true;
+            }
+            return bRet;
+        }
+
     }
 }

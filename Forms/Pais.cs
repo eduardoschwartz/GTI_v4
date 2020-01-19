@@ -9,6 +9,7 @@ namespace GTI_v4.Forms {
     public partial class Pais : Form {
         readonly string _connection = GtiCore.Connection_Name();
         private readonly IEnderecoRepository _enderecoRepository = new EnderecoRepository(GtiCore.Connection_Name());
+        private readonly ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
 
         public Pais() {
             InitializeComponent();
@@ -23,19 +24,22 @@ namespace GTI_v4.Forms {
                 MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             String sCod = iBox.Show("", "Informação", "Digite o nome do país.", 40);
             if (!string.IsNullOrEmpty(sCod)) {
-                Models.Pais reg = new Models.Pais {
-                    Nome_pais = sCod.ToUpper()
-                };
-                Exception ex = _enderecoRepository.Incluir_Pais(reg);
-                if (ex != null) {
-                    ErrorBox eBox = new ErrorBox("Atenção", "País já cadastrado.", ex);
-                    eBox.ShowDialog();
+                int index =lstMain.FindString(sCod);
+                if (index == -1) {
+                    Models.Pais reg = new Models.Pais {
+                        Nome_pais = sCod.ToUpper()
+                    };
+                    Exception ex = _enderecoRepository.Incluir_Pais(reg);
+                    if (ex != null) {
+                        ErrorBox eBox = new ErrorBox("Atenção", "País já cadastrado.", ex);
+                        eBox.ShowDialog();
 
+                    } else
+                        Carrega_Lista();
                 } else
-                    Carrega_Lista();
+                    MessageBox.Show("País já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -50,16 +54,26 @@ namespace GTI_v4.Forms {
             InputBox iBox = new InputBox();
             String sCod = iBox.Show(lstMain.Text, "Informação", "Digite o nome do país.", 50);
             if (!string.IsNullOrEmpty(sCod)) {
-                Models.Pais reg = new Models.Pais {
-                    Id_pais = Convert.ToInt16(lstMain.SelectedValue.ToString()),
-                    Nome_pais = sCod.ToUpper()
-                };
-                Exception ex = _enderecoRepository.Alterar_Pais(reg);
-                if (ex != null) {
-                    ErrorBox eBox = new ErrorBox("Atenção", "País já cadastrado.", ex);
-                    eBox.ShowDialog();
-                } else
-                    Carrega_Lista();
+
+                bool _find = false;
+                foreach (Models.Pais item in lstMain.Items) {
+                    if (item.Nome_pais == sCod.ToUpper() && item.Id_pais != Convert.ToInt32(lstMain.SelectedValue))
+                        _find = true;
+                }
+                if (!_find) {
+
+                    Models.Pais reg = new Models.Pais {
+                        Id_pais = Convert.ToInt16(lstMain.SelectedValue.ToString()),
+                        Nome_pais = sCod.ToUpper()
+                    };
+                    Exception ex = _enderecoRepository.Alterar_Pais(reg);
+                    if (ex != null) {
+                        ErrorBox eBox = new ErrorBox("Atenção", "País já cadastrado.", ex);
+                        eBox.ShowDialog();
+                    } else
+                        Carrega_Lista();
+                }else
+                    MessageBox.Show("País já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -68,6 +82,12 @@ namespace GTI_v4.Forms {
             bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroPais_Alterar);
             if (!bAllow) {
                 MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            bool _existePais = _cidadaoRepository.Existe_Pais(Convert.ToInt32( lstMain.SelectedValue));
+            if (_existePais) {
+                MessageBox.Show("Existem contribuintes com este país cadastrado.", "Exclusão não permitida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
