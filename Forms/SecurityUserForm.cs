@@ -51,7 +51,8 @@ namespace GTI_v4.Forms {
             reg.Userbinary = GtiCore.Encrypt(sNewBinary);
             Exception ex = _sistemaRepository.SaveUserBinary(reg);
             if (ex != null) {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                eBox.ShowDialog();
             } else
                 MessageBox.Show("Alterações gravadas com sucesso.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

@@ -447,7 +447,8 @@ namespace GTI_v4.Forms {
                 if (bAddNew) {
                     ex = _cidadaoRepository.Incluir_cidadao(reg);
                     if (ex != null) {
-                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                        eBox.ShowDialog();
                     } else {
                         int nLastCod = _cidadaoRepository.Retorna_Ultimo_Codigo_Cidadao();
                         LoadReg(nLastCod);
@@ -457,7 +458,8 @@ namespace GTI_v4.Forms {
                     reg.Codcidadao = Convert.ToInt32(CodigoText.Text);
                     ex = _cidadaoRepository.Alterar_cidadao(reg);
                     if (ex != null) {
-                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                        eBox.ShowDialog();
                         return;
                     } else {
                         ControlBehaviour(true);
@@ -483,7 +485,8 @@ namespace GTI_v4.Forms {
                     if (MessageBox.Show("Excluir este registro?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
                         Exception ex = _cidadaoRepository.Excluir_cidadao(nCodigo);
                         if (ex != null) {
-                            MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                            eBox.ShowDialog();
                         } else
                             Clear_Reg();
                     }

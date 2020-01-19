@@ -48,7 +48,8 @@ namespace GTI_v4.Forms {
 
                 Exception ex = _cidadaoRepository.Incluir_observacao_cidadao(reg);
                 if (ex != null) {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                    eBox.ShowDialog();
                 } else
                     Carrega_Lista();
             }

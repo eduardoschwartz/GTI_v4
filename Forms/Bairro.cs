@@ -41,7 +41,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _enderecoRepository.Incluir_bairro(reg);
                 if (ex != null) {
-                    MessageBox.Show("Bairro já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", "Bairro já cadastrado.", ex);
+                    eBox.ShowDialog();
                 } else
                     CidadeCombo_SelectedIndexChanged(sender, e);
             }
@@ -73,7 +74,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _enderecoRepository.Alterar_Bairro(reg);
                 if (ex != null) {
-                    MessageBox.Show("Bairro já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", "Bairro já cadastrado.", ex);
+                    eBox.ShowDialog();
                 } else
                     CidadeCombo_SelectedIndexChanged(sender, e);
             }
@@ -103,7 +105,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _enderecoRepository.Excluir_Bairro(reg);
                 if (ex != null) {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                    eBox.ShowDialog();
                 } else
                     CidadeCombo_SelectedIndexChanged(sender, e);
             }

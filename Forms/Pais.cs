@@ -31,7 +31,9 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _enderecoRepository.Incluir_Pais(reg);
                 if (ex != null) {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", "País já cadastrado.", ex);
+                    eBox.ShowDialog();
+
                 } else
                     Carrega_Lista();
             }
@@ -54,7 +56,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _enderecoRepository.Alterar_Pais(reg);
                 if (ex != null) {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", "País já cadastrado.", ex);
+                    eBox.ShowDialog();
                 } else
                     Carrega_Lista();
             }
@@ -74,7 +77,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _enderecoRepository.Excluir_Pais(reg);
                 if (ex != null) {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                    eBox.ShowDialog();
                 } else
                     Carrega_Lista();
             }

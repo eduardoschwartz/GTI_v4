@@ -162,7 +162,8 @@ namespace GTI_v4.Forms {
                             };
                                 Exception ex = _sistemaRepository.Alterar_Senha(reg);
                             if (ex != null) {
-                                MessageBox.Show("Erro ao gravar a nova senha.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                ErrorBox eBox = new ErrorBox("Atenção", "Erro ao gravar nova senha.", ex);
+                                eBox.ShowDialog();
                             } else {
                                 MessageBox.Show("Senha alterada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 txtLogin.Enabled = true;
@@ -170,7 +171,7 @@ namespace GTI_v4.Forms {
                                 LoginButton.Enabled = true;
                                 SairButton.Enabled = true;
                                 txtPwd.Text = txtPwd1.Text;
-                                this.Size = new Size(this.Size.Width, OriginSize);
+                                Size = new Size(Size.Width, OriginSize);
                             }
                         }
                     }

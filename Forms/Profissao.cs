@@ -30,7 +30,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _cidadaoRepository.Incluir_profissao(reg);
                 if (ex != null) {
-                    MessageBox.Show("Profissão já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", "Profissão já cadastrada.", ex);
+                    eBox.ShowDialog();
                 } else
                     Carrega_Lista();
             }
@@ -52,7 +53,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _cidadaoRepository.Alterar_Profissao(reg);
                 if (ex != null) {
-                    MessageBox.Show("Profissão já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", "Profissão já cadastrada.", ex);
+                    eBox.ShowDialog();
                 } else
                     Carrega_Lista();
             }
@@ -71,7 +73,8 @@ namespace GTI_v4.Forms {
                 };
                 Exception ex = _cidadaoRepository.Excluir_Profissao(reg);
                 if (ex != null) {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                    eBox.ShowDialog();
                 } else
                     Carrega_Lista();
             }

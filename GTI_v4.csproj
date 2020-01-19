@@ -95,6 +95,12 @@
     <Compile Include="Forms\Endereco.Designer.cs">
       <DependentUpon>Endereco.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ErrorBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ErrorBox.Designer.cs">
+      <DependentUpon>ErrorBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Endereco.resx">
       <DependentUpon>Endereco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ErrorBox.resx">
+      <DependentUpon>ErrorBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
@@ -352,9 +361,6 @@
     <None Include="Resources\enviar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Error.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ErrorIcon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -515,6 +521,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Error.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

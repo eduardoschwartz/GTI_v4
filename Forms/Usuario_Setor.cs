@@ -39,7 +39,8 @@ namespace GTI_v4.Forms {
                 DialogResult = DialogResult.OK;
             } else {
                 DialogResult = DialogResult.Cancel;
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                eBox.ShowDialog();
             }
             Close();
         }
