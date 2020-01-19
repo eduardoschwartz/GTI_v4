@@ -20,6 +20,7 @@ namespace GTI_v4.Interfaces {
         List<Profissao> Lista_Profissao();
         CidadaoStruct LoadReg(int nCodigo);
         bool Profissao_cidadao(int id_profissao);
+        Cidadao Retorna_Cidadao(int Codigo);
         int Retorna_Ultimo_Codigo_Cidadao();
     }
 }

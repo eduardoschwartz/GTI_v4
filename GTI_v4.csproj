@@ -125,6 +125,12 @@
     <Compile Include="Forms\Pais.Designer.cs">
       <DependentUpon>Pais.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Processo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Processo.Designer.cs">
+      <DependentUpon>Processo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Profissao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +157,10 @@
     <Compile Include="Interfaces\IProtocoloRepository.cs" />
     <Compile Include="Interfaces\ISistemaRepository.cs" />
     <Compile Include="Interfaces\ITributarioRepository.cs" />
+    <Compile Include="Models\anexo.cs" />
+    <Compile Include="Models\anexolog.cs" />
+    <Compile Include="Models\assunto.cs" />
+    <Compile Include="Models\assuntodoc.cs" />
     <Compile Include="Models\bairro.cs" />
     <Compile Include="Models\cadimob.cs" />
     <Compile Include="Models\centrocusto.cs" />
@@ -158,6 +168,7 @@
     <Compile Include="Models\cidadao.cs" />
     <Compile Include="Models\cidade.cs" />
     <Compile Include="Models\condominio.cs" />
+    <Compile Include="Models\documento.cs" />
     <Compile Include="Models\endentrega.cs" />
     <Compile Include="Models\endereco.cs" />
     <Compile Include="Models\historico_cidadao.cs" />
@@ -168,6 +179,9 @@
     <Compile Include="Models\obscidadao.cs" />
     <Compile Include="Models\pais.cs" />
     <Compile Include="Models\processocidadao.cs" />
+    <Compile Include="Models\processodoc.cs" />
+    <Compile Include="Models\processoend.cs" />
+    <Compile Include="Models\processogti.cs" />
     <Compile Include="Models\profissao.cs" />
     <Compile Include="Models\security_event.cs" />
     <Compile Include="Models\uf.cs" />
@@ -210,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pais.resx">
       <DependentUpon>Pais.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Processo.resx">
+      <DependentUpon>Processo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Profissao.resx">
       <DependentUpon>Profissao.cs</DependentUpon>

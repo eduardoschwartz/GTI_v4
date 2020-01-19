@@ -18,6 +18,10 @@ namespace GTI_v4 {
             base.OnModelCreating(modelBuilder);
         }
 
+        public DbSet<Anexo> Anexo { get; set; }
+        public DbSet<Anexo_log> Anexo_log { get; set; }
+        public DbSet<Assunto> Assunto { get; set; }
+        public DbSet<Assuntodoc> Assuntodoc { get; set; }
         public DbSet<Bairro> Bairro { get; set; }
         public DbSet<Cadimob> Cadimob { get; set; }
         public DbSet<Centrocusto> Centrocusto { get; set; }
@@ -25,6 +29,7 @@ namespace GTI_v4 {
         public DbSet<Cidadao> Cidadao { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
         public DbSet<Condominio> Condominio { get; set; }
+        public DbSet<Documento> Documento { get; set; }
         public DbSet<Endentrega> EndEntrega { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Historicocidadao> HistoricoCidadao { get; set; }
@@ -34,6 +39,9 @@ namespace GTI_v4 {
         public DbSet<Mobiliarioproprietario> MobiliarioProprietario { get; set; }
         public DbSet<ObsCidadao> ObsCidadao { get; set; }
         public DbSet<Pais> Pais { get; set; }
+        public DbSet<Processodoc> Processodoc { get; set; }
+        public DbSet<Processoend> Processoend { get; set; }
+        public DbSet<Processogti> Processogti { get; set; }
         public DbSet<Processocidadao> ProcessoCidadao { get; set; }
         public DbSet<Profissao> Profissao { get; set; }
         public DbSet<Security_event> Security_Event { get; set; }
