@@ -36,12 +36,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Owf.Controls.A1Panel, Version=1.0.5658.40643, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Files\Owf.Controls.A1Panel.dll</HintPath>
@@ -49,6 +63,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -131,11 +147,29 @@
     <Compile Include="Forms\Processo.Designer.cs">
       <DependentUpon>Processo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Processo_Lista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Processo_Lista.Designer.cs">
+      <DependentUpon>Processo_Lista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Processo_Tramite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Processo_Tramite.Designer.cs">
+      <DependentUpon>Processo_Tramite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Profissao.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Profissao.Designer.cs">
       <DependentUpon>Profissao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report.Designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SecurityUserForm.cs">
       <SubType>Form</SubType>
@@ -148,6 +182,12 @@
     </Compile>
     <Compile Include="Forms\Usuario_Setor.Designer.cs">
       <DependentUpon>Usuario_Setor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ZoomBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ZoomBox.Designer.cs">
+      <DependentUpon>ZoomBox.cs</DependentUpon>
     </Compile>
     <Compile Include="GTI_Context.cs" />
     <Compile Include="Interfaces\ICidadaoRepository.cs" />
@@ -182,6 +222,7 @@
     <Compile Include="Models\processodoc.cs" />
     <Compile Include="Models\processoend.cs" />
     <Compile Include="Models\processogti.cs" />
+    <Compile Include="Models\processo_historico.cs" />
     <Compile Include="Models\profissao.cs" />
     <Compile Include="Models\security_event.cs" />
     <Compile Include="Models\uf.cs" />
@@ -231,11 +272,17 @@
     <EmbeddedResource Include="Forms\Profissao.resx">
       <DependentUpon>Profissao.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SecurityUserForm.resx">
       <DependentUpon>SecurityUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Usuario_Setor.resx">
       <DependentUpon>Usuario_Setor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ZoomBox.resx">
+      <DependentUpon>ZoomBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

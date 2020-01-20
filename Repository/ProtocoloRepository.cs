@@ -12,6 +12,7 @@ using GTI_v4.Models;
 namespace GTI_v4.Repository {
     public class ProtocoloRepository :IProtocoloRepository{
         ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
+        ISistemaRepository _sistemaRepository = new SistemaRepository(GtiCore.Connection_Name());
 
         private readonly string _connection;
 
@@ -269,12 +270,8 @@ namespace GTI_v4.Repository {
         public Exception ValidaProcesso(string sInput) {
             Exception AppEx;
             string sNumero = sInput.Trim();
-            int Numero = 0;
-            int Ano = 0;
-            int Dv = 0;
-            string sDv = "";
-            string sNumTmp = "";
-            string AnoTmp = "";
+            int Numero, Ano ,Dv ;
+            string sDv , sNumTmp , AnoTmp ;
             if (sNumero.Length < 7) {
                 AppEx = new Exception("Número de processo inválido!");
                 return AppEx;
@@ -478,6 +475,172 @@ namespace GTI_v4.Repository {
                 return Sql;
             }
         }
+
+        public Exception Excluir_Anexo(Anexo reg, string usuario) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    db.Database.ExecuteSqlCommand("DELETE FROM anexo WHERE ano=@ano AND numero=@numero AND anoanexo=@anoanexo AND numeroanexo=@numeroanexo",
+                        new SqlParameter("@ano", reg.Ano), new SqlParameter("@numero", reg.Numero), new SqlParameter("@anoanexo", reg.Anoanexo), new SqlParameter("@numeroanexo", reg.Numeroanexo));
+                } catch (Exception ex) {
+                    return ex;
+                }
+                string sMsg = "O processo " + reg.Numeroanexo.ToString() + "-" + DvProcesso(reg.Numeroanexo) + "/" + reg.Anoanexo.ToString() + " foi desanexado por " + _sistemaRepository.Retorna_User_FullName(usuario) + ".";
+                Anexo_log p = new Anexo_log {
+                    Ano = reg.Ano,
+                    Numero = reg.Numero,
+                    Ano_anexo = reg.Anoanexo,
+                    Numero_anexo = reg.Numeroanexo,
+                    Data = DateTime.Now,
+                    Removido = true
+                };
+                p.Userid = _sistemaRepository.Retorna_User_LoginId(usuario);
+                db.Anexo_log.Add(p);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+
+                return null;
+            }
+        }
+
+        public Exception Incluir_Anexo(Anexo reg, string usuario) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                db.Anexo.Add(reg);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                string sMsg = "O processo " + reg.Numeroanexo.ToString() + "-" + DvProcesso(reg.Numeroanexo) + "/" + reg.Anoanexo.ToString() + " foi anexado por " + _sistemaRepository.Retorna_User_FullName(usuario) + ".";
+                Anexo_log p = new Anexo_log {
+                    Ano = reg.Ano,
+                    Numero = reg.Numero,
+                    Ano_anexo = reg.Anoanexo,
+                    Numero_anexo = reg.Numeroanexo,
+                    Data = DateTime.Now,
+                    Removido = false
+                };
+                p.Userid = _sistemaRepository.Retorna_User_LoginId(usuario);
+                db.Anexo_log.Add(p);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public ProcessoCidadaoStruct Processo_cidadao_old(int ano, int numero) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var reg = (from pc in db.ProcessoCidadao
+                           join l in db.Logradouro on pc.Codlogradouro equals l.Codlogradouro into pcl from l in pcl.DefaultIfEmpty()
+                           join c in db.Cidade on new { p1 = pc.Siglauf, p2 = pc.Codcidade } equals new { p1 = c.Siglauf, p2 = c.Codcidade, } into pcc from c in pcc.DefaultIfEmpty()
+                           join b in db.Bairro on new { p1 = pc.Siglauf, p2 = pc.Codcidade, p3 = pc.Codbairro } equals new { p1 = b.Siglauf, p2 = b.Codcidade, p3 = b.Codbairro } into pcb from b in pcb.DefaultIfEmpty()
+                           where pc.Anoproc == ano && pc.Numproc == numero
+                           select new ProcessoCidadaoStruct {
+                               Codigo = pc.Codcidadao, Nome = pc.Nomecidadao, Documento = pc.Doc, Logradouro_Codigo = pc.Codlogradouro, Logradouro_Nome = l.Endereco.ToString(),
+                               Numero = pc.Numimovel, Complemento = pc.Complemento, Bairro_Codigo = pc.Codbairro, Cidade_Nome = c.Desccidade, Bairro_Nome = b.Descbairro.ToString(),
+                               UF = pc.Siglauf, Cep = pc.Cep, RG = pc.Rg.ToString(), Orgao = pc.Orgao.ToString()
+                           }).FirstOrDefault();
+                return reg;
+            }
+        }
+
+        public Exception Incluir_Historico_Processo(short Ano, int Numero, string Historico, string Usuario) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int cntSeq = (from p in db.Processo_historico where p.Ano == Ano && p.Numero == Numero select p).Count();
+                int maxSeq = 1;
+                if (cntSeq > 0)
+                    maxSeq = (from p in db.Processo_historico where p.Ano == Ano && p.Numero == Numero select p.Seq).Max() + 1;
+                Processo_historico reg = new Processo_historico {
+                    Ano = Ano,
+                    Numero = Numero,
+                    Seq = maxSeq,
+                    Historico = Historico.Length > 5000 ? Historico.Substring(0, 5000) : Historico,
+                    Datahora = DateTime.Now,
+                    Usuario = Usuario
+                };
+                db.Processo_historico.Add(reg);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Cancelar_Processo(int Ano, int Numero, string Observacao) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                Processogti p = db.Processogti.First(i => i.Ano == Ano && i.Numero == Numero);
+                p.Datacancel = DateTime.Now;
+                p.Dataarquiva = null;
+                p.Datareativa = null;
+                p.Datasuspenso = null;
+                p.Obsc = Observacao;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Reativar_Processo(int Ano, int Numero, string Observacao) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                Processogti p = db.Processogti.First(i => i.Ano == Ano && i.Numero == Numero);
+                p.Datareativa = DateTime.Now;
+                p.Dataarquiva = null;
+                p.Datacancel = null;
+                p.Datasuspenso = null;
+                p.Obsr = Observacao;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Suspender_Processo(int Ano, int Numero, string Observacao) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                Processogti p = db.Processogti.First(i => i.Ano == Ano && i.Numero == Numero);
+                p.Datareativa = null;
+                p.Dataarquiva = null;
+                p.Datacancel = null;
+                p.Datasuspenso = DateTime.Now;
+                p.Obss = Observacao;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Arquivar_Processo(int Ano, int Numero, string Observacao) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                Processogti p = db.Processogti.First(i => i.Ano == Ano && i.Numero == Numero);
+                p.Datareativa = null;
+                p.Dataarquiva = DateTime.Now;
+                p.Datacancel = null;
+                p.Datasuspenso = null;
+                p.Obsa = Observacao;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
 
 
     }

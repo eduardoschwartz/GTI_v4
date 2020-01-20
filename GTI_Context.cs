@@ -39,6 +39,7 @@ namespace GTI_v4 {
         public DbSet<Mobiliarioproprietario> MobiliarioProprietario { get; set; }
         public DbSet<ObsCidadao> ObsCidadao { get; set; }
         public DbSet<Pais> Pais { get; set; }
+        public DbSet<Processo_historico> Processo_historico { get; set; }
         public DbSet<Processodoc> Processodoc { get; set; }
         public DbSet<Processoend> Processoend { get; set; }
         public DbSet<Processogti> Processogti { get; set; }
