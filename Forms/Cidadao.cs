@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 namespace GTI_v4.Forms {
     public partial class Cidadao : Form {
-        readonly string _connection = GtiCore.Connection_Name();
         private readonly ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
 
         bool bAddNew;
@@ -466,7 +465,7 @@ namespace GTI_v4.Forms {
                     }
                 }
 
-                int nCodigo = 0;
+                int nCodigo ;
                 if (bAddNew)
                     nCodigo = _cidadaoRepository.Retorna_Ultimo_Codigo_Cidadao();
                 else

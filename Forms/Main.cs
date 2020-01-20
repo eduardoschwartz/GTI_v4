@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace GTI_v4.Forms {
     public partial class Main : Form {
 
-        private readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository();
+        private readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository(GtiCore.Connection_Name());
         private readonly ITributarioRepository _tributarioRepository = new TributarioRepository();
         private const int CP_NOCLOSE_BUTTON = 0x200;
         protected override CreateParams CreateParams {
@@ -196,7 +196,7 @@ namespace GTI_v4.Forms {
         }
 
         private short RetornaDV() {
-            short ret = 0;
+            short ret ;
             if (DVText.Text == "") DVText.Text = "0";
             int Numero = Convert.ToInt32(DVText.Text);
             if (Dv1Option.Checked) {

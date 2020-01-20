@@ -6,7 +6,7 @@
       <Value Profile="(Default)">GTI</Value>
     </Setting>
     <Setting Name="ServerName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">SKYNET</Value>
+      <Value Profile="(Default)">DEUTSCH</Value>
     </Setting>
     <Setting Name="DataBaseReal" Type="System.String" Scope="User">
       <Value Profile="(Default)">Tributacao</Value>

@@ -10,15 +10,13 @@ using GTI_v4.Models;
 
 namespace GTI_v4.Forms {
     public partial class Processo : Form {
-        IProtocoloRepository _protocoloRepository = new ProtocoloRepository(GtiCore.Connection_Name());
-        ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
-        ISistemaRepository _sistemaRepository = new SistemaRepository(GtiCore.Connection_Name());
+        readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository(GtiCore.Connection_Name());
+        readonly ICidadaoRepository _cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
+        readonly ISistemaRepository _sistemaRepository = new SistemaRepository(GtiCore.Connection_Name());
 
-        bool bExec;
-        bool bAssunto;
-        bool bAddNew;
-        string EmptyDateText = "  /  /    ";
-        List<CustomListBoxItem> lstButtonState;
+        private bool bExec, bAssunto, bAddNew;
+        private string EmptyDateText = "  /  /    ";
+        private List<CustomListBoxItem> lstButtonState;
 
         public int _numero_processo { get; set; }
         public short _ano_processo { get; set; }
@@ -159,10 +157,10 @@ namespace GTI_v4.Forms {
             ComplementoText.ReadOnly = bStart;
 
             if (!bAddNew) {
-                if (!gtiCore.IsEmptyDate(ArquivaLabel.Text) || !gtiCore.IsEmptyDate(CancelaLabel.Text) || !gtiCore.IsEmptyDate(SuspensaoLabel.Text))
+                if (!GtiCore.IsEmptyDate(ArquivaLabel.Text) || !GtiCore.IsEmptyDate(CancelaLabel.Text) || !GtiCore.IsEmptyDate(SuspensaoLabel.Text))
                     bStart = true;
 
-                bool bAllow = gtiCore.GetBinaryAccess((int)TAcesso.CadastroProcesso_Alterar_Avancado);
+                bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroProcesso_Alterar_Avancado);
                 if (bAllow) {
                     Fisicocheckbox.Enabled = !bStart;
                     Internocheckbox.Enabled = !bStart;
@@ -186,7 +184,7 @@ namespace GTI_v4.Forms {
                     CCustoCombo.Visible = !bStart;
                     DocListView.Enabled = !bStart;
                 } else {
-                    bAllow = gtiCore.GetBinaryAccess((int)TAcesso.CadastroProcesso_Alterar_Basico);
+                    bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroProcesso_Alterar_Basico);
                     if (bAllow) {
                         ObsText.ReadOnly = bStart;
                         InscricaoText.ReadOnly = bStart;

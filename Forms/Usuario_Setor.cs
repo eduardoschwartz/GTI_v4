@@ -15,8 +15,7 @@ using System.Windows.Forms;
 namespace GTI_v4.Forms {
     public partial class Usuario_Setor : Form {
         private readonly ISistemaRepository _sistemaRepository = new SistemaRepository(GtiCore.Connection_Name());
-        private readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository();
-        readonly string _connection = GtiCore.Connection_Name();
+        private readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository(GtiCore.Connection_Name());
         public  int Id { get; set; }
         public Usuario_Setor() {
             InitializeComponent();
