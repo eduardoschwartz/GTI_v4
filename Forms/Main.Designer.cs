@@ -200,25 +200,25 @@
             this.CadastroCondominioMenu,
             this.FaceQuadraMenu});
             this.CadastroImobMenu.Name = "CadastroImobMenu";
-            this.CadastroImobMenu.Size = new System.Drawing.Size(180, 22);
+            this.CadastroImobMenu.Size = new System.Drawing.Size(121, 22);
             this.CadastroImobMenu.Text = "Cadastro";
             // 
             // CadastroImovelMenu
             // 
             this.CadastroImovelMenu.Name = "CadastroImovelMenu";
-            this.CadastroImovelMenu.Size = new System.Drawing.Size(180, 22);
+            this.CadastroImovelMenu.Size = new System.Drawing.Size(156, 22);
             this.CadastroImovelMenu.Text = "Imóvel";
             // 
             // CadastroCondominioMenu
             // 
             this.CadastroCondominioMenu.Name = "CadastroCondominioMenu";
-            this.CadastroCondominioMenu.Size = new System.Drawing.Size(180, 22);
+            this.CadastroCondominioMenu.Size = new System.Drawing.Size(156, 22);
             this.CadastroCondominioMenu.Text = "Condomínios";
             // 
             // FaceQuadraMenu
             // 
             this.FaceQuadraMenu.Name = "FaceQuadraMenu";
-            this.FaceQuadraMenu.Size = new System.Drawing.Size(180, 22);
+            this.FaceQuadraMenu.Size = new System.Drawing.Size(156, 22);
             this.FaceQuadraMenu.Text = "Face de Quadra";
             // 
             // RelatorioImobMenu
@@ -226,7 +226,7 @@
             this.RelatorioImobMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ComunicadoIsencaoMenu});
             this.RelatorioImobMenu.Name = "RelatorioImobMenu";
-            this.RelatorioImobMenu.Size = new System.Drawing.Size(180, 22);
+            this.RelatorioImobMenu.Size = new System.Drawing.Size(121, 22);
             this.RelatorioImobMenu.Text = "Relatório";
             // 
             // ComunicadoIsencaoMenu
@@ -424,6 +424,7 @@
             this.ControleProcessoMenu.Name = "ControleProcessoMenu";
             this.ControleProcessoMenu.Size = new System.Drawing.Size(191, 22);
             this.ControleProcessoMenu.Text = "Controle de processos";
+            this.ControleProcessoMenu.Click += new System.EventHandler(this.ControleProcessoMenu_Click);
             // 
             // RelatorioProtocoloMenu
             // 
@@ -658,6 +659,7 @@
             this.ProtocoloButton.Name = "ProtocoloButton";
             this.ProtocoloButton.Size = new System.Drawing.Size(52, 52);
             this.ProtocoloButton.Text = "Controle de processos";
+            this.ProtocoloButton.Click += new System.EventHandler(this.ProtocoloButton_Click);
             // 
             // AlvaraButton
             // 

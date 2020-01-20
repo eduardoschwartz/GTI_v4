@@ -38,5 +38,8 @@
     <Setting Name="Form_Config_Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">50, 50</Value>
     </Setting>
+    <Setting Name="Path_Report" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Work\GTI_v4\Reports</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

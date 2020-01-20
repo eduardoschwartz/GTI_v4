@@ -25,8 +25,22 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.tBar = new System.Windows.Forms.ToolStrip();
+            this.AddButton = new System.Windows.Forms.ToolStripButton();
+            this.EditButton = new System.Windows.Forms.ToolStripButton();
+            this.DelButton = new System.Windows.Forms.ToolStripButton();
+            this.FindButton = new System.Windows.Forms.ToolStripButton();
+            this.PrintButton = new System.Windows.Forms.ToolStripButton();
+            this.OpcaoButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.arquivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reativarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.suspenderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TramitarButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.SairButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.GravarButton = new System.Windows.Forms.ToolStripButton();
+            this.CancelarButton = new System.Windows.Forms.ToolStripButton();
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CidadeLabel = new System.Windows.Forms.Label();
@@ -52,6 +66,18 @@
             this.CancelCidadaoButton = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.tTp = new System.Windows.Forms.ToolTip(this.components);
+            this.DelEnderecoButton = new System.Windows.Forms.Button();
+            this.AddEnderecoButton = new System.Windows.Forms.Button();
+            this.DocumentoEditButton = new System.Windows.Forms.Button();
+            this.GuiaButton = new System.Windows.Forms.Button();
+            this.CidadaoOldButton = new System.Windows.Forms.Button();
+            this.CidadaoEditButton = new System.Windows.Forms.Button();
+            this.AnexoDelButton = new System.Windows.Forms.Button();
+            this.AnexoSairButton = new System.Windows.Forms.Button();
+            this.AnexoNovoButton = new System.Windows.Forms.Button();
+            this.PrintDocButton = new System.Windows.Forms.Button();
+            this.CancelDocButton = new System.Windows.Forms.Button();
+            this.CancelPnlDocButton = new System.Windows.Forms.Button();
             this.AnexoPanel = new Owf.Controls.A1Panel();
             this.MainListView = new System.Windows.Forms.ListView();
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -127,32 +153,6 @@
             this.label28 = new System.Windows.Forms.Label();
             this.DocEntregueLabel = new System.Windows.Forms.Label();
             this.DocPanel = new Owf.Controls.A1Panel();
-            this.AddButton = new System.Windows.Forms.ToolStripButton();
-            this.EditButton = new System.Windows.Forms.ToolStripButton();
-            this.DelButton = new System.Windows.Forms.ToolStripButton();
-            this.FindButton = new System.Windows.Forms.ToolStripButton();
-            this.PrintButton = new System.Windows.Forms.ToolStripButton();
-            this.OpcaoButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.arquivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cancelarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reativarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.suspenderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TramitarButton = new System.Windows.Forms.ToolStripButton();
-            this.SairButton = new System.Windows.Forms.ToolStripButton();
-            this.GravarButton = new System.Windows.Forms.ToolStripButton();
-            this.CancelarButton = new System.Windows.Forms.ToolStripButton();
-            this.DelEnderecoButton = new System.Windows.Forms.Button();
-            this.AddEnderecoButton = new System.Windows.Forms.Button();
-            this.DocumentoEditButton = new System.Windows.Forms.Button();
-            this.GuiaButton = new System.Windows.Forms.Button();
-            this.CidadaoOldButton = new System.Windows.Forms.Button();
-            this.CidadaoEditButton = new System.Windows.Forms.Button();
-            this.AnexoDelButton = new System.Windows.Forms.Button();
-            this.AnexoSairButton = new System.Windows.Forms.Button();
-            this.AnexoNovoButton = new System.Windows.Forms.Button();
-            this.PrintDocButton = new System.Windows.Forms.Button();
-            this.CancelDocButton = new System.Windows.Forms.Button();
-            this.CancelPnlDocButton = new System.Windows.Forms.Button();
             this.tBar.SuspendLayout();
             this.CidadaoPanel.SuspendLayout();
             this.AnexoPanel.SuspendLayout();
@@ -193,15 +193,150 @@
             this.tBar.TabIndex = 191;
             this.tBar.Text = "toolStrip1";
             // 
+            // AddButton
+            // 
+            this.AddButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AddButton.Image = global::GTI_v4.Properties.Resources.add_file;
+            this.AddButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(23, 22);
+            this.AddButton.ToolTipText = "Novo";
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // EditButton
+            // 
+            this.EditButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EditButton.Image = global::GTI_v4.Properties.Resources.Alterar;
+            this.EditButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(23, 22);
+            this.EditButton.ToolTipText = "Alterar";
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+            // 
+            // DelButton
+            // 
+            this.DelButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DelButton.Image = global::GTI_v4.Properties.Resources.delete;
+            this.DelButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DelButton.Name = "DelButton";
+            this.DelButton.Size = new System.Drawing.Size(23, 22);
+            this.DelButton.ToolTipText = "Excluir";
+            // 
+            // FindButton
+            // 
+            this.FindButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.FindButton.Image = global::GTI_v4.Properties.Resources.Consultar;
+            this.FindButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FindButton.Name = "FindButton";
+            this.FindButton.Size = new System.Drawing.Size(23, 22);
+            this.FindButton.ToolTipText = "Consultar";
+            this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
+            // 
+            // PrintButton
+            // 
+            this.PrintButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.PrintButton.Image = global::GTI_v4.Properties.Resources.print;
+            this.PrintButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.PrintButton.Name = "PrintButton";
+            this.PrintButton.Size = new System.Drawing.Size(23, 22);
+            this.PrintButton.ToolTipText = "Imprimir";
+            this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
+            // 
+            // OpcaoButton
+            // 
+            this.OpcaoButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.arquivarToolStripMenuItem,
+            this.cancelarToolStripMenuItem,
+            this.reativarToolStripMenuItem,
+            this.suspenderToolStripMenuItem});
+            this.OpcaoButton.Image = global::GTI_v4.Properties.Resources.option;
+            this.OpcaoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.OpcaoButton.Name = "OpcaoButton";
+            this.OpcaoButton.Size = new System.Drawing.Size(81, 22);
+            this.OpcaoButton.Text = "Situação";
+            this.OpcaoButton.ToolTipText = "Alterar a situação do processo";
+            // 
+            // arquivarToolStripMenuItem
+            // 
+            this.arquivarToolStripMenuItem.Name = "arquivarToolStripMenuItem";
+            this.arquivarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.arquivarToolStripMenuItem.Text = "Arquivar";
+            this.arquivarToolStripMenuItem.Click += new System.EventHandler(this.arquivarToolStripMenuItem_Click);
+            // 
+            // cancelarToolStripMenuItem
+            // 
+            this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
+            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.cancelarToolStripMenuItem.Text = "Cancelar";
+            this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
+            // 
+            // reativarToolStripMenuItem
+            // 
+            this.reativarToolStripMenuItem.Name = "reativarToolStripMenuItem";
+            this.reativarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.reativarToolStripMenuItem.Text = "Reativar";
+            this.reativarToolStripMenuItem.Click += new System.EventHandler(this.reativarToolStripMenuItem_Click);
+            // 
+            // suspenderToolStripMenuItem
+            // 
+            this.suspenderToolStripMenuItem.Name = "suspenderToolStripMenuItem";
+            this.suspenderToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.suspenderToolStripMenuItem.Text = "Suspender";
+            this.suspenderToolStripMenuItem.Click += new System.EventHandler(this.suspenderToolStripMenuItem_Click);
+            // 
+            // TramitarButton
+            // 
+            this.TramitarButton.Image = global::GTI_v4.Properties.Resources.folder_sent;
+            this.TramitarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TramitarButton.Name = "TramitarButton";
+            this.TramitarButton.Size = new System.Drawing.Size(70, 22);
+            this.TramitarButton.Text = "Tramitar";
+            this.TramitarButton.ToolTipText = "Tramite do processo";
+            this.TramitarButton.Click += new System.EventHandler(this.TramitarButton_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // SairButton
+            // 
+            this.SairButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SairButton.Image = global::GTI_v4.Properties.Resources.Exit;
+            this.SairButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SairButton.Name = "SairButton";
+            this.SairButton.Size = new System.Drawing.Size(23, 22);
+            this.SairButton.Text = "toolStripButton5";
+            this.SairButton.ToolTipText = "Sair";
+            this.SairButton.Click += new System.EventHandler(this.SairButton_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // GravarButton
+            // 
+            this.GravarButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GravarButton.Image = global::GTI_v4.Properties.Resources.gravar;
+            this.GravarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GravarButton.Name = "GravarButton";
+            this.GravarButton.Size = new System.Drawing.Size(23, 22);
+            this.GravarButton.Text = "btGravar";
+            this.GravarButton.ToolTipText = "Gravar os dados";
+            this.GravarButton.Click += new System.EventHandler(this.GravarButton_Click);
+            // 
+            // CancelarButton
+            // 
+            this.CancelarButton.AccessibleDescription = "Cancelar operação";
+            this.CancelarButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CancelarButton.Image = global::GTI_v4.Properties.Resources.cancel2;
+            this.CancelarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CancelarButton.Name = "CancelarButton";
+            this.CancelarButton.Size = new System.Drawing.Size(23, 22);
+            this.CancelarButton.Text = "btCancelar";
+            this.CancelarButton.ToolTipText = "Cancelar";
+            this.CancelarButton.Click += new System.EventHandler(this.CancelarButton_Click);
             // 
             // columnHeader12
             // 
@@ -473,6 +608,225 @@
             this.label18.Size = new System.Drawing.Size(221, 13);
             this.label18.TabIndex = 0;
             this.label18.Text = "Cidadão original gravado no processo";
+            // 
+            // DelEnderecoButton
+            // 
+            this.DelEnderecoButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DelEnderecoButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.DelEnderecoButton.FlatAppearance.BorderSize = 0;
+            this.DelEnderecoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.DelEnderecoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.DelEnderecoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DelEnderecoButton.Image = global::GTI_v4.Properties.Resources.cancelar;
+            this.DelEnderecoButton.Location = new System.Drawing.Point(423, 65);
+            this.DelEnderecoButton.Name = "DelEnderecoButton";
+            this.DelEnderecoButton.Size = new System.Drawing.Size(19, 19);
+            this.DelEnderecoButton.TabIndex = 20;
+            this.tTp.SetToolTip(this.DelEnderecoButton, "Excluir o endereço de ocorrência selecionado");
+            this.DelEnderecoButton.UseVisualStyleBackColor = true;
+            this.DelEnderecoButton.Click += new System.EventHandler(this.DelEnderecoButton_Click);
+            // 
+            // AddEnderecoButton
+            // 
+            this.AddEnderecoButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddEnderecoButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AddEnderecoButton.FlatAppearance.BorderSize = 0;
+            this.AddEnderecoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.AddEnderecoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.AddEnderecoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddEnderecoButton.Image = global::GTI_v4.Properties.Resources.add;
+            this.AddEnderecoButton.Location = new System.Drawing.Point(423, 40);
+            this.AddEnderecoButton.Name = "AddEnderecoButton";
+            this.AddEnderecoButton.Size = new System.Drawing.Size(19, 19);
+            this.AddEnderecoButton.TabIndex = 19;
+            this.tTp.SetToolTip(this.AddEnderecoButton, "Adcionar um endereço de ocorrência");
+            this.AddEnderecoButton.UseVisualStyleBackColor = true;
+            this.AddEnderecoButton.Click += new System.EventHandler(this.AddEnderecoButton_Click);
+            // 
+            // DocumentoEditButton
+            // 
+            this.DocumentoEditButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DocumentoEditButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.DocumentoEditButton.FlatAppearance.BorderSize = 0;
+            this.DocumentoEditButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.DocumentoEditButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.DocumentoEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DocumentoEditButton.Image = global::GTI_v4.Properties.Resources.Alterar;
+            this.DocumentoEditButton.Location = new System.Drawing.Point(115, 52);
+            this.DocumentoEditButton.Name = "DocumentoEditButton";
+            this.DocumentoEditButton.Size = new System.Drawing.Size(19, 19);
+            this.DocumentoEditButton.TabIndex = 16;
+            this.tTp.SetToolTip(this.DocumentoEditButton, "Editar documentos");
+            this.DocumentoEditButton.UseVisualStyleBackColor = true;
+            this.DocumentoEditButton.Click += new System.EventHandler(this.DocumentoEditButton_Click);
+            // 
+            // GuiaButton
+            // 
+            this.GuiaButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GuiaButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.GuiaButton.FlatAppearance.BorderSize = 0;
+            this.GuiaButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.GuiaButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.GuiaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GuiaButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GuiaButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.GuiaButton.Image = global::GTI_v4.Properties.Resources.print;
+            this.GuiaButton.Location = new System.Drawing.Point(116, 0);
+            this.GuiaButton.Name = "GuiaButton";
+            this.GuiaButton.Size = new System.Drawing.Size(19, 19);
+            this.GuiaButton.TabIndex = 13;
+            this.tTp.SetToolTip(this.GuiaButton, "Gerar guia");
+            this.GuiaButton.UseVisualStyleBackColor = true;
+            // 
+            // CidadaoOldButton
+            // 
+            this.CidadaoOldButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CidadaoOldButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.CidadaoOldButton.FlatAppearance.BorderSize = 0;
+            this.CidadaoOldButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.CidadaoOldButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.CidadaoOldButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CidadaoOldButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CidadaoOldButton.ForeColor = System.Drawing.Color.Navy;
+            this.CidadaoOldButton.Image = global::GTI_v4.Properties.Resources.Consultar;
+            this.CidadaoOldButton.Location = new System.Drawing.Point(95, 0);
+            this.CidadaoOldButton.Name = "CidadaoOldButton";
+            this.CidadaoOldButton.Size = new System.Drawing.Size(19, 19);
+            this.CidadaoOldButton.TabIndex = 12;
+            this.tTp.SetToolTip(this.CidadaoOldButton, "Exibir cidadão gravado no processo original");
+            this.CidadaoOldButton.UseVisualStyleBackColor = true;
+            this.CidadaoOldButton.Click += new System.EventHandler(this.CidadaoOldButton_Click);
+            // 
+            // CidadaoEditButton
+            // 
+            this.CidadaoEditButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CidadaoEditButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.CidadaoEditButton.FlatAppearance.BorderSize = 0;
+            this.CidadaoEditButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.CidadaoEditButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.CidadaoEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CidadaoEditButton.Image = global::GTI_v4.Properties.Resources.Alterar;
+            this.CidadaoEditButton.Location = new System.Drawing.Point(73, 0);
+            this.CidadaoEditButton.Name = "CidadaoEditButton";
+            this.CidadaoEditButton.Size = new System.Drawing.Size(19, 19);
+            this.CidadaoEditButton.TabIndex = 11;
+            this.tTp.SetToolTip(this.CidadaoEditButton, "Editar requerente do processo");
+            this.CidadaoEditButton.UseVisualStyleBackColor = true;
+            this.CidadaoEditButton.Click += new System.EventHandler(this.CidadaoEditButton_Click);
+            // 
+            // AnexoDelButton
+            // 
+            this.AnexoDelButton.BackColor = System.Drawing.Color.Transparent;
+            this.AnexoDelButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AnexoDelButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AnexoDelButton.FlatAppearance.BorderSize = 0;
+            this.AnexoDelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.AnexoDelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.AnexoDelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnexoDelButton.Image = global::GTI_v4.Properties.Resources.delete;
+            this.AnexoDelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AnexoDelButton.Location = new System.Drawing.Point(401, 163);
+            this.AnexoDelButton.Name = "AnexoDelButton";
+            this.AnexoDelButton.Size = new System.Drawing.Size(112, 19);
+            this.AnexoDelButton.TabIndex = 22;
+            this.AnexoDelButton.Text = "Excluir um anexo";
+            this.AnexoDelButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tTp.SetToolTip(this.AnexoDelButton, "Remover Anexo");
+            this.AnexoDelButton.UseVisualStyleBackColor = false;
+            this.AnexoDelButton.Click += new System.EventHandler(this.AnexoDelButton_Click);
+            // 
+            // AnexoSairButton
+            // 
+            this.AnexoSairButton.BackColor = System.Drawing.Color.Transparent;
+            this.AnexoSairButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AnexoSairButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AnexoSairButton.FlatAppearance.BorderSize = 0;
+            this.AnexoSairButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.AnexoSairButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.AnexoSairButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnexoSairButton.Image = global::GTI_v4.Properties.Resources.cancel2;
+            this.AnexoSairButton.Location = new System.Drawing.Point(501, 7);
+            this.AnexoSairButton.Name = "AnexoSairButton";
+            this.AnexoSairButton.Size = new System.Drawing.Size(19, 19);
+            this.AnexoSairButton.TabIndex = 21;
+            this.tTp.SetToolTip(this.AnexoSairButton, "Fechar tela de anexos");
+            this.AnexoSairButton.UseVisualStyleBackColor = false;
+            this.AnexoSairButton.Click += new System.EventHandler(this.AnexoSairButton_Click);
+            // 
+            // AnexoNovoButton
+            // 
+            this.AnexoNovoButton.BackColor = System.Drawing.Color.Transparent;
+            this.AnexoNovoButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AnexoNovoButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AnexoNovoButton.FlatAppearance.BorderSize = 0;
+            this.AnexoNovoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.AnexoNovoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.AnexoNovoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnexoNovoButton.Image = global::GTI_v4.Properties.Resources.add_file;
+            this.AnexoNovoButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AnexoNovoButton.Location = new System.Drawing.Point(283, 163);
+            this.AnexoNovoButton.Name = "AnexoNovoButton";
+            this.AnexoNovoButton.Size = new System.Drawing.Size(112, 19);
+            this.AnexoNovoButton.TabIndex = 20;
+            this.AnexoNovoButton.Text = "Incluir um anexo";
+            this.AnexoNovoButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tTp.SetToolTip(this.AnexoNovoButton, "Adicionar Anexo");
+            this.AnexoNovoButton.UseVisualStyleBackColor = false;
+            this.AnexoNovoButton.Click += new System.EventHandler(this.AnexoNovoButton_Click);
+            // 
+            // PrintDocButton
+            // 
+            this.PrintDocButton.BackColor = System.Drawing.Color.Transparent;
+            this.PrintDocButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PrintDocButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.PrintDocButton.FlatAppearance.BorderSize = 0;
+            this.PrintDocButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.PrintDocButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.PrintDocButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintDocButton.Image = global::GTI_v4.Properties.Resources.print;
+            this.PrintDocButton.Location = new System.Drawing.Point(268, 112);
+            this.PrintDocButton.Name = "PrintDocButton";
+            this.PrintDocButton.Size = new System.Drawing.Size(19, 19);
+            this.PrintDocButton.TabIndex = 18;
+            this.tTp.SetToolTip(this.PrintDocButton, "Gerar os relatórios");
+            this.PrintDocButton.UseVisualStyleBackColor = false;
+            this.PrintDocButton.Click += new System.EventHandler(this.PrintDocButton_Click);
+            // 
+            // CancelDocButton
+            // 
+            this.CancelDocButton.BackColor = System.Drawing.Color.Transparent;
+            this.CancelDocButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CancelDocButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.CancelDocButton.FlatAppearance.BorderSize = 0;
+            this.CancelDocButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.CancelDocButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.CancelDocButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelDocButton.Image = global::GTI_v4.Properties.Resources.cancel2;
+            this.CancelDocButton.Location = new System.Drawing.Point(293, 112);
+            this.CancelDocButton.Name = "CancelDocButton";
+            this.CancelDocButton.Size = new System.Drawing.Size(19, 19);
+            this.CancelDocButton.TabIndex = 19;
+            this.tTp.SetToolTip(this.CancelDocButton, "Cancelar");
+            this.CancelDocButton.UseVisualStyleBackColor = false;
+            this.CancelDocButton.Click += new System.EventHandler(this.CancelDocButton_Click);
+            // 
+            // CancelPnlDocButton
+            // 
+            this.CancelPnlDocButton.BackColor = System.Drawing.Color.Transparent;
+            this.CancelPnlDocButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CancelPnlDocButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.CancelPnlDocButton.FlatAppearance.BorderSize = 0;
+            this.CancelPnlDocButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
+            this.CancelPnlDocButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.CancelPnlDocButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelPnlDocButton.Image = global::GTI_v4.Properties.Resources.cancel2;
+            this.CancelPnlDocButton.Location = new System.Drawing.Point(436, 7);
+            this.CancelPnlDocButton.Name = "CancelPnlDocButton";
+            this.CancelPnlDocButton.Size = new System.Drawing.Size(19, 19);
+            this.CancelPnlDocButton.TabIndex = 20;
+            this.tTp.SetToolTip(this.CancelPnlDocButton, "Cancelar");
+            this.CancelPnlDocButton.UseVisualStyleBackColor = false;
+            this.CancelPnlDocButton.Click += new System.EventHandler(this.CancelPnlDocButton_Click);
             // 
             // AnexoPanel
             // 
@@ -1306,360 +1660,6 @@
             this.DocPanel.TabIndex = 212;
             this.DocPanel.Visible = false;
             // 
-            // AddButton
-            // 
-            this.AddButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.AddButton.Image = global::GTI_v4.Properties.Resources.add_file;
-            this.AddButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(23, 22);
-            this.AddButton.ToolTipText = "Novo";
-            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
-            // 
-            // EditButton
-            // 
-            this.EditButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.EditButton.Image = global::GTI_v4.Properties.Resources.Alterar;
-            this.EditButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(23, 22);
-            this.EditButton.ToolTipText = "Alterar";
-            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
-            // 
-            // DelButton
-            // 
-            this.DelButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DelButton.Image = global::GTI_v4.Properties.Resources.delete;
-            this.DelButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DelButton.Name = "DelButton";
-            this.DelButton.Size = new System.Drawing.Size(23, 22);
-            this.DelButton.ToolTipText = "Excluir";
-            // 
-            // FindButton
-            // 
-            this.FindButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.FindButton.Image = global::GTI_v4.Properties.Resources.Consultar;
-            this.FindButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.FindButton.Name = "FindButton";
-            this.FindButton.Size = new System.Drawing.Size(23, 22);
-            this.FindButton.ToolTipText = "Consultar";
-            this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
-            // 
-            // PrintButton
-            // 
-            this.PrintButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.PrintButton.Image = global::GTI_v4.Properties.Resources.print;
-            this.PrintButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.PrintButton.Name = "PrintButton";
-            this.PrintButton.Size = new System.Drawing.Size(23, 22);
-            this.PrintButton.ToolTipText = "Imprimir";
-            this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
-            // 
-            // OpcaoButton
-            // 
-            this.OpcaoButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.arquivarToolStripMenuItem,
-            this.cancelarToolStripMenuItem,
-            this.reativarToolStripMenuItem,
-            this.suspenderToolStripMenuItem});
-            this.OpcaoButton.Image = global::GTI_v4.Properties.Resources.option;
-            this.OpcaoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.OpcaoButton.Name = "OpcaoButton";
-            this.OpcaoButton.Size = new System.Drawing.Size(81, 22);
-            this.OpcaoButton.Text = "Situação";
-            this.OpcaoButton.ToolTipText = "Alterar a situação do processo";
-            // 
-            // arquivarToolStripMenuItem
-            // 
-            this.arquivarToolStripMenuItem.Name = "arquivarToolStripMenuItem";
-            this.arquivarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.arquivarToolStripMenuItem.Text = "Arquivar";
-            this.arquivarToolStripMenuItem.Click += new System.EventHandler(this.arquivarToolStripMenuItem_Click);
-            // 
-            // cancelarToolStripMenuItem
-            // 
-            this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
-            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.cancelarToolStripMenuItem.Text = "Cancelar";
-            this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
-            // 
-            // reativarToolStripMenuItem
-            // 
-            this.reativarToolStripMenuItem.Name = "reativarToolStripMenuItem";
-            this.reativarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.reativarToolStripMenuItem.Text = "Reativar";
-            this.reativarToolStripMenuItem.Click += new System.EventHandler(this.reativarToolStripMenuItem_Click);
-            // 
-            // suspenderToolStripMenuItem
-            // 
-            this.suspenderToolStripMenuItem.Name = "suspenderToolStripMenuItem";
-            this.suspenderToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.suspenderToolStripMenuItem.Text = "Suspender";
-            this.suspenderToolStripMenuItem.Click += new System.EventHandler(this.suspenderToolStripMenuItem_Click);
-            // 
-            // TramitarButton
-            // 
-            this.TramitarButton.Image = global::GTI_v4.Properties.Resources.folder_sent;
-            this.TramitarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TramitarButton.Name = "TramitarButton";
-            this.TramitarButton.Size = new System.Drawing.Size(70, 22);
-            this.TramitarButton.Text = "Tramitar";
-            this.TramitarButton.ToolTipText = "Tramite do processo";
-            this.TramitarButton.Click += new System.EventHandler(this.TramitarButton_Click);
-            // 
-            // SairButton
-            // 
-            this.SairButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SairButton.Image = global::GTI_v4.Properties.Resources.Exit;
-            this.SairButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SairButton.Name = "SairButton";
-            this.SairButton.Size = new System.Drawing.Size(23, 22);
-            this.SairButton.Text = "toolStripButton5";
-            this.SairButton.ToolTipText = "Sair";
-            this.SairButton.Click += new System.EventHandler(this.SairButton_Click);
-            // 
-            // GravarButton
-            // 
-            this.GravarButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.GravarButton.Image = global::GTI_v4.Properties.Resources.gravar;
-            this.GravarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.GravarButton.Name = "GravarButton";
-            this.GravarButton.Size = new System.Drawing.Size(23, 22);
-            this.GravarButton.Text = "btGravar";
-            this.GravarButton.ToolTipText = "Gravar os dados";
-            this.GravarButton.Click += new System.EventHandler(this.GravarButton_Click);
-            // 
-            // CancelarButton
-            // 
-            this.CancelarButton.AccessibleDescription = "Cancelar operação";
-            this.CancelarButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CancelarButton.Image = global::GTI_v4.Properties.Resources.cancel2;
-            this.CancelarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CancelarButton.Name = "CancelarButton";
-            this.CancelarButton.Size = new System.Drawing.Size(23, 22);
-            this.CancelarButton.Text = "btCancelar";
-            this.CancelarButton.ToolTipText = "Cancelar";
-            this.CancelarButton.Click += new System.EventHandler(this.CancelarButton_Click);
-            // 
-            // DelEnderecoButton
-            // 
-            this.DelEnderecoButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DelEnderecoButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.DelEnderecoButton.FlatAppearance.BorderSize = 0;
-            this.DelEnderecoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.DelEnderecoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.DelEnderecoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DelEnderecoButton.Image = global::GTI_v4.Properties.Resources.cancelar;
-            this.DelEnderecoButton.Location = new System.Drawing.Point(423, 65);
-            this.DelEnderecoButton.Name = "DelEnderecoButton";
-            this.DelEnderecoButton.Size = new System.Drawing.Size(19, 19);
-            this.DelEnderecoButton.TabIndex = 20;
-            this.tTp.SetToolTip(this.DelEnderecoButton, "Excluir o endereço de ocorrência selecionado");
-            this.DelEnderecoButton.UseVisualStyleBackColor = true;
-            this.DelEnderecoButton.Click += new System.EventHandler(this.DelEnderecoButton_Click);
-            // 
-            // AddEnderecoButton
-            // 
-            this.AddEnderecoButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddEnderecoButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AddEnderecoButton.FlatAppearance.BorderSize = 0;
-            this.AddEnderecoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.AddEnderecoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.AddEnderecoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddEnderecoButton.Image = global::GTI_v4.Properties.Resources.add;
-            this.AddEnderecoButton.Location = new System.Drawing.Point(423, 40);
-            this.AddEnderecoButton.Name = "AddEnderecoButton";
-            this.AddEnderecoButton.Size = new System.Drawing.Size(19, 19);
-            this.AddEnderecoButton.TabIndex = 19;
-            this.tTp.SetToolTip(this.AddEnderecoButton, "Adcionar um endereço de ocorrência");
-            this.AddEnderecoButton.UseVisualStyleBackColor = true;
-            this.AddEnderecoButton.Click += new System.EventHandler(this.AddEnderecoButton_Click);
-            // 
-            // DocumentoEditButton
-            // 
-            this.DocumentoEditButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DocumentoEditButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.DocumentoEditButton.FlatAppearance.BorderSize = 0;
-            this.DocumentoEditButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.DocumentoEditButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.DocumentoEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DocumentoEditButton.Image = global::GTI_v4.Properties.Resources.Alterar;
-            this.DocumentoEditButton.Location = new System.Drawing.Point(115, 52);
-            this.DocumentoEditButton.Name = "DocumentoEditButton";
-            this.DocumentoEditButton.Size = new System.Drawing.Size(19, 19);
-            this.DocumentoEditButton.TabIndex = 16;
-            this.tTp.SetToolTip(this.DocumentoEditButton, "Editar documentos");
-            this.DocumentoEditButton.UseVisualStyleBackColor = true;
-            this.DocumentoEditButton.Click += new System.EventHandler(this.DocumentoEditButton_Click);
-            // 
-            // GuiaButton
-            // 
-            this.GuiaButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GuiaButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.GuiaButton.FlatAppearance.BorderSize = 0;
-            this.GuiaButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.GuiaButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.GuiaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GuiaButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GuiaButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.GuiaButton.Image = global::GTI_v4.Properties.Resources.print;
-            this.GuiaButton.Location = new System.Drawing.Point(116, 0);
-            this.GuiaButton.Name = "GuiaButton";
-            this.GuiaButton.Size = new System.Drawing.Size(19, 19);
-            this.GuiaButton.TabIndex = 13;
-            this.tTp.SetToolTip(this.GuiaButton, "Gerar guia");
-            this.GuiaButton.UseVisualStyleBackColor = true;
-            // 
-            // CidadaoOldButton
-            // 
-            this.CidadaoOldButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CidadaoOldButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.CidadaoOldButton.FlatAppearance.BorderSize = 0;
-            this.CidadaoOldButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.CidadaoOldButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.CidadaoOldButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CidadaoOldButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CidadaoOldButton.ForeColor = System.Drawing.Color.Navy;
-            this.CidadaoOldButton.Image = global::GTI_v4.Properties.Resources.Consultar;
-            this.CidadaoOldButton.Location = new System.Drawing.Point(95, 0);
-            this.CidadaoOldButton.Name = "CidadaoOldButton";
-            this.CidadaoOldButton.Size = new System.Drawing.Size(19, 19);
-            this.CidadaoOldButton.TabIndex = 12;
-            this.tTp.SetToolTip(this.CidadaoOldButton, "Exibir cidadão gravado no processo original");
-            this.CidadaoOldButton.UseVisualStyleBackColor = true;
-            this.CidadaoOldButton.Click += new System.EventHandler(this.CidadaoOldButton_Click);
-            // 
-            // CidadaoEditButton
-            // 
-            this.CidadaoEditButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CidadaoEditButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.CidadaoEditButton.FlatAppearance.BorderSize = 0;
-            this.CidadaoEditButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.CidadaoEditButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.CidadaoEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CidadaoEditButton.Image = global::GTI_v4.Properties.Resources.Alterar;
-            this.CidadaoEditButton.Location = new System.Drawing.Point(73, 0);
-            this.CidadaoEditButton.Name = "CidadaoEditButton";
-            this.CidadaoEditButton.Size = new System.Drawing.Size(19, 19);
-            this.CidadaoEditButton.TabIndex = 11;
-            this.tTp.SetToolTip(this.CidadaoEditButton, "Editar requerente do processo");
-            this.CidadaoEditButton.UseVisualStyleBackColor = true;
-            this.CidadaoEditButton.Click += new System.EventHandler(this.CidadaoEditButton_Click);
-            // 
-            // AnexoDelButton
-            // 
-            this.AnexoDelButton.BackColor = System.Drawing.Color.Transparent;
-            this.AnexoDelButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AnexoDelButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AnexoDelButton.FlatAppearance.BorderSize = 0;
-            this.AnexoDelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.AnexoDelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-            this.AnexoDelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AnexoDelButton.Image = global::GTI_v4.Properties.Resources.delete;
-            this.AnexoDelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AnexoDelButton.Location = new System.Drawing.Point(401, 163);
-            this.AnexoDelButton.Name = "AnexoDelButton";
-            this.AnexoDelButton.Size = new System.Drawing.Size(112, 19);
-            this.AnexoDelButton.TabIndex = 22;
-            this.AnexoDelButton.Text = "Excluir um anexo";
-            this.AnexoDelButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.tTp.SetToolTip(this.AnexoDelButton, "Remover Anexo");
-            this.AnexoDelButton.UseVisualStyleBackColor = false;
-            this.AnexoDelButton.Click += new System.EventHandler(this.AnexoDelButton_Click);
-            // 
-            // AnexoSairButton
-            // 
-            this.AnexoSairButton.BackColor = System.Drawing.Color.Transparent;
-            this.AnexoSairButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AnexoSairButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AnexoSairButton.FlatAppearance.BorderSize = 0;
-            this.AnexoSairButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.AnexoSairButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-            this.AnexoSairButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AnexoSairButton.Image = global::GTI_v4.Properties.Resources.cancel2;
-            this.AnexoSairButton.Location = new System.Drawing.Point(501, 7);
-            this.AnexoSairButton.Name = "AnexoSairButton";
-            this.AnexoSairButton.Size = new System.Drawing.Size(19, 19);
-            this.AnexoSairButton.TabIndex = 21;
-            this.tTp.SetToolTip(this.AnexoSairButton, "Fechar tela de anexos");
-            this.AnexoSairButton.UseVisualStyleBackColor = false;
-            this.AnexoSairButton.Click += new System.EventHandler(this.AnexoSairButton_Click);
-            // 
-            // AnexoNovoButton
-            // 
-            this.AnexoNovoButton.BackColor = System.Drawing.Color.Transparent;
-            this.AnexoNovoButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AnexoNovoButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AnexoNovoButton.FlatAppearance.BorderSize = 0;
-            this.AnexoNovoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.AnexoNovoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-            this.AnexoNovoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AnexoNovoButton.Image = global::GTI_v4.Properties.Resources.add_file;
-            this.AnexoNovoButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AnexoNovoButton.Location = new System.Drawing.Point(283, 163);
-            this.AnexoNovoButton.Name = "AnexoNovoButton";
-            this.AnexoNovoButton.Size = new System.Drawing.Size(112, 19);
-            this.AnexoNovoButton.TabIndex = 20;
-            this.AnexoNovoButton.Text = "Incluir um anexo";
-            this.AnexoNovoButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.tTp.SetToolTip(this.AnexoNovoButton, "Adicionar Anexo");
-            this.AnexoNovoButton.UseVisualStyleBackColor = false;
-            this.AnexoNovoButton.Click += new System.EventHandler(this.AnexoNovoButton_Click);
-            // 
-            // PrintDocButton
-            // 
-            this.PrintDocButton.BackColor = System.Drawing.Color.Transparent;
-            this.PrintDocButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PrintDocButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.PrintDocButton.FlatAppearance.BorderSize = 0;
-            this.PrintDocButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.PrintDocButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-            this.PrintDocButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PrintDocButton.Image = global::GTI_v4.Properties.Resources.print;
-            this.PrintDocButton.Location = new System.Drawing.Point(268, 112);
-            this.PrintDocButton.Name = "PrintDocButton";
-            this.PrintDocButton.Size = new System.Drawing.Size(19, 19);
-            this.PrintDocButton.TabIndex = 18;
-            this.tTp.SetToolTip(this.PrintDocButton, "Gerar os relatórios");
-            this.PrintDocButton.UseVisualStyleBackColor = false;
-            this.PrintDocButton.Click += new System.EventHandler(this.PrintDocButton_Click);
-            // 
-            // CancelDocButton
-            // 
-            this.CancelDocButton.BackColor = System.Drawing.Color.Transparent;
-            this.CancelDocButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CancelDocButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.CancelDocButton.FlatAppearance.BorderSize = 0;
-            this.CancelDocButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.CancelDocButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-            this.CancelDocButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CancelDocButton.Image = global::GTI_v4.Properties.Resources.cancel2;
-            this.CancelDocButton.Location = new System.Drawing.Point(293, 112);
-            this.CancelDocButton.Name = "CancelDocButton";
-            this.CancelDocButton.Size = new System.Drawing.Size(19, 19);
-            this.CancelDocButton.TabIndex = 19;
-            this.tTp.SetToolTip(this.CancelDocButton, "Cancelar");
-            this.CancelDocButton.UseVisualStyleBackColor = false;
-            this.CancelDocButton.Click += new System.EventHandler(this.CancelDocButton_Click);
-            // 
-            // CancelPnlDocButton
-            // 
-            this.CancelPnlDocButton.BackColor = System.Drawing.Color.Transparent;
-            this.CancelPnlDocButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CancelPnlDocButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.CancelPnlDocButton.FlatAppearance.BorderSize = 0;
-            this.CancelPnlDocButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
-            this.CancelPnlDocButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-            this.CancelPnlDocButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CancelPnlDocButton.Image = global::GTI_v4.Properties.Resources.cancel2;
-            this.CancelPnlDocButton.Location = new System.Drawing.Point(436, 7);
-            this.CancelPnlDocButton.Name = "CancelPnlDocButton";
-            this.CancelPnlDocButton.Size = new System.Drawing.Size(19, 19);
-            this.CancelPnlDocButton.TabIndex = 20;
-            this.tTp.SetToolTip(this.CancelPnlDocButton, "Cancelar");
-            this.CancelPnlDocButton.UseVisualStyleBackColor = false;
-            this.CancelPnlDocButton.Click += new System.EventHandler(this.CancelPnlDocButton_Click);
-            // 
             // Processo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1701,6 +1701,7 @@
             this.MaximizeBox = false;
             this.Name = "Processo";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Controle de Processos";
             this.tBar.ResumeLayout(false);
             this.tBar.PerformLayout();

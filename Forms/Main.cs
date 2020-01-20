@@ -316,5 +316,27 @@ namespace GTI_v4.Forms {
             } else
                 MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void ControleProcessoMenu_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroProcesso);
+            if (bAllow) {
+
+                var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Processo);
+                if (formToShow != null) {
+                    formToShow.Show();
+                } else {
+                    Processo f1 = new Processo {
+                        Tag = "Menu",
+                        MdiParent = this
+                    };
+                    f1.Show();
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ProtocoloButton_Click(object sender, EventArgs e) {
+            ControleProcessoMenu_Click(sender, e);
+        }
     }
 }

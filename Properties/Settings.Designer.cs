@@ -166,5 +166,17 @@ namespace GTI_v4.Properties {
                 this["Form_Config_Location"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Work\\GTI_v4\\Reports")]
+        public string Path_Report {
+            get {
+                return ((string)(this["Path_Report"]));
+            }
+            set {
+                this["Path_Report"] = value;
+            }
+        }
     }
 }

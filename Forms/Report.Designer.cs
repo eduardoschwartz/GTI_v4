@@ -44,6 +44,7 @@
             this.ClientSize = new System.Drawing.Size(857, 599);
             this.Controls.Add(this.crViewer);
             this.DoubleBuffered = true;
+            this.MaximizeBox = false;
             this.Name = "Report";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -53,6 +54,6 @@
 
         #endregion
 
-        private CrystalDecisions.Windows.Forms.CrystalReportViewer crViewer;
+        public CrystalDecisions.Windows.Forms.CrystalReportViewer crViewer;
     }
 }
