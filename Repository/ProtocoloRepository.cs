@@ -68,8 +68,12 @@ namespace GTI_v4.Repository {
         public int Retorna_Numero_Disponivel(int Ano) {
             int maxCod = 0;
             using (GTI_Context db = new GTI_Context(_connection)) {
-                var Sql = (from p in db.Processogti where p.Ano == Ano select p.Numero).Max();
-                maxCod = Convert.ToInt32(Sql) + 1;
+                try {
+                    var Sql = (from p in db.Processogti where p.Ano == Ano select p.Numero).Max();
+                    maxCod = Convert.ToInt32(Sql) + 1;
+                } catch  {
+                    maxCod = 1;
+                }
             }
             return maxCod;
         }

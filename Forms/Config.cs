@@ -21,7 +21,7 @@ namespace GTI_v4.Forms {
                 DataBaseReal = Properties.Settings.Default.DataBaseReal,
                 DataBaseTeste = Properties.Settings.Default.DataBaseTeste
             };
-            Pms.PathReport = Pms.PathApp + "\\report";
+            Pms.PathReport = Properties.Settings.Default.Path_Report;
             Pms.PathAnexo = Properties.Settings.Default.Path_Anexo;
             Pms.ServerName = Properties.Settings.Default.ServerName;
             Pms.ComputerName = Environment.MachineName;
@@ -31,11 +31,14 @@ namespace GTI_v4.Forms {
 
         private void pGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) {
             if (e.OldValue != e.ChangedItem.Value) {
+                Main f1 = (Main)Application.OpenForms["Main"];
                 switch (e.ChangedItem.Label) {
                     case "Servidor de Dados":
                         Properties.Settings.Default.ServerName = e.ChangedItem.Value.ToString();
-
-                        Main f1 = (Main)Application.OpenForms["Main"];
+                        f1.ServidorToolStripStatus.Text = e.ChangedItem.Value.ToString();
+                        break;
+                    case "Caminho dos Relatórios":
+                        Properties.Settings.Default.Path_Report = e.ChangedItem.Value.ToString();
                         f1.ServidorToolStripStatus.Text = e.ChangedItem.Value.ToString();
                         break;
                     default:

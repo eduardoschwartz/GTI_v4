@@ -35,7 +35,7 @@ namespace GTI_v4.Classes {
             set { _pathapp = value; }
         }
 
-        [CategoryAttribute("Acesso"), DescriptionAttribute("Caminho dos relatórios"), ReadOnly(true), DisplayName("Caminho dos Relatórios")]
+        [CategoryAttribute("Acesso"), DescriptionAttribute("Caminho dos relatórios"), DisplayName("Caminho dos Relatórios")]
         public string PathReport {
             get { return _pathreport; }
             set { _pathreport = value; }

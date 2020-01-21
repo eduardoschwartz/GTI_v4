@@ -12,6 +12,7 @@ using GTI_v4.Models;
 using System.Data;
 using System.Globalization;
 using GTI_v4.ReportModels;
+using System.IO;
 
 namespace GTI_v4.Forms {
     public partial class Processo : Form {
@@ -1161,98 +1162,75 @@ namespace GTI_v4.Forms {
         }
 
         private void PrintRequerimento(bool bAbertura) {
+            string rptPath = System.IO.Path.Combine(Properties.Settings.Default.Path_Report, "Requerimento_Abertura.rpt");
+            if (!File.Exists(rptPath)) {
+                MessageBox.Show("Caminho " + rptPath + " não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            string EndImovel="";
             short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
             int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+            ProcessoStruct processo = _protocoloRepository.Dados_Processo(Ano_Processo, Num_Processo);
+            if (processo.ListaProcessoEndereco.Count == 0)
+                EndImovel = "";
+            else {
+                foreach (var item in processo.ListaProcessoEndereco) {
+                    if (!string.IsNullOrEmpty(item.NomeLogradouro))
+                        EndImovel += item.NomeLogradouro + " " + item.Numero + Environment.NewLine;
+                };
+            }
 
+            CidadaoStruct cidadao = _cidadaoRepository.LoadReg((int)processo.CodigoCidadao);
             List<Processo_Requerente> certidao = new List<Processo_Requerente>();
             Processo_Requerente reg = new Processo_Requerente() {
                 Ano_Processo = Ano_Processo,
                 Num_Processo = Num_Processo,
                 Seq = 1,
-                Numero_Processo = string.Format("{0}-{1}/{2}", Num_Processo, _protocoloRepository.DvProcesso(Num_Processo), Ano_Processo)
-
+                Numero_Processo = string.Format("{0}-{1}/{2}", Num_Processo, _protocoloRepository.DvProcesso(Num_Processo), Ano_Processo),
+                Endereco_Imovel = EndImovel,
+                Assunto = processo.Complemento
             };
+
+            if (cidadao != null) {
+                reg.Requerente = cidadao.Nome;
+                reg.Rg = cidadao.Rg ?? "";
+                if (cidadao.EtiquetaR == "S") {
+                    reg.Endereco = cidadao.EnderecoR + " " + cidadao.NumeroR;
+                    reg.Bairro = cidadao.NomeBairroR;
+                    reg.Cidade = cidadao.NomeCidadeR;
+                    reg.Uf = cidadao.UfR;
+                } else {
+                    reg.Endereco = cidadao.EnderecoC + " " + cidadao.NumeroC;
+                    reg.Bairro = cidadao.NomeBairroC;
+                    reg.Cidade = cidadao.NomeCidadeC;
+                    reg.Uf = cidadao.UfC;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(cidadao.Cnpj))
+                reg.Documento = Convert.ToUInt64(cidadao.Cnpj).ToString(@"00\.000\.000\/0000\-00");
+            else {
+                if (!string.IsNullOrEmpty(cidadao.Cpf))
+                    reg.Documento = Convert.ToUInt64(cidadao.Cpf).ToString(@"000\.000\.000\-00");
+            }
+
             certidao.Add(reg);
 
             ReportDocument rd = new ReportDocument();
-            string rptPath = System.IO.Path.Combine(Properties.Settings.Default.Path_Report, "Requererimento_Abertura.rpt");
             rd.Load(rptPath);
             try {
                 rd.SetDataSource(certidao);
                 Report rptViewer = new Report();
                 rptViewer.crViewer.ReportSource = rd;
+                Main f1 = (Main)Application.OpenForms["Main"];
+                rptViewer.MdiParent = f1;
+                rptViewer.crViewer.ShowGroupTreeButton = false;
+                rptViewer.crViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
                 rptViewer.Show();
             } catch {
                 throw;
             }
-            /* gtiCore.Ocupado(this);
-             string sReportName;
-             if (bAbertura)
-                 sReportName = "RequerimentoAbertura";
-             else
-                 sReportName = "RequerimentoCancelamento";
-             dsProcessoRequerente Ds = new dsProcessoRequerente();
-             DataTable dTable = new dsProcessoRequerente.dtProcessoRequerenteDataTable();
-
-             Processo_bll clsProcesso = new Processo_bll(_connection);
-             short Ano_Processo = clsProcesso.ExtractAnoProcesso(NumProcText.Text);
-             int Num_Processo = clsProcesso.ExtractNumeroProcessoNoDV(NumProcText.Text);
-             ProcessoStruct Reg = clsProcesso.Dados_Processo(Ano_Processo, Num_Processo);
-             int nSeq = 1;
-             if (Reg.ListaProcessoEndereco.Count == 0) {
-                 ProcessoEndStruct RegTmp = new ProcessoEndStruct {
-                     NomeLogradouro = ""
-                 };
-                 Reg.ListaProcessoEndereco.Add(RegTmp);
-             }
-             foreach (var item in Reg.ListaProcessoEndereco) {
-                 DataRow dRow = dTable.NewRow();
-                 if (!string.IsNullOrEmpty(item.NomeLogradouro))
-                     dRow["EnderecoOcorrencia"] = nSeq.ToString() + ") " + item.NomeLogradouro + " " + item.Numero;
-                 dRow["AnoProcesso"] = Ano_Processo;
-                 dRow["NumProcesso"] = Num_Processo;
-                 dRow["Seq"] = nSeq;
-                 dRow["NumeroProcesso"] = string.Format("{0}-{1}/{2}", Num_Processo, clsProcesso.DvProcesso(Num_Processo), Ano_Processo);
-                 dRow["Assunto"] = Reg.Complemento;
-
-                 Cidadao_bll clsCidadao = new Cidadao_bll(_connection);
-                 CidadaoStruct Reg2 = clsCidadao.LoadReg((int)Reg.CodigoCidadao);
-                 dRow["Requerente"] = Reg2.Nome;
-                 if (!string.IsNullOrEmpty(Reg2.Cnpj))
-                     dRow["Documento"] = Convert.ToUInt64(Reg2.Cnpj).ToString(@"00\.000\.000\/0000\-00");
-                 else {
-                     if (!string.IsNullOrEmpty(Reg2.Cpf))
-                         dRow["Documento"] = Convert.ToUInt64(Reg2.Cpf).ToString(@"000\.000\.000\-00");
-                     else
-                         dRow["Documento"] = Reg2.Rg;
-                 }
-                 if (ResOption.Checked) {
-                     dRow["Endereco"] = Reg2.EnderecoR + " " + Reg2.NumeroR;
-                     dRow["Bairro"] = Reg2.NomeBairroR;
-                     dRow["Cidade"] = Reg2.NomeCidadeR;
-                     dRow["UF"] = Reg2.UfR;
-                 } else {
-                     dRow["Endereco"] = Reg2.EnderecoC + " " + Reg2.NumeroC;
-                     dRow["Bairro"] = Reg2.NomeBairroC;
-                     dRow["Cidade"] = Reg2.NomeCidadeC;
-                     dRow["UF"] = Reg2.UfC;
-                 }
-                 dRow["RG"] = Reg2.Rg + " " + Reg2.Orgao;
-                 dRow["INSCRICAO"] = Reg.Inscricao;
-                 dRow["OBSERVACAO"] = Reg.Observacao;
-
-                 dTable.Rows.Add(dRow);
-                 nSeq++;
-             }
-
-             Ds.Tables.Add(dTable);
-             gtiCore.Liberado(this);
-             Report f1 = new Report(sReportName, Ds, 1, true, null) {
-                 Tag = this.Name
-             };
-             f1.ShowDialog();*/
-
         }
 
         private void PrintComunicadoDoc() {

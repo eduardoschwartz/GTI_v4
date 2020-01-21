@@ -17,6 +17,8 @@
         <xsd:element name="Bairro" type="xsd:string"></xsd:element>
         <xsd:element name="Cidade" type="xsd:string"></xsd:element>
         <xsd:element name="Uf" type="xsd:string"></xsd:element>
+        <xsd:element name="Endereco_Imovel" type="xsd:string"></xsd:element>
+        <xsd:element name="RG" type="xsd:string"></xsd:element>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>

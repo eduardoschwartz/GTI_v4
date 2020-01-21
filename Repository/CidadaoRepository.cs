@@ -41,6 +41,8 @@ namespace GTI_v4.Repository {
                                nomecidadeC = d2.Desccidade, nomepaisR = p.Nome_pais, nomepaisC = p2.Nome_pais, c.Temfone, c.Temfone2, c.Whatsapp, c.Whatsapp2
                            }).FirstOrDefault();
 
+                if (reg == null)
+                    return null;
 
                 CidadaoStruct Linha = new CidadaoStruct {
                     Codigo = reg.Codcidadao,

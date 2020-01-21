@@ -14,5 +14,7 @@ namespace GTI_v4.ReportModels {
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Uf { get; set; }
+        public string Endereco_Imovel { get; set; }
+        public string Rg { get; set; }
     }
 }
