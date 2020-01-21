@@ -242,6 +242,12 @@
     <Compile Include="ReportModels\Processo_Requerente.cs">
       <DependentUpon>Processo_Requerente.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Comprovante_Doc.cs">
+      <DependentUpon>Comprovante_Doc.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\Comunicado_Doc.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -331,6 +337,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\Comprovante_Doc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Comprovante_Doc.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Comunicado_Doc.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Comunicado_Doc.cs</LastGenOutput>
