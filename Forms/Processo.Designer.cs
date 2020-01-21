@@ -1084,13 +1084,13 @@
             this.PrintPanel.BorderColor = System.Drawing.Color.DimGray;
             this.PrintPanel.BorderWidth = 2;
             this.PrintPanel.Controls.Add(this.PrintDocButton);
-            this.PrintPanel.Controls.Add(this.Doc5Check);
             this.PrintPanel.Controls.Add(this.Doc4Check);
             this.PrintPanel.Controls.Add(this.Doc3Check);
             this.PrintPanel.Controls.Add(this.Doc2Check);
             this.PrintPanel.Controls.Add(this.Doc1Check);
             this.PrintPanel.Controls.Add(this.label6);
             this.PrintPanel.Controls.Add(this.CancelDocButton);
+            this.PrintPanel.Controls.Add(this.Doc5Check);
             this.PrintPanel.GradientEndColor = System.Drawing.Color.White;
             this.PrintPanel.GradientStartColor = System.Drawing.Color.PaleGreen;
             this.PrintPanel.Image = null;
@@ -1695,8 +1695,8 @@
             this.Controls.Add(this.RequerentePanel);
             this.Controls.Add(this.CidadaoPanel);
             this.Controls.Add(this.AnexoPanel);
-            this.Controls.Add(this.PrintPanel);
             this.Controls.Add(this.DocPanel);
+            this.Controls.Add(this.PrintPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Processo";

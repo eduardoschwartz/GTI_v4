@@ -236,8 +236,29 @@
     <Compile Include="Models\usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportModels\Processo_Documento.cs">
+      <DependentUpon>Processo_Documento.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportModels\Processo_Requerente.cs">
       <DependentUpon>Processo_Requerente.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Comunicado_Doc.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Comunicado_Doc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Processo_Requerente.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Processo_Requerente.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Requerimento_Cancel.cs">
+      <DependentUpon>Requerimento_Cancel.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\Requerimento_Abertura.cs">
       <AutoGen>True</AutoGen>
@@ -310,6 +331,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\Comunicado_Doc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Comunicado_Doc.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Processo_Requerente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Processo_Requerente.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Requerimento_Cancel.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Requerimento_Cancel.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Requerimento_Abertura.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Requerimento_Abertura.cs</LastGenOutput>
@@ -330,6 +363,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ReportModels\Processo_Documento.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ReportModels\Processo_Requerente.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -616,6 +652,7 @@
     <None Include="Resources\Error.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ReportModels\Processo_Documento.xml" />
     <Content Include="ReportModels\Processo_Requerente.xml" />
   </ItemGroup>
   <ItemGroup>

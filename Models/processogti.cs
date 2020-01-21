@@ -103,6 +103,14 @@ namespace GTI_v4.Models {
         public DateTime? DataEntrega { get; set; }
     }
 
+    public class ProcessoDocStructCrystal {
+        public int Ano_Processo { get; set; }
+        public int Num_Processo { get; set; }
+        public int Codigo { get; set; }
+        public string Descricao { get; set; }
+        public DateTime Data_Entrega { get; set; }
+    }
+
     public class ProcessoAnexoStruct {
         public int AnoAnexo { get; set; }
         public int NumeroAnexo { get; set; }
