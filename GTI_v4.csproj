@@ -348,6 +348,9 @@
     <EmbeddedResource Include="Forms\Processo.resx">
       <DependentUpon>Processo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Processo_Assunto.resx">
+      <DependentUpon>Processo_Assunto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Processo_Despacho.resx">
       <DependentUpon>Processo_Despacho.cs</DependentUpon>
     </EmbeddedResource>

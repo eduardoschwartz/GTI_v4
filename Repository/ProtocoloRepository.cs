@@ -1,13 +1,11 @@
-﻿using System;
+﻿using GTI_v4.Classes;
+using GTI_v4.Interfaces;
+using GTI_v4.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GTI_v4.Classes;
-using GTI_v4.Interfaces;
-using GTI_v4.Models;
 
 namespace GTI_v4.Repository {
     public class ProtocoloRepository :IProtocoloRepository{
@@ -1006,6 +1004,115 @@ namespace GTI_v4.Repository {
                 try {
                     db.Despacho.Remove(b);
                     db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public List<AssuntoLocal> Lista_Assunto_Local(short Assunto) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var Sql = (from a in db.Assuntocc join c in db.Centrocusto on a.Codcc equals c.Codigo where a.Codassunto == Assunto
+                           select new AssuntoLocal { Seq = (short)a.Seq, Codigo = (short)a.Codcc, Nome = c.Descricao }).OrderBy(u => u.Seq);
+                return Sql.ToList();
+            }
+        }
+
+        public Exception Incluir_Assunto(Assunto reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int cntCod = (from c in db.Assunto select c).Count();
+                int maxCod = 1;
+                if (cntCod > 0)
+                    maxCod = (from c in db.Assunto select c.Codigo).Max() + 1;
+                reg.Codigo = Convert.ToInt16(maxCod);
+
+                try {
+                    db.Database.ExecuteSqlCommand("INSERT INTO Assunto(Codigo,nome,ativo) VALUES(@Codigo,@nome,@ativo)",
+                        new SqlParameter("@Codigo", reg.Codigo),
+                        new SqlParameter("@nome", reg.Nome),
+                        new SqlParameter("@ativo", reg.Ativo));
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Incluir_Assunto_Local(List<Assuntocc> Lista) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    db.Database.ExecuteSqlCommand("DELETE FROM Assuntocc WHERE CodAssunto=@CodAssunto",
+                        new SqlParameter("@CodAssunto", Lista[0].Codassunto));
+                } catch (Exception ex) {
+                    return ex;
+                }
+
+                foreach (Assuntocc item in Lista) {
+                    Assuntocc reg = new Assuntocc {
+                        Codassunto = item.Codassunto,
+                        Codcc = item.Codcc,
+                        Seq = item.Seq
+                    };
+                    db.Assuntocc.Add(reg);
+                    try {
+                        db.SaveChanges();
+                    } catch (Exception ex) {
+                        return ex;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        public Exception Incluir_Assunto_Documento(List<Assuntodoc> Lista) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    db.Database.ExecuteSqlCommand("DELETE FROM Assuntodoc WHERE CodAssunto=@CodAssunto",
+                        new SqlParameter("@CodAssunto", Lista[0].Codassunto));
+                } catch (Exception ex) {
+                    return ex;
+                }
+
+                foreach (Assuntodoc item in Lista) {
+                    Assuntodoc reg = new Assuntodoc {
+                        Codassunto = item.Codassunto,
+                        Coddoc = item.Coddoc
+                    };
+                    db.Assuntodoc.Add(reg);
+                    try {
+                        db.SaveChanges();
+                    } catch (Exception ex) {
+                        return ex;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        public Exception Alterar_Assunto(Assunto reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int nCoddoc = reg.Codigo;
+                Assunto b = db.Assunto.First(i => i.Codigo == nCoddoc);
+                b.Nome = reg.Nome;
+                b.Ativo = reg.Ativo;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Excluir_Assunto(Assunto reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    db.Database.ExecuteSqlCommand("DELETE FROM Assuntodoc WHERE CodAssunto=@CodAssunto", new SqlParameter("@CodAssunto", reg.Codigo));
+                    db.Database.ExecuteSqlCommand("DELETE FROM Assuntocc WHERE CodAssunto=@CodAssunto", new SqlParameter("@CodAssunto", reg.Codigo));
+                    db.Database.ExecuteSqlCommand("DELETE FROM Assunto WHERE Codigo=@CodAssunto", new SqlParameter("@CodAssunto", reg.Codigo));
                 } catch (Exception ex) {
                     return ex;
                 }
