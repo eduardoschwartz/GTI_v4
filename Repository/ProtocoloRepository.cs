@@ -901,6 +901,118 @@ namespace GTI_v4.Repository {
             }
         }
 
+        public List<Documento> Lista_Documento() {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var Sql = from c in db.Documento orderby c.Nome select c;
+                return Sql.ToList();
+            }
+        }
+
+        public string Retorna_Documento(int Codigo) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                string Sql = (from c in db.Documento where c.Codigo == Codigo select c.Nome).FirstOrDefault();
+                return Sql;
+            }
+        }
+
+        public Exception Incluir_Documento(Documento reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int cntCod = (from c in db.Documento select c).Count();
+                short maxCod = 1;
+                if (cntCod > 0)
+                    maxCod = Convert.ToInt16((from c in db.Documento select c.Codigo).Max() + 1);
+                reg.Codigo = maxCod;
+                db.Documento.Add(reg);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Alterar_Documento(Documento reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int nCoddoc = reg.Codigo;
+                Documento b = db.Documento.First(i => i.Codigo == nCoddoc);
+                b.Nome = reg.Nome;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Excluir_Documento(Documento reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int nCoddoc = reg.Codigo;
+                Documento b = db.Documento.First(i => i.Codigo == nCoddoc);
+                try {
+                    db.Documento.Remove(b);
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public string Retorna_Despacho(int Codigo) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                string Sql = (from c in db.Despacho where c.Codigo == Codigo select c.Descricao).FirstOrDefault();
+                return Sql;
+            }
+        }
+
+        public Exception Incluir_Despacho(Despacho reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int cntCod = (from c in db.Despacho select c).Count();
+                int maxCod = 1;
+                if (cntCod > 0)
+                    maxCod = (from c in db.Despacho select c.Codigo).Max() + 1;
+                reg.Codigo = Convert.ToInt16(maxCod);
+                db.Despacho.Add(reg);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Alterar_Despacho(Despacho reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int nCoddoc = reg.Codigo;
+                Despacho b = db.Despacho.First(i => i.Codigo == nCoddoc);
+                b.Descricao = reg.Descricao;
+                b.Ativo = reg.Ativo;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Excluir_Despacho(Despacho reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int nCoddoc = reg.Codigo;
+                Despacho b = db.Despacho.First(i => i.Codigo == nCoddoc);
+                try {
+                    db.Despacho.Remove(b);
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
 
     }
 }

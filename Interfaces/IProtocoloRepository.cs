@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 namespace GTI_v4.Interfaces {
     public interface IProtocoloRepository {
+        Exception Alterar_Despacho(Despacho reg);
         Exception Alterar_Despacho(int Ano, int Numero, int Seq, short CodigoDespacho);
+        Exception Alterar_Documento(Documento reg);
         Exception Alterar_Observacao_Tramite(int Ano, int Numero, int Seq, string Observacao);
         Exception Alterar_Processo(Processogti reg);
         Exception Alterar_Tramite(Tramitacao Reg);
@@ -14,11 +16,15 @@ namespace GTI_v4.Interfaces {
         List<TramiteStruct> Dados_Tramite(short Ano, int Numero, int CodAssunto);
         int DvProcesso(int Numero);
         Exception Excluir_Anexo(Anexo reg, string usuario);
+        Exception Excluir_Despacho(Despacho reg);
+        Exception Excluir_Documento(Documento reg);
         Exception Excluir_Tramite(int Ano, int Numero, int Seq);
         bool Existe_Processo(int Ano, int Numero);
         short Extract_Ano_Processo(string NumProc);
         int Extract_Numero_ProcessoNoDV(string NumProc);
         Exception Incluir_Anexo(Anexo reg, string usuario);
+        Exception Incluir_Despacho(Despacho reg);
+        Exception Incluir_Documento(Documento reg);
         Exception Incluir_Historico_Processo(short Ano, int Numero, string Historico, string Usuario);
         Exception Incluir_MovimentoCC(short Ano, int Numero, List<TramiteStruct> Lista);
         Exception Incluir_Processo(Processogti reg);
@@ -26,6 +32,7 @@ namespace GTI_v4.Interfaces {
         Exception Incluir_Processo_Endereco(List<Processoend> Lista, int Ano, int Numero);
         Exception Incluir_Tramite(Tramitacao Reg);
         List<Despacho> Lista_Despacho();
+        List<Documento> Lista_Documento();
         List<ProcessoAnexoStruct> Lista_Processo_Anexo(int nAno, int nNumero);
         List<Anexo_logStruct> Lista_Processo_Anexo_Log(int nAno, int nNumero);
         List<ProcessoDocStruct> Lista_Processo_Doc(int nAno, int nNumero);
@@ -39,6 +46,8 @@ namespace GTI_v4.Interfaces {
         ProcessoCidadaoStruct Processo_cidadao_old(int ano, int numero);
         Exception Reativar_Processo(int Ano, int Numero, string Observacao);
         string Retorna_Assunto(int Codigo);
+        string Retorna_Despacho(int Codigo);
+        string Retorna_Documento(int Codigo);
         int Retorna_Numero_Disponivel(int Ano);
         string Retorna_Processo_com_DV(string Numero_Processo_sem_DV);
         Exception Suspender_Processo(int Ano, int Numero, string Observacao);

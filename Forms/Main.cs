@@ -351,5 +351,47 @@ namespace GTI_v4.Forms {
                 f1.Show();
             }
         }
+
+        private void DespachoMenu_Click(object sender, EventArgs e) {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Processo_Despacho);
+            if (formToShow != null) {
+                formToShow.Show();
+            } else {
+                Processo_Despacho f1 = new Processo_Despacho {
+                    Tag = "Menu",
+                    MdiParent = this
+                };
+                f1.Show();
+            }
+        }
+
+        private void AssuntoProcessoMenu_Click(object sender, EventArgs e) {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Processo_Assunto);
+            if (formToShow != null) {
+                formToShow.Show();
+            } else {
+                Processo_Assunto f1 = new Processo_Assunto {
+                    Tag = "Menu",
+                    MdiParent = this
+                };
+                f1.Show();
+            }
+        }
+
+        private void LocalTramiteMenu_Click(object sender, EventArgs e) {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Processo_Local);
+            if (formToShow != null) {
+                formToShow.Show();
+            } else {
+                Processo_Local f1 = new Processo_Local {
+                    Tag = "Menu",
+                    MdiParent = this
+                };
+                f1.Show();
+            }
+        }
+
+
+
     }
 }

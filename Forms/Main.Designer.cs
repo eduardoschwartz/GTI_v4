@@ -407,18 +407,21 @@
             this.DespachoMenu.Name = "DespachoMenu";
             this.DespachoMenu.Size = new System.Drawing.Size(249, 22);
             this.DespachoMenu.Text = "Despachos dos trâmites";
+            this.DespachoMenu.Click += new System.EventHandler(this.DespachoMenu_Click);
             // 
             // AssuntoProcessoMenu
             // 
             this.AssuntoProcessoMenu.Name = "AssuntoProcessoMenu";
             this.AssuntoProcessoMenu.Size = new System.Drawing.Size(249, 22);
             this.AssuntoProcessoMenu.Text = "Assuntos do processo";
+            this.AssuntoProcessoMenu.Click += new System.EventHandler(this.AssuntoProcessoMenu_Click);
             // 
             // LocalTramiteMenu
             // 
             this.LocalTramiteMenu.Name = "LocalTramiteMenu";
             this.LocalTramiteMenu.Size = new System.Drawing.Size(249, 22);
             this.LocalTramiteMenu.Text = "Local de tramitação de processos";
+            this.LocalTramiteMenu.Click += new System.EventHandler(this.LocalTramiteMenu_Click);
             // 
             // ControleProcessoMenu
             // 
