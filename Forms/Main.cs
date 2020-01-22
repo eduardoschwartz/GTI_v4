@@ -338,5 +338,18 @@ namespace GTI_v4.Forms {
         private void ProtocoloButton_Click(object sender, EventArgs e) {
             ControleProcessoMenu_Click(sender, e);
         }
+
+        private void DocumentacaoProcessoMenu_Click(object sender, EventArgs e) {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Processo_Documento);
+            if (formToShow != null) {
+                formToShow.Show();
+            } else {
+                Processo_Documento f1 = new Processo_Documento {
+                    Tag = "Menu",
+                    MdiParent = this
+                };
+                f1.Show();
+            }
+        }
     }
 }

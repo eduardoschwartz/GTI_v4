@@ -395,5 +395,6 @@ namespace GTI_v4.Forms {
             Properties.Settings.Default.Form_Processo_Lista_Size = new Size( Size.Width,Size.Height);
             Properties.Settings.Default.Save();
         }
+
     }
 }

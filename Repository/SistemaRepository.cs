@@ -22,7 +22,7 @@ namespace GTI_v4.Repository {
 
         public string Retorna_User_FullName(string login) {
             using (GTI_Context db = new GTI_Context(Connection)) {
-                string Sql = (from u in db.Usuario where u.Nomelogin == login select u.Senha2).FirstOrDefault();
+                string Sql = (from u in db.Usuario where u.Nomelogin == login select u.Nomecompleto).FirstOrDefault();
                 return Sql;
             }
         }

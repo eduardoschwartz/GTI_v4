@@ -400,6 +400,7 @@
             this.DocumentacaoProcessoMenu.Name = "DocumentacaoProcessoMenu";
             this.DocumentacaoProcessoMenu.Size = new System.Drawing.Size(249, 22);
             this.DocumentacaoProcessoMenu.Text = "Documentação para processos";
+            this.DocumentacaoProcessoMenu.Click += new System.EventHandler(this.DocumentacaoProcessoMenu_Click);
             // 
             // DespachoMenu
             // 
@@ -942,6 +943,7 @@
             // 
             this.LedGreen.AutoSize = false;
             this.LedGreen.BackColor = System.Drawing.SystemColors.Control;
+            this.LedGreen.Image = global::GTI_v4.Properties.Resources.ledgreen;
             this.LedGreen.Name = "LedGreen";
             this.LedGreen.Size = new System.Drawing.Size(20, 19);
             // 
@@ -950,6 +952,7 @@
             this.LedRed.AutoSize = false;
             this.LedRed.BackColor = System.Drawing.SystemColors.Control;
             this.LedRed.Enabled = false;
+            this.LedRed.Image = global::GTI_v4.Properties.Resources.ledred;
             this.LedRed.Name = "LedRed";
             this.LedRed.Size = new System.Drawing.Size(20, 19);
             // 
