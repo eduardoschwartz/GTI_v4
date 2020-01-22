@@ -236,11 +236,14 @@
     <Compile Include="Interfaces\ITributarioRepository.cs" />
     <Compile Include="Models\anexo.cs" />
     <Compile Include="Models\anexolog.cs" />
+    <Compile Include="Models\areas.cs" />
     <Compile Include="Models\assunto.cs" />
     <Compile Include="Models\assuntocc.cs" />
     <Compile Include="Models\assuntodoc.cs" />
     <Compile Include="Models\bairro.cs" />
+    <Compile Include="Models\benfeitoria.cs" />
     <Compile Include="Models\cadimob.cs" />
+    <Compile Include="Models\categprop.cs" />
     <Compile Include="Models\centrocusto.cs" />
     <Compile Include="Models\cep.cs" />
     <Compile Include="Models\cidadao.cs" />
@@ -250,6 +253,7 @@
     <Compile Include="Models\documento.cs" />
     <Compile Include="Models\endentrega.cs" />
     <Compile Include="Models\endereco.cs" />
+    <Compile Include="Models\facequadra.cs" />
     <Compile Include="Models\historico_cidadao.cs" />
     <Compile Include="Models\logradouro.cs" />
     <Compile Include="Models\mobiliario.cs" />
@@ -257,19 +261,25 @@
     <Compile Include="Models\mobiliarioproprietario.cs" />
     <Compile Include="Models\obscidadao.cs" />
     <Compile Include="Models\pais.cs" />
+    <Compile Include="Models\pedologia.cs" />
     <Compile Include="Models\processocidadao.cs" />
     <Compile Include="Models\processodoc.cs" />
     <Compile Include="Models\processoend.cs" />
     <Compile Include="Models\processogti.cs" />
     <Compile Include="Models\processo_historico.cs" />
     <Compile Include="Models\profissao.cs" />
+    <Compile Include="Models\proprietario.cs" />
     <Compile Include="Models\security_event.cs" />
+    <Compile Include="Models\situacao.cs" />
+    <Compile Include="Models\topografia.cs" />
     <Compile Include="Models\tramitacao.cs" />
     <Compile Include="Models\tramitacaocc.cs" />
     <Compile Include="Models\uf.cs" />
+    <Compile Include="Models\usoterreno.cs" />
     <Compile Include="Models\usuario.cs" />
     <Compile Include="Models\usuariocc.cs" />
     <Compile Include="Models\usuariofunc.cs" />
+    <Compile Include="Models\vwproprietarioduplicado.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportModels\Processo_Documento.cs">
@@ -359,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Processo_Lista.resx">
       <DependentUpon>Processo_Lista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Processo_Local.resx">
+      <DependentUpon>Processo_Local.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Processo_Tramite.resx">
       <DependentUpon>Processo_Tramite.cs</DependentUpon>

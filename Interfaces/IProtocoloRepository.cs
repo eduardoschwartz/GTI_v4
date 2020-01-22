@@ -8,6 +8,7 @@ namespace GTI_v4.Interfaces {
         Exception Alterar_Despacho(Despacho reg);
         Exception Alterar_Despacho(int Ano, int Numero, int Seq, short CodigoDespacho);
         Exception Alterar_Documento(Documento reg);
+        Exception Alterar_Local(Centrocusto reg);
         Exception Alterar_Observacao_Tramite(int Ano, int Numero, int Seq, string Observacao);
         Exception Alterar_Processo(Processogti reg);
         Exception Alterar_Tramite(Tramitacao Reg);
@@ -20,6 +21,7 @@ namespace GTI_v4.Interfaces {
         Exception Excluir_Assunto(Assunto reg);
         Exception Excluir_Despacho(Despacho reg);
         Exception Excluir_Documento(Documento reg);
+        Exception Excluir_Local(int Codigo);
         Exception Excluir_Tramite(int Ano, int Numero, int Seq);
         bool Existe_Processo(int Ano, int Numero);
         short Extract_Ano_Processo(string NumProc);
@@ -31,6 +33,7 @@ namespace GTI_v4.Interfaces {
         Exception Incluir_Despacho(Despacho reg);
         Exception Incluir_Documento(Documento reg);
         Exception Incluir_Historico_Processo(short Ano, int Numero, string Historico, string Usuario);
+        Exception Incluir_Local(Centrocusto reg);
         Exception Incluir_MovimentoCC(short Ano, int Numero, List<TramiteStruct> Lista);
         Exception Incluir_Processo(Processogti reg);
         Exception Incluir_Processo_Documento(List<Processodoc> Lista, int Ano, int Numero);
@@ -56,6 +59,7 @@ namespace GTI_v4.Interfaces {
         string Retorna_Documento(int Codigo);
         int Retorna_Numero_Disponivel(int Ano);
         string Retorna_Processo_com_DV(string Numero_Processo_sem_DV);
+        short Retorna_Ultimo_Codigo_Local();
         Exception Suspender_Processo(int Ano, int Numero, string Observacao);
         Exception Valida_Processo(string sInput);
     }

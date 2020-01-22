@@ -20,11 +20,14 @@ namespace GTI_v4 {
 
         public DbSet<Anexo> Anexo { get; set; }
         public DbSet<Anexo_log> Anexo_log { get; set; }
+        public DbSet<Areas> Areas { get; set; }
         public DbSet<Assunto> Assunto { get; set; }
         public DbSet<Assuntocc> Assuntocc { get; set; }
         public DbSet<Assuntodoc> Assuntodoc { get; set; }
         public DbSet<Bairro> Bairro { get; set; }
+        public DbSet<Benfeitoria> Benfeitoria { get; set; }
         public DbSet<Cadimob> Cadimob { get; set; }
+        public DbSet<Categprop> Categprop { get; set; }
         public DbSet<Centrocusto> Centrocusto { get; set; }
         public DbSet<Cep> Cep { get; set; }
         public DbSet<Cidadao> Cidadao { get; set; }
@@ -34,6 +37,7 @@ namespace GTI_v4 {
         public DbSet<Documento> Documento { get; set; }
         public DbSet<Endentrega> EndEntrega { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
+        public DbSet<Facequadra> Facequadra { get; set; }
         public DbSet<Historicocidadao> HistoricoCidadao { get; set; }
         public DbSet<Logradouro> Logradouro { get; set; }
         public DbSet<Mobiliario> Mobiliario { get; set; }
@@ -41,18 +45,24 @@ namespace GTI_v4 {
         public DbSet<Mobiliarioproprietario> MobiliarioProprietario { get; set; }
         public DbSet<ObsCidadao> ObsCidadao { get; set; }
         public DbSet<Pais> Pais { get; set; }
+        public DbSet<Pedologia> Pedologia { get; set; }
         public DbSet<Processo_historico> Processo_historico { get; set; }
         public DbSet<Processodoc> Processodoc { get; set; }
         public DbSet<Processoend> Processoend { get; set; }
         public DbSet<Processogti> Processogti { get; set; }
         public DbSet<Processocidadao> ProcessoCidadao { get; set; }
         public DbSet<Profissao> Profissao { get; set; }
+        public DbSet<Proprietario> Proprietario { get; set; }
         public DbSet<Security_event> Security_Event { get; set; }
+        public DbSet<Situacao> Situacao { get; set; }
+        public DbSet<Topografia> Topografia { get; set; }
         public DbSet<Tramitacao> Tramitacao { get; set; }
         public DbSet<Tramitacaocc> Tramitacaocc { get; set; }
         public DbSet<Uf> Uf { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Usuariocc> Usuariocc { get; set; }
+        public DbSet<Usoterreno> Usoterreno { get; set; }
         public DbSet<Usuariofunc> Usuariofunc { get; set; }
+        public DbSet<Vwproprietarioduplicado> Vwproprietarioduplicado { get; set; }
     }
 }

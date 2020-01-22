@@ -1120,6 +1120,58 @@ namespace GTI_v4.Repository {
             }
         }
 
+        public Exception Incluir_Local(Centrocusto reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int cntCod = (from c in db.Centrocusto select c).Count();
+                int maxCod = 1;
+                if (cntCod > 0)
+                    maxCod = (from c in db.Centrocusto select c.Codigo).Max() + 1;
+                reg.Codigo = Convert.ToInt16(maxCod);
+                db.Centrocusto.Add(reg);
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Excluir_Local(int Codigo) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                Centrocusto b = db.Centrocusto.First(i => i.Codigo == Codigo);
+                try {
+                    db.Centrocusto.Remove(b);
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public short Retorna_Ultimo_Codigo_Local() {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var Sql = (from c in db.Centrocusto orderby c.Codigo descending select c.Codigo).FirstOrDefault();
+                return Sql;
+            }
+        }
+
+        public Exception Alterar_Local(Centrocusto reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                int nCodigo = reg.Codigo;
+                Centrocusto b = db.Centrocusto.First(i => i.Codigo == nCodigo);
+                b.Descricao = reg.Descricao;
+                b.Telefone = reg.Telefone;
+                b.Ativo = reg.Ativo;
+                try {
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
 
     }
 }
