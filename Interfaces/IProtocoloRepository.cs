@@ -25,6 +25,7 @@ namespace GTI_v4.Interfaces {
         List<Assunto> Lista_Assunto(bool Somente_Ativo, bool Somente_Inativo, string Filter = "");
         List<AssuntoDocStruct> Lista_Assunto_Documento(short Assunto);
         List<Centrocusto> Lista_Local(bool Somente_Ativo, bool Local);
+        List<ProcessoStruct> Lista_Processos(ProcessoFilter Filter);
         ProcessoCidadaoStruct Processo_cidadao_old(int ano, int numero);
         Exception Reativar_Processo(int Ano, int Numero, string Observacao);
         string Retorna_Assunto(int Codigo);

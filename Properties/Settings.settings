@@ -41,5 +41,8 @@
     <Setting Name="Path_Report" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\Work\GTI_v4\Reports</Value>
     </Setting>
+    <Setting Name="Form_Processo_Lista_Size" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">700, 450</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

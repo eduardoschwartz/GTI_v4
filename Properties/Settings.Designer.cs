@@ -178,5 +178,17 @@ namespace GTI_v4.Properties {
                 this["Path_Report"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("700, 450")]
+        public global::System.Drawing.Size Form_Processo_Lista_Size {
+            get {
+                return ((global::System.Drawing.Size)(this["Form_Processo_Lista_Size"]));
+            }
+            set {
+                this["Form_Processo_Lista_Size"] = value;
+            }
+        }
     }
 }
