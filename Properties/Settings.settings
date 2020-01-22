@@ -44,5 +44,8 @@
     <Setting Name="Form_Processo_Lista_Size" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">700, 450</Value>
     </Setting>
+    <Setting Name="Form_Processo_Tramite_Size" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">810, 418</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

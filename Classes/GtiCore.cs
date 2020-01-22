@@ -517,6 +517,11 @@ namespace GTI_v4.Classes {
             return fi;
         }
 
+        public static DateTime Retorna_Data_Base_Sistema() {
+            Main f1 = (Main)Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Forms.Main);
+            return f1.ReturnDataBaseValue();
+        }
+
     }
 
 }

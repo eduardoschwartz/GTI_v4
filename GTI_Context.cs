@@ -21,6 +21,7 @@ namespace GTI_v4 {
         public DbSet<Anexo> Anexo { get; set; }
         public DbSet<Anexo_log> Anexo_log { get; set; }
         public DbSet<Assunto> Assunto { get; set; }
+        public DbSet<Assuntocc> Assuntocc { get; set; }
         public DbSet<Assuntodoc> Assuntodoc { get; set; }
         public DbSet<Bairro> Bairro { get; set; }
         public DbSet<Cadimob> Cadimob { get; set; }
@@ -29,6 +30,7 @@ namespace GTI_v4 {
         public DbSet<Cidadao> Cidadao { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
         public DbSet<Condominio> Condominio { get; set; }
+        public DbSet<Despacho> Despacho { get; set; }
         public DbSet<Documento> Documento { get; set; }
         public DbSet<Endentrega> EndEntrega { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
@@ -46,9 +48,11 @@ namespace GTI_v4 {
         public DbSet<Processocidadao> ProcessoCidadao { get; set; }
         public DbSet<Profissao> Profissao { get; set; }
         public DbSet<Security_event> Security_Event { get; set; }
+        public DbSet<Tramitacao> Tramitacao { get; set; }
+        public DbSet<Tramitacaocc> Tramitacaocc { get; set; }
         public DbSet<Uf> Uf { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
-
-
+        public DbSet<Usuariocc> Usuariocc { get; set; }
+        public DbSet<Usuariofunc> Usuariofunc { get; set; }
     }
 }

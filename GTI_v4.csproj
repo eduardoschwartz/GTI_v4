@@ -213,6 +213,7 @@
     <Compile Include="Models\anexo.cs" />
     <Compile Include="Models\anexolog.cs" />
     <Compile Include="Models\assunto.cs" />
+    <Compile Include="Models\assuntocc.cs" />
     <Compile Include="Models\assuntodoc.cs" />
     <Compile Include="Models\bairro.cs" />
     <Compile Include="Models\cadimob.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Models\cidadao.cs" />
     <Compile Include="Models\cidade.cs" />
     <Compile Include="Models\condominio.cs" />
+    <Compile Include="Models\despacho.cs" />
     <Compile Include="Models\documento.cs" />
     <Compile Include="Models\endentrega.cs" />
     <Compile Include="Models\endereco.cs" />
@@ -238,8 +240,12 @@
     <Compile Include="Models\processo_historico.cs" />
     <Compile Include="Models\profissao.cs" />
     <Compile Include="Models\security_event.cs" />
+    <Compile Include="Models\tramitacao.cs" />
+    <Compile Include="Models\tramitacaocc.cs" />
     <Compile Include="Models\uf.cs" />
     <Compile Include="Models\usuario.cs" />
+    <Compile Include="Models\usuariocc.cs" />
+    <Compile Include="Models\usuariofunc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportModels\Processo_Documento.cs">
@@ -320,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Processo_Lista.resx">
       <DependentUpon>Processo_Lista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Processo_Tramite.resx">
+      <DependentUpon>Processo_Tramite.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Profissao.resx">
       <DependentUpon>Profissao.cs</DependentUpon>

@@ -493,7 +493,7 @@ namespace GTI_v4.Forms {
 
         private void CarregaProcesso() {
             if (!String.IsNullOrEmpty(NumProcText.Text)) {
-                Exception ex = _protocoloRepository.ValidaProcesso(NumProcText.Text);
+                Exception ex = _protocoloRepository.Valida_Processo(NumProcText.Text);
                 if (ex == null) {
                     bExec = false;
                     LoadReg();
@@ -519,8 +519,8 @@ namespace GTI_v4.Forms {
                 if (formToShow != null)
                     formToShow.Show();
 
-                short nAnoProc = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-                int nNumeroProc = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+                short nAnoProc = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+                int nNumeroProc = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
                 Forms.Processo_Tramite f1 = new Processo_Tramite(nAnoProc, nNumeroProc) {
                     Tag = this.Name
                 };
@@ -569,11 +569,11 @@ namespace GTI_v4.Forms {
             InputBox iBox = new InputBox();
             String sData = iBox.Show("", "Informe  o Processo", "Digite o Nº do Processo à ser anexado.", 12);
             if (!string.IsNullOrEmpty(sData)) {
-                Exception ex = _protocoloRepository.ValidaProcesso(sData);
+                Exception ex = _protocoloRepository.Valida_Processo(sData);
                 if (ex == null) {
                     if (MessageBox.Show("Deseja anexar o processo: " + sData + "?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
-                        int nAnoAnexo = _protocoloRepository.ExtractAnoProcesso(sData);
-                        int nNumeroAnexo = _protocoloRepository.ExtractNumeroProcessoNoDV(sData);
+                        int nAnoAnexo = _protocoloRepository.Extract_Ano_Processo(sData);
+                        int nNumeroAnexo = _protocoloRepository.Extract_Numero_ProcessoNoDV(sData);
                         ProcessoStruct reg = _protocoloRepository.Dados_Processo(nAnoAnexo, nNumeroAnexo);
                         string sNumProcesso = reg.SNumero;
                         foreach (ListViewItem item in MainListView.Items) {
@@ -588,8 +588,8 @@ namespace GTI_v4.Forms {
                         lvi.SubItems.Add(reg.Complemento);
                         MainListView.Items.Add(lvi);
 
-                        short nAnoProc = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-                        int nNumeroProc = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+                        short nAnoProc = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+                        int nNumeroProc = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
 
                         Models.Anexo reg_anexo = new Models.Anexo {
                             Ano = nAnoProc,
@@ -626,11 +626,11 @@ namespace GTI_v4.Forms {
             else {
                 if (MessageBox.Show("Remover o anoexo " + MainListView.SelectedItems[0].Text, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
                     string sNumProcesso = MainListView.SelectedItems[0].Text;
-                    short nAno = _protocoloRepository.ExtractAnoProcesso(sNumProcesso);
-                    int nNumero = _protocoloRepository.ExtractNumeroProcessoNoDV(sNumProcesso);
+                    short nAno = _protocoloRepository.Extract_Ano_Processo(sNumProcesso);
+                    int nNumero = _protocoloRepository.Extract_Numero_ProcessoNoDV(sNumProcesso);
                     Models.Anexo reganexo = new Models.Anexo {
-                        Ano = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text),
-                        Numero = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text),
+                        Ano = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text),
+                        Numero = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text),
                         Anoanexo = nAno,
                         Numeroanexo = nNumero
                     };
@@ -661,7 +661,7 @@ namespace GTI_v4.Forms {
 
         private void CidadaoOldButton_Click(object sender, EventArgs e) {
             if (!string.IsNullOrEmpty(NumProcText.Text)) {
-                ProcessoCidadaoStruct row = _protocoloRepository.Processo_cidadao_old(_protocoloRepository.ExtractAnoProcesso(NumProcText.Text), _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text));
+                ProcessoCidadaoStruct row = _protocoloRepository.Processo_cidadao_old(_protocoloRepository.Extract_Ano_Processo(NumProcText.Text), _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text));
                 if (row == null) {
                     MessageBox.Show("Cidadão original não gravado para este processo.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
@@ -712,8 +712,8 @@ namespace GTI_v4.Forms {
                             ReativaLabel.Text = EmptyDateText;
                             SuspensaoLabel.Text = EmptyDateText;
                             ArquivaLabel.Text = EmptyDateText;
-                            short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-                            int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+                            short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+                            int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
                             string sHist = "Cancelamento do processo --> " + ObsCancela;
                             _protocoloRepository.Incluir_Historico_Processo(Ano_Processo, Num_Processo, sHist, GtiCore.Retorna_Last_User());
                             _protocoloRepository.Cancelar_Processo(Ano_Processo, Num_Processo, ObsCancela);
@@ -747,8 +747,8 @@ namespace GTI_v4.Forms {
                             SuspensaoLabel.Text = EmptyDateText;
                             ArquivaLabel.Text = EmptyDateText;
                             CancelaLabel.Text = EmptyDateText;
-                            short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-                            int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+                            short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+                            int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
                             string sHist = "Reativação do processo --> " + ObsReativa;
                             _protocoloRepository.Incluir_Historico_Processo(Ano_Processo, Num_Processo, sHist, GtiCore.Retorna_Last_User());
                             _protocoloRepository.Reativar_Processo(Ano_Processo, Num_Processo, ObsReativa);
@@ -785,8 +785,8 @@ namespace GTI_v4.Forms {
                                 ReativaLabel.Text = EmptyDateText;
                                 ArquivaLabel.Text = EmptyDateText;
                                 CancelaLabel.Text = EmptyDateText;
-                                short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-                                int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+                                short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+                                int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
                                 string sHist = "Suspenção do processo --> " + ObsSuspende;
                                 _protocoloRepository.Incluir_Historico_Processo(Ano_Processo, Num_Processo, sHist, GtiCore.Retorna_Last_User());
                                 _protocoloRepository.Suspender_Processo(Ano_Processo, Num_Processo, ObsReativa);
@@ -823,8 +823,8 @@ namespace GTI_v4.Forms {
                             ReativaLabel.Text = EmptyDateText;
                             ArquivaLabel.Text = DateTime.Now.ToString("dd/MM/yyyy");
                             CancelaLabel.Text = EmptyDateText;
-                            short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-                            int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+                            short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+                            int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
                             string sHist = "Arquivação do processo --> " + ObsArquiva;
                             _protocoloRepository.Incluir_Historico_Processo(Ano_Processo, Num_Processo, sHist, GtiCore.Retorna_Last_User());
                             _protocoloRepository.Arquivar_Processo(Ano_Processo, Num_Processo, ObsArquiva);
@@ -837,8 +837,8 @@ namespace GTI_v4.Forms {
 
         private void LoadReg() {
             GtiCore.Ocupado(this);
-            _numero_processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
-            _ano_processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
+            _numero_processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
+            _ano_processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
             ProcessoStruct Reg = _protocoloRepository.Dados_Processo(_ano_processo, _numero_processo);
             AssuntoCombo.SelectedValue = Convert.ToInt32(Reg.CodigoAssunto);
             AssuntoText.Text = AssuntoCombo.Text;
@@ -1114,8 +1114,8 @@ namespace GTI_v4.Forms {
                 return;
             }
 
-            short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-            int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+            short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+            int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
             ProcessoStruct processo = _protocoloRepository.Dados_Processo(Ano_Processo, Num_Processo);
             
 
@@ -1185,8 +1185,8 @@ namespace GTI_v4.Forms {
             }
 
             string EndImovel="";
-            short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-            int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+            short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+            int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
             ProcessoStruct processo = _protocoloRepository.Dados_Processo(Ano_Processo, Num_Processo);
             if (processo.ListaProcessoEndereco.Count == 0)
                 EndImovel = "";
@@ -1248,7 +1248,7 @@ namespace GTI_v4.Forms {
                 rptViewer.crViewer.ShowGroupTreeButton = false;
                 rptViewer.crViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
                 rptViewer.Show();
-            } catch (Exception ex) {
+            } catch {
                 throw;
             }
         }
@@ -1263,8 +1263,8 @@ namespace GTI_v4.Forms {
             }
 
             string EndImovel = "";
-            short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-            int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+            short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+            int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
             ProcessoStruct processo = _protocoloRepository.Dados_Processo(Ano_Processo, Num_Processo);
             if (processo.ListaProcessoEndereco.Count == 0)
                 EndImovel = "";
@@ -1275,7 +1275,7 @@ namespace GTI_v4.Forms {
                 };
             }
 
-            List<ProcessoDocStruct> ListaDoc = _protocoloRepository.ListProcessoDoc(Ano_Processo, Num_Processo);
+            List<ProcessoDocStruct> ListaDoc = _protocoloRepository.Lista_Processo_Doc(Ano_Processo, Num_Processo);
             List<ProcessoDocStructCrystal> ListaDocCrystal = new List<ProcessoDocStructCrystal>();
             foreach (ProcessoDocStruct item in ListaDoc) {
                 ProcessoDocStructCrystal x = new ProcessoDocStructCrystal() {
@@ -1354,8 +1354,8 @@ namespace GTI_v4.Forms {
             }
 
             string EndImovel = "";
-            short Ano_Processo = _protocoloRepository.ExtractAnoProcesso(NumProcText.Text);
-            int Num_Processo = _protocoloRepository.ExtractNumeroProcessoNoDV(NumProcText.Text);
+            short Ano_Processo = _protocoloRepository.Extract_Ano_Processo(NumProcText.Text);
+            int Num_Processo = _protocoloRepository.Extract_Numero_ProcessoNoDV(NumProcText.Text);
             ProcessoStruct processo = _protocoloRepository.Dados_Processo(Ano_Processo, Num_Processo);
             if (processo.ListaProcessoEndereco.Count == 0)
                 EndImovel = "";
@@ -1366,7 +1366,7 @@ namespace GTI_v4.Forms {
                 };
             }
 
-            List<ProcessoDocStruct> ListaDoc = _protocoloRepository.ListProcessoDoc(Ano_Processo, Num_Processo);
+            List<ProcessoDocStruct> ListaDoc = _protocoloRepository.Lista_Processo_Doc(Ano_Processo, Num_Processo);
             List<ProcessoDocStructCrystal> ListaDocCrystal = new List<ProcessoDocStructCrystal>();
             foreach (ProcessoDocStruct item in ListaDoc.Where(c=>c.DataEntrega!=null)) {
                 ProcessoDocStructCrystal x = new ProcessoDocStructCrystal() {

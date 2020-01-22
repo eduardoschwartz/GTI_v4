@@ -271,7 +271,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public Exception ValidaProcesso(string sInput) {
+        public Exception Valida_Processo(string sInput) {
             Exception AppEx;
             string sNumero = sInput.Trim();
             int Numero, Ano ,Dv ;
@@ -340,7 +340,7 @@ namespace GTI_v4.Repository {
             return bValido;
         }
 
-        public int ExtractNumeroProcessoNoDV(string NumProc) {
+        public int Extract_Numero_ProcessoNoDV(string NumProc) {
             if (String.IsNullOrWhiteSpace(NumProc))
                 return 0;
             else {
@@ -355,12 +355,12 @@ namespace GTI_v4.Repository {
             string sAno;
             int nNumero, nDv;
             sAno = GtiCore.StringRight(Numero_Processo_sem_DV, 4);
-            nNumero = ExtractNumeroProcessoNoDV(Numero_Processo_sem_DV);
+            nNumero = Extract_Numero_ProcessoNoDV(Numero_Processo_sem_DV);
             nDv = DvProcesso(nNumero);
             return nNumero.ToString() + "-" + nDv.ToString() + "/" + sAno;
         }
 
-        public short ExtractAnoProcesso(string NumProc) {
+        public short Extract_Ano_Processo(string NumProc) {
             return Convert.ToInt16(GtiCore.StringRight(NumProc, 4));
         }
 
@@ -393,9 +393,9 @@ namespace GTI_v4.Repository {
                 row.DataReativacao = reg.DataReativacao;
                 row.DataCancelado = reg.DataCancelado;
                 row.DataArquivado = reg.DataArquivado;
-                row.ListaAnexo = ListProcessoAnexo(nAno, nNumero);
-                row.Anexo = ListProcessoAnexo(nAno, nNumero).Count().ToString() + " Anexo(s)";
-                row.ListaAnexoLog = ListProcessoAnexoLog(nAno, nNumero);
+                row.ListaAnexo = Lista_Processo_Anexo(nAno, nNumero);
+                row.Anexo = Lista_Processo_Anexo(nAno, nNumero).Count().ToString() + " Anexo(s)";
+                row.ListaAnexoLog = Lista_Processo_Anexo_Log(nAno, nNumero);
                 row.Interno = Convert.ToBoolean(reg.Interno);
                 row.Fisico = Convert.ToBoolean(reg.Fisico);
                 row.Origem = Convert.ToInt16(reg.Origem);
@@ -411,12 +411,12 @@ namespace GTI_v4.Repository {
                     row.CodigoCidadao = 0;
                     row.NomeCidadao = "";
                 }
-                row.ListaProcessoEndereco = ListProcessoEnd(nAno, nNumero);
+                row.ListaProcessoEndereco = Lista_Processo_End(nAno, nNumero);
                 row.ObsArquiva = reg.ObsArquiva;
                 row.ObsCancela = reg.ObsCancela;
                 row.ObsReativa = reg.ObsReativa;
                 row.ObsSuspensao = reg.ObsSuspensao;
-                row.ListaProcessoDoc = ListProcessoDoc(nAno, nNumero);
+                row.ListaProcessoDoc = Lista_Processo_Doc(nAno, nNumero);
                 if (reg.TipoEnd == "1" || reg.TipoEnd == "2")
                     row.TipoEnd = reg.TipoEnd.ToString();
                 else
@@ -433,7 +433,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public List<ProcessoDocStruct> ListProcessoDoc(int nAno, int nNumero) {
+        public List<ProcessoDocStruct> Lista_Processo_Doc(int nAno, int nNumero) {
             using (GTI_Context db = new GTI_Context(_connection)) {
                 var Sql = (from pd in db.Processodoc join d in db.Documento on pd.Coddoc equals d.Codigo where pd.Ano == nAno && pd.Numero == nNumero
                            select new ProcessoDocStruct { CodigoDocumento = pd.Coddoc, NomeDocumento = d.Nome, DataEntrega = pd.Data });
@@ -441,7 +441,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public List<ProcessoEndStruct> ListProcessoEnd(int nAno, int nNumero) {
+        public List<ProcessoEndStruct> Lista_Processo_End(int nAno, int nNumero) {
             using (GTI_Context db = new GTI_Context(_connection)) {
                 var Sql = (from pe in db.Processoend join l in db.Logradouro on pe.Codlogr equals l.Codlogradouro where pe.Ano == nAno && pe.Numprocesso == nNumero
                            select new ProcessoEndStruct { CodigoLogradouro = pe.Codlogr, NomeLogradouro = l.Endereco, Numero = pe.Numero });
@@ -449,7 +449,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public List<ProcessoAnexoStruct> ListProcessoAnexo(int nAno, int nNumero) {
+        public List<ProcessoAnexoStruct> Lista_Processo_Anexo(int nAno, int nNumero) {
             using (GTI_Context db = new GTI_Context(_connection)) {
                 var Sql = (from a in db.Anexo join p in db.Processogti on new { p1 = a.Anoanexo, p2 = a.Numeroanexo } equals new { p1 = p.Ano, p2 = p.Numero }
                            join c in db.Cidadao on p.Codcidadao equals c.Codcidadao into pc from c in pc.DefaultIfEmpty()
@@ -460,7 +460,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public List<Anexo_logStruct> ListProcessoAnexoLog(int nAno, int nNumero) {
+        public List<Anexo_logStruct> Lista_Processo_Anexo_Log(int nAno, int nNumero) {
             using (GTI_Context db = new GTI_Context(_connection)) {
                 var Sql = (from a in db.Anexo_log
                            join u in db.Usuario on a.Userid equals u.Id into ac from u in ac.DefaultIfEmpty()
@@ -686,6 +686,217 @@ namespace GTI_v4.Repository {
                 if (Filter.Interno != null)
                     Sql = Sql.Where(c => c.Interno == Filter.Interno);
 
+                return Sql.ToList();
+            }
+        }
+
+        public List<TramiteStruct> Dados_Tramite(short Ano, int Numero, int CodAssunto) {
+            List<TramiteStruct> Lista = new List<TramiteStruct>();
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var reg = (from v in db.Tramitacaocc where v.Ano == Ano && v.Numero == Numero orderby v.Seq select new { v.Seq, v.Ccusto });
+                if (reg.Count() > 0) {
+                    var reg5 = (from tcc in db.Tramitacaocc join cc in db.Centrocusto on tcc.Ccusto equals cc.Codigo where tcc.Ano == Ano && tcc.Numero == Numero select new { tcc.Seq, tcc.Ccusto, cc.Descricao, cc.Telefone });
+                    foreach (var query in reg5) {
+                        TramiteStruct Linha = new TramiteStruct {
+                            Seq = query.Seq,
+                            CentroCustoCodigo = Convert.ToInt16(query.Ccusto),
+                            CentroCustoNome = query.Descricao,
+                            Telefone = query.Telefone
+                        };
+                        Lista.Add(Linha);
+                    }
+                } else {
+                    var reg2 = (from t in db.Tramitacao join cc in db.Centrocusto on t.Ccusto equals cc.Codigo into tcc from cc in tcc.DefaultIfEmpty()
+                                where t.Ano == Ano && t.Numero == Numero
+                                select new { t.Seq, t.Ccusto, cc.Descricao });
+                    foreach (var query in reg2) {
+                        TramiteStruct Linha = new TramiteStruct {
+                            Seq = query.Seq,
+                            CentroCustoCodigo = Convert.ToInt16(query.Ccusto),
+                            CentroCustoNome = query.Descricao
+                        };
+                        Lista.Add(Linha);
+                    }
+                    var reg3 = (from a in db.Assuntocc join cc in db.Centrocusto on a.Codcc equals cc.Codigo
+                                where a.Codassunto == CodAssunto select new { a.Seq, cc.Codigo, cc.Descricao });
+                    foreach (var query in reg3) {
+                        TramiteStruct Linha = new TramiteStruct {
+                            Seq = query.Seq,
+                            CentroCustoCodigo = Convert.ToInt16(query.Codigo),
+                            CentroCustoNome = query.Descricao
+                        };
+                        Lista.Add(Linha);
+                    }
+                    Incluir_MovimentoCC(Ano, Numero, Lista);
+                }
+
+                //Verifica os trâmites concluidos
+                string sFullName = "";
+                for (int i = 0; i < Lista.Count; i++) {
+                    short Seq = Convert.ToInt16(Lista[i].Seq);
+                    var reg4 = (from t in db.Tramitacao
+                                join d in db.Despacho on t.Despacho equals d.Codigo into td from d in td.DefaultIfEmpty()
+                                join u in db.Usuario on t.Userid equals u.Id into tu from u in tu.DefaultIfEmpty()
+                                where t.Ano == Ano && t.Numero == Numero && t.Seq == Seq
+                                select new { t.Seq, t.Ccusto, t.Datahora, t.Dataenvio, d.Descricao, t.Userid, t.Userid2, Usuario1 = u.Nomelogin, t.Obs });
+
+                    foreach (var query in reg4) {
+                        Lista[i].DataEntrada = query.Datahora.ToString() == "" ? "" : DateTime.Parse(query.Datahora.ToString()).ToString("dd/MM/yyyy");
+                        Lista[i].HoraEntrada = query.Datahora.ToString() == "" ? "" : DateTime.Parse(query.Datahora.ToString()).ToString("hh:mm");
+                        sFullName = String.IsNullOrEmpty(query.Usuario1) ? "" : _sistemaRepository.Retorna_User_FullName(query.Usuario1);
+                        Lista[i].Userid1 = query.Userid;
+                        Lista[i].Usuario1 = sFullName;
+                        Lista[i].DespachoNome = String.IsNullOrEmpty(query.Descricao) ? "" : query.Descricao;
+                        Lista[i].DataEnvio = query.Dataenvio == null ? "" : DateTime.Parse(query.Dataenvio.ToString()).ToString("dd/MM/yyyy");
+                        Lista[i].Userid2 = query.Userid2;
+
+                        if (query.Userid2 != null) {
+                            string NomeLogin = _sistemaRepository.Retorna_User_LoginName((int)query.Userid2);
+                            Lista[i].Usuario2 = _sistemaRepository.Retorna_User_FullName(NomeLogin);
+                        } else
+                            Lista[i].Usuario2 = "";
+                        Lista[i].Obs = String.IsNullOrEmpty(query.Obs) ? "" : query.Obs;
+                    }
+                }
+            }
+            return Lista;
+        }
+
+        public Exception Incluir_MovimentoCC(short Ano, int Numero, List<TramiteStruct> Lista) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                string sql = "DELETE FROM TRAMITACAOCC WHERE ANO = @P0 AND NUMERO=@P1";
+                List<object> parameterList = new List<object> {
+                    Ano,
+                    Numero
+                };
+                object[] parameters1 = parameterList.ToArray();
+                int result = db.Database.ExecuteSqlCommand(sql, parameters1);
+
+                short x = 1;
+                foreach (TramiteStruct item in Lista) {
+                    Tramitacaocc NewReg = new Tramitacaocc {
+                        Ano = Convert.ToInt16(Ano),
+                        Numero = Numero,
+                        Seq = x,
+                        Ccusto = Convert.ToInt16(item.CentroCustoCodigo)
+                    };
+                    db.Tramitacaocc.Add(NewReg);
+
+                    try {
+                        db.SaveChanges();
+                    } catch (Exception ex) {
+                        return ex.InnerException;
+                    }
+                    x++;
+                }
+                return null;
+            }
+        }
+
+        public List<UsuariocentroCusto> Lista_CentroCusto_Usuario(int idLogin) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var reg = (from u in db.Usuariocc join c in db.Centrocusto on u.Codigocc equals c.Codigo where u.Userid == idLogin
+                           select new UsuariocentroCusto { Codigo = u.Codigocc, Nome = c.Descricao });
+                List<UsuariocentroCusto> Lista = new List<UsuariocentroCusto>();
+                foreach (var query in reg) {
+                    UsuariocentroCusto Linha = new UsuariocentroCusto {
+                        Codigo = query.Codigo,
+                        Nome = query.Nome
+                    };
+                    Lista.Add(Linha);
+                }
+                return Lista;
+            }
+        }
+
+        public Exception Alterar_Observacao_Tramite(int Ano, int Numero, int Seq, string Observacao) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    Tramitacao t = db.Tramitacao.First(i => i.Ano == Ano && i.Numero == Numero && i.Seq == Seq);
+                    t.Obs = string.IsNullOrWhiteSpace(Observacao) ? null : Observacao;
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Alterar_Despacho(int Ano, int Numero, int Seq, short CodigoDespacho) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    Tramitacao t = db.Tramitacao.First(i => i.Ano == Ano && i.Numero == Numero && i.Seq == Seq);
+                    t.Despacho = CodigoDespacho;
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public List<UsuarioFuncStruct> Lista_Funcionario(int LoginId) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var reg = (from f in db.Usuariofunc join u in db.Usuario on f.Funclogin equals u.Nomelogin
+                           where f.Userid == LoginId orderby u.Nomecompleto select new { f.Funclogin, u.Nomecompleto });
+                List<UsuarioFuncStruct> Lista = new List<UsuarioFuncStruct>();
+
+                foreach (var query in reg) {
+                    UsuarioFuncStruct Linha = new UsuarioFuncStruct {
+                        FuncLogin = Convert.ToInt16(query.Funclogin.Substring(query.Funclogin.Length - 3)),
+                        NomeCompleto = query.Nomecompleto
+                    };
+                    Lista.Add(Linha);
+                }
+                return Lista;
+            }
+        }
+
+        public Exception Excluir_Tramite(int Ano, int Numero, int Seq) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    Tramitacao t = db.Tramitacao.FirstOrDefault(i => i.Ano == Ano && i.Numero == Numero && i.Seq == Seq);
+                    if (t != null) {
+                        db.Tramitacao.Remove(t);
+                        db.SaveChanges();
+                    }
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Incluir_Tramite(Tramitacao Reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    db.Tramitacao.Add(Reg);
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public Exception Alterar_Tramite(Tramitacao Reg) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                try {
+                    Tramitacao t = db.Tramitacao.First(i => i.Ano == Reg.Ano && i.Numero == Reg.Numero && i.Seq == Reg.Seq);
+                    t.Despacho = Reg.Despacho;
+                    t.Dataenvio = Reg.Dataenvio;
+                    t.Userid2 = Reg.Userid2;
+                    db.SaveChanges();
+                } catch (Exception ex) {
+                    return ex;
+                }
+                return null;
+            }
+        }
+
+        public List<Despacho> Lista_Despacho() {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                var Sql = (from c in db.Despacho select c);
                 return Sql.ToList();
             }
         }

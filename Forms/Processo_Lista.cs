@@ -173,8 +173,8 @@ namespace GTI_v4.Forms {
             //***Construção do filtro ****
             ProcessoFilter Reg = new ProcessoFilter();
             if (!string.IsNullOrEmpty(NumeroProcesso.Text)) {
-                Reg.Ano = protocoloRepository.ExtractAnoProcesso(NumeroProcesso.Text);
-                Reg.Numero = protocoloRepository.ExtractNumeroProcessoNoDV(NumeroProcesso.Text);
+                Reg.Ano = protocoloRepository.Extract_Ano_Processo(NumeroProcesso.Text);
+                Reg.Numero = protocoloRepository.Extract_Numero_ProcessoNoDV(NumeroProcesso.Text);
                 Reg.SNumProcesso = NumeroProcesso.Text;
             } else {
                 Reg.Ano = 0;
@@ -313,7 +313,7 @@ namespace GTI_v4.Forms {
         private bool ValidaProcesso() {
             bool bRet = true;
             if (!String.IsNullOrEmpty(NumeroProcesso.Text)) {
-                Exception ex = protocoloRepository.ValidaProcesso(NumeroProcesso.Text);
+                Exception ex = protocoloRepository.Valida_Processo(NumeroProcesso.Text);
                 if (ex != null)
                     bRet = false;
             }
