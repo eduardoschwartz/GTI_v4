@@ -1,22 +1,63 @@
 ﻿using GTI_v4.Classes;
 using GTI_v4.Models;
+using System;
 using System.Collections.Generic;
 
 namespace GTI_v4.Interfaces {
     public interface IImobiliarioRepository {
+        Exception Alterar_Condominio(Condominio reg);
+        Exception Alterar_Imovel(Cadimob reg);
+        CondominioStruct Dados_Condominio(int Codigo);
         EnderecoStruct Dados_Endereco(int Codigo, GtiCore.TipoEndereco Tipo);
         ImovelStruct Dados_Imovel(int nCodigo);
+        Laseriptu Dados_IPTU(int Codigo, int Ano);
+        List<Laseriptu> Dados_IPTU(int Codigo);
         bool Existe_Bairro_Condominio(string UF, int Cidade, int Bairro);
         bool Existe_Bairro_Entrega(string UF, int Cidade, int Bairro);
         bool Existe_Bairro_Localizacao(string UF, int Cidade, int Bairro);
+        bool Existe_Face_Quadra(int Distrito, int Setor, int Quadra, int Face);
         bool Existe_Imovel(int nCodigo);
         int Existe_Imovel(int distrito, int setor, int quadra, int lote, int unidade, int subunidade);
+        List<Foto_Imovel> Lista_Foto_Imovel(int Codigo);
+        Exception Incluir_Area(List<Areas> areas);
+        Exception Incluir_Area_Condominio(List<Condominioarea> areas);
+        Exception Incluir_Comunicado_Isencao(Comunicado_Isencao Reg);
+        Exception Incluir_Condominio(Condominio reg);
+        Exception Incluir_Historico(List<Historico> historicos);
+        Exception Incluir_Imovel(Cadimob reg);
+        Exception Incluir_Proprietario(List<Proprietario> Lista);
+        Exception Incluir_Testada(List<Testada> testadas);
+        Exception Incluir_Testada_Condominio(List<Testadacondominio> testadas);
+        Exception Incluir_Unidade_Condominio(List<Condominiounidade> unidades);
+        Exception Inativar_Imovel(int Codigo);
+        ImovelStruct Inscricao_Imovel(int Logradouro, short Numero);
         int Qtde_Imovel_Cidadao(int CodigoImovel);
+        List<AreaStruct> Lista_Area(int Codigo);
+        List<Benfeitoria> Lista_Benfeitoria();
+        List<Categconstr> Lista_Categoria_Construcao();
+        List<Categprop> Lista_Categoria_Propriedade();
+        List<int> Lista_Comunicado_Isencao();
+        List<Condominio> Lista_Condominio();
         List<FacequadraStruct> Lista_FaceQuadra(int distrito, int setor, int quadra, int face);
+        List<HistoricoStruct> Lista_Historico(int Codigo);
+        List<ImovelStruct> Lista_Imovel(ImovelStruct Reg, ImovelStruct OrderByField);
+        List<int> Lista_Imovel_Ativo();
+        List<IsencaoStruct> Lista_Imovel_Isencao(int Codigo, int Ano = 0);
         List<LogradouroStruct> Lista_Logradouro(string Filter = "");
+        List<Pedologia> Lista_Pedologia();
         List<ProprietarioStruct> Lista_Proprietario(int CodigoImovel, bool Principal = false);
+        List<Situacao> Lista_Situacao();
+        List<Testada> Lista_Testada(int Codigo);
+        List<Testadacondominio> Lista_Testada_Condominio(int Codigo);
+        List<Tipoconstr> Lista_Tipo_Construcao();
+        List<Topografia> Lista_Topografia();
+        List<Condominiounidade> Lista_Unidade_Condominio(int Codigo);
+        List<Usoconstr> Lista_Uso_Construcao();
+        List<Usoterreno> Lista_Uso_Terreno();
+        int Retorna_Codigo_Condominio_Disponivel();
+        int Retorna_Codigo_Disponivel();
         int Retorna_Imovel_Inscricao(int distrito, int setor, int quadra, int lote, int face, int unidade, int subunidade);
         decimal Soma_Area(int Codigo);
-
+        bool Verifica_Imunidade(int Codigo);
     }
 }
