@@ -130,6 +130,12 @@
     <Compile Include="Forms\ErrorBox.Designer.cs">
       <DependentUpon>ErrorBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Imovel_Lista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Imovel_Lista.Designer.cs">
+      <DependentUpon>Imovel_Lista.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Imovel_Novo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,6 +265,7 @@
     <Compile Include="Models\condominio.cs" />
     <Compile Include="Models\condominioarea.cs" />
     <Compile Include="Models\condominiounidade.cs" />
+    <Compile Include="Models\contribuinte_header.cs" />
     <Compile Include="Models\despacho.cs" />
     <Compile Include="Models\documento.cs" />
     <Compile Include="Models\endentrega.cs" />
@@ -360,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ErrorBox.resx">
       <DependentUpon>ErrorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Imovel_Lista.resx">
+      <DependentUpon>Imovel_Lista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Imovel_Novo.resx">
       <DependentUpon>Imovel_Novo.cs</DependentUpon>

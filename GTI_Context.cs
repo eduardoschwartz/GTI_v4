@@ -37,6 +37,7 @@ namespace GTI_v4 {
         public DbSet<Condominio> Condominio { get; set; }
         public DbSet<Condominioarea> Condominioarea { get; set; }
         public DbSet<Condominiounidade> Condominiounidade { get; set; }
+        public DbSet<Contribuinte_Header> Contribuinte_Header { get; set; }
         public DbSet<Despacho> Despacho { get; set; }
         public DbSet<Documento> Documento { get; set; }
         public DbSet<Endentrega> EndEntrega { get; set; }

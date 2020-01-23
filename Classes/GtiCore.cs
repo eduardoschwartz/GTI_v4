@@ -15,7 +15,7 @@ namespace GTI_v4.Classes {
     public static class GtiCore {
 
         public enum ETweakMode { Normal, AllLetters, AllLettersAllCaps, AllLettersAllSmall, AlphaNumeric, AlphaNumericAllCaps, AlphaNumericAllSmall, IntegerPositive, DecimalPositive };
-        public enum LocalEndereco { Imovel, Empresa, Cidadao }
+        public enum TipoCadastro { Imovel, Empresa, Cidadao }
         public enum EventoForm { Nenhum = 0, Insert = 1, Edit = 2, Delete = 3, Print = 4 }
         public enum TipoEndereco { Local, Proprietario, Entrega }
 

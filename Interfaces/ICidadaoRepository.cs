@@ -6,6 +6,7 @@ namespace GTI_v4.Interfaces {
     public interface ICidadaoRepository {
         Exception Alterar_cidadao(Cidadao reg);
         Exception Alterar_Profissao(Profissao reg);
+        CidadaoStruct Dados_Cidadao(int _codigo);
         Exception Excluir_cidadao(int Codigo);
         Exception Excluir_Profissao(Profissao reg);
         bool Existe_Bairro(string UF, int Cidade, int Bairro);
