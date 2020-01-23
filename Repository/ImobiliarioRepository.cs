@@ -624,8 +624,7 @@ namespace GTI_v4.Repository {
                 row.Uso_terreno_Nome = reg.Uso_terreno_Nome;
 
                 if (reg.Codigo_Logradouro > 0) {
-                    Endereco_Data Cep_Class = new Endereco_Data(_connection);
-                    int nCep = Cep_Class.RetornaCep((int)reg.Codigo_Logradouro, (short)reg.Numero);
+                    int nCep = enderecoRepository.RetornaCep((int)reg.Codigo_Logradouro, (short)reg.Numero);
                     row.Cep = nCep == 0 ? "00000000" : nCep.ToString("0000");
                 }
 

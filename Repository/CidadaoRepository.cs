@@ -409,6 +409,13 @@ namespace GTI_v4.Repository {
             }
         }
 
+        public string Retorna_Nome_Cidadao(int Codigo) {
+            using (GTI_Context db = new GTI_Context(_connection)) {
+                string Sql = (from c in db.Cidadao where c.Codcidadao == Codigo select c.Nomecidadao).FirstOrDefault();
+                return Sql;
+            }
+        }
+
 
 
     }

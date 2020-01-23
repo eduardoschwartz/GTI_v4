@@ -33,6 +33,7 @@ namespace GTI_v4.Interfaces {
         ImovelStruct Inscricao_Imovel(int Logradouro, short Numero);
         int Qtde_Imovel_Cidadao(int CodigoImovel);
         List<AreaStruct> Lista_Area(int Codigo);
+        List<AreaStruct> Lista_Area_Condominio(int Codigo);
         List<Benfeitoria> Lista_Benfeitoria();
         List<Categconstr> Lista_Categoria_Construcao();
         List<Categprop> Lista_Categoria_Propriedade();

@@ -23,5 +23,6 @@ namespace GTI_v4.Interfaces {
         bool Profissao_cidadao(int id_profissao);
         Cidadao Retorna_Cidadao(int Codigo);
         int Retorna_Ultimo_Codigo_Cidadao();
+        string Retorna_Nome_Cidadao(int Codigo);
     }
 }
