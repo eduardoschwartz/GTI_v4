@@ -2,7 +2,9 @@
 using GTI_v4.Interfaces;
 using GTI_v4.Models;
 using GTI_v4.Repository;
+using OfficeOpenXml;
 using System;
+using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +13,9 @@ using System.Windows.Forms;
 namespace GTI_v4.Forms {
     public partial class Imovel_Lista : Form {
         IImobiliarioRepository imobiliarioRepository = new ImobiliarioRepository(GtiCore.Connection_Name());
+        ISistemaRepository sistemaRepository = new SistemaRepository(GtiCore.Connection_Name());
+
+
         public int ReturnValue { get; set; }
         List<ArrayList> aDatResult;
         int _File_Version = Properties.Settings.Default.gti_001_version;
@@ -146,7 +151,7 @@ namespace GTI_v4.Forms {
                 var result = form.ShowDialog(this);
                 if (result == DialogResult.OK) {
                     int val = form.ReturnValue;
-                    Contribuinte_Header_Struct reg = sistema_Class.Contribuinte_Header(val);
+                    Contribuinte_Header reg = sistemaRepository.Contribuinte_Header(val);
                     Proprietario.Text = reg.Nome;
                     Proprietario.Tag = val.ToString();
                 }
@@ -164,8 +169,6 @@ namespace GTI_v4.Forms {
             MainListView.EndUpdate();
 
             GtiCore.Ocupado(this);
-            Imovel_bll imovel_Class = new Imovel_bll(_connection);
-
             ImovelStruct Reg = new ImovelStruct {
                 Codigo = string.IsNullOrEmpty(Codigo.Text) ? 0 : Convert.ToInt32(Codigo.Text),
                 Proprietario_Principal = PrincipalCheckBox.Checked
@@ -205,7 +208,7 @@ namespace GTI_v4.Forms {
                 _orderby.NomeBairro = "X";
             else if (OrdemList.SelectedIndex == 5)
                 _orderby.NomeCondominio = "X";
-            List<ImovelStruct> Lista = imovel_Class.Lista_Imovel(Reg, _orderby);
+            List<ImovelStruct> Lista = imobiliarioRepository.Lista_Imovel(Reg, _orderby);
 
             int _pos = 0, _total = Lista.Count;
             if (aDatResult == null) aDatResult = new List<ArrayList>();
@@ -240,8 +243,7 @@ namespace GTI_v4.Forms {
                 var result = form.ShowDialog(this);
                 if (result == DialogResult.OK) {
                     short val = form.ReturnValue;
-                    Imovel_bll imovel_Class = new Imovel_bll(_connection);
-                    Condominio.Text = imovel_Class.Dados_Condominio(val).Nome;
+                    Condominio.Text = imobiliarioRepository.Dados_Condominio(val).Nome;
                     Condominio.Tag = val.ToString();
                 }
             }
@@ -258,7 +260,7 @@ namespace GTI_v4.Forms {
         }
 
         private void EnderecoAddButton_Click(object sender, EventArgs e) {
-            GTI_Models.Models.Endereco reg = new GTI_Models.Models.Endereco {
+            Models.Endereco reg = new Models.Endereco {
                 Id_pais = 1,
                 Sigla_uf = "SP",
                 Id_cidade = 413,
@@ -336,7 +338,6 @@ namespace GTI_v4.Forms {
                     MessageBox.Show("Seus dados foram exportados para o Excel com sucesso.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
         }
 
         private void MainListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e) {
@@ -377,10 +378,6 @@ namespace GTI_v4.Forms {
             SaveDatFile();
         }
 
-
-
-
-
-
+                          
     }
 }
