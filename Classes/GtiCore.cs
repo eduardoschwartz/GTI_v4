@@ -530,6 +530,23 @@ namespace GTI_v4.Classes {
                 return Regex.Replace(Numero, @"[^\d]", "");
         }
 
+        public static string Unifica_Cnae(int _divisao, int _grupo, int _classe, int _subclasse) {
+            return _divisao.ToString("00") + _grupo.ToString("0") + _classe.ToString("00").Substring(0, 1) + "-" + _classe.ToString("00").Substring(1, 1) + "/" + _subclasse.ToString("00");
+        }
+
+        public static string Mask(string sSqlField) {
+            return sSqlField.Replace("'", "''");
+        }
+
+        public static string Truncate(string str, int maxLength, string suffix) {
+            if (str.Length > maxLength) {
+                str = str.Substring(0, maxLength + 1);
+                str = str.Substring(0, Math.Min(str.Length, str.LastIndexOf(" ") == -1 ? 0 : str.LastIndexOf(" ")));
+                str = str + suffix;
+            }
+            return str.Trim();
+        }
+
     }
 
 }
