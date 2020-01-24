@@ -16,7 +16,7 @@ using static GTI_v4.Classes.GtiTypes;
 
 namespace GTI_v4.Forms {
     public partial class Imovel_Novo : Form {
-        IImobiliarioRepository imobiliarioRepository = new ImobiliarioRepository(GtiCore.Connection_Name());
+        readonly IImobiliarioRepository imobiliarioRepository = new ImobiliarioRepository(GtiCore.Connection_Name());
         #region Shadow
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -41,7 +41,6 @@ namespace GTI_v4.Forms {
         private bool m_aeroEnabled;                     // variables for box shadow
         private const int CS_DROPSHADOW = 0x00020000;
         private const int WM_NCPAINT = 0x0085;
-        private const int WM_ACTIVATEAPP = 0x001C;
 
         public struct MARGINS                           // struct for box shadow
         {
@@ -108,7 +107,7 @@ namespace GTI_v4.Forms {
         public string ReturnCondominio { get; set; }
         public int ReturnCondominioCodigo { get; set; }
         List<Condominiounidade> Condominios = new List<Condominiounidade>();
-        List<Models.Condominio> lista_condominios = new List<Models.Condominio>();
+        readonly List<Models.Condominio> lista_condominios = new List<Models.Condominio>();
 
         public Imovel_Novo() {
             m_aeroEnabled = false;
@@ -117,7 +116,9 @@ namespace GTI_v4.Forms {
             tBar.Renderer = new MySR();
             lista_condominios = imobiliarioRepository.Lista_Condominio();
             TipoList.Items.Add(new CustomListBoxItem("(Imóvel normal)", 0));
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
             List<CustomListBoxItem> myItems = new List<CustomListBoxItem>();
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
             foreach (Models.Condominio item in lista_condominios) {
                 TipoList.Items.Add(new CustomListBoxItem(item.Cd_nomecond, item.Cd_codigo));
             }
@@ -204,7 +205,7 @@ namespace GTI_v4.Forms {
             }
         }
 
-        private void CancelButton_Click(object sender, EventArgs e) {
+        private void CancButton_Click(object sender, EventArgs e) {
             DialogResult = DialogResult.Cancel;
             Close();
         }

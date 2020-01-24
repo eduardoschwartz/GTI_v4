@@ -182,11 +182,10 @@ namespace GTI_v4.Classes {
         public static string Connection_Name() {
             string connString = "";
             Ul = "gtisys"; Up = "everest";
-            Main f1 = (Main)Application.OpenForms["Main"];
             try {
-                BaseDados = f1.DataBaseToolStripStatus.Text;
+                BaseDados = "Tributacao";
                 connString = CreateConnectionString(Properties.Settings.Default.ServerName, Properties.Settings.Default.DataBaseReal, Ul, Up);//Base de testes por enquanto
-            } catch (Exception) {
+            } catch (Exception ex) {
             }
             return connString;
         }

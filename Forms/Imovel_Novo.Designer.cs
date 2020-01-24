@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             this.tBar = new System.Windows.Forms.ToolStrip();
             this.OkButton = new System.Windows.Forms.ToolStripButton();
-            this.CancelButton = new System.Windows.Forms.ToolStripButton();
+            this.CancButton = new System.Windows.Forms.ToolStripButton();
             this.SubUnidadeList = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.UnidadeList = new System.Windows.Forms.ComboBox();
@@ -45,10 +45,10 @@
             this.tBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OkButton,
-            this.CancelButton});
+            this.CancButton});
             this.tBar.Location = new System.Drawing.Point(307, 105);
             this.tBar.Name = "tBar";
-            this.tBar.Size = new System.Drawing.Size(49, 25);
+            this.tBar.Size = new System.Drawing.Size(80, 25);
             this.tBar.TabIndex = 211;
             this.tBar.Text = "toolStrip1";
             // 
@@ -63,16 +63,16 @@
             this.OkButton.ToolTipText = "Criar imóvel";
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
-            // CancelButton
+            // CancButton
             // 
-            this.CancelButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CancelButton.Image = global::GTI_v4.Properties.Resources.cancel2;
-            this.CancelButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(23, 22);
-            this.CancelButton.Text = "toolStripButton2";
-            this.CancelButton.ToolTipText = "Cancelar";
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CancButton.Image = global::GTI_v4.Properties.Resources.cancel2;
+            this.CancButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CancButton.Name = "CancButton";
+            this.CancButton.Size = new System.Drawing.Size(23, 22);
+            this.CancButton.Text = "toolStripButton2";
+            this.CancButton.ToolTipText = "Cancelar";
+            this.CancButton.Click += new System.EventHandler(this.CancButton_Click);
             // 
             // SubUnidadeList
             // 
@@ -201,7 +201,7 @@
 
         private System.Windows.Forms.ToolStrip tBar;
         private System.Windows.Forms.ToolStripButton OkButton;
-        private System.Windows.Forms.ToolStripButton CancelButton;
+        private System.Windows.Forms.ToolStripButton CancButton;
         private System.Windows.Forms.ComboBox SubUnidadeList;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox UnidadeList;

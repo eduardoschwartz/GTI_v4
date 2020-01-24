@@ -1020,7 +1020,7 @@ namespace GTI_v4.Forms {
             return true;
         }
 
-       private void Renumera_Sequencia_Area() {
+        private void Renumera_Sequencia_Area() {
             int n = 1;
             foreach (ListViewItem item in AreaListView.Items) {
                 item.Text = n.ToString("00");
@@ -1506,20 +1506,6 @@ namespace GTI_v4.Forms {
             }
             GtiCore.Liberado(this);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

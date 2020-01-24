@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,7 +16,7 @@ namespace GTI_v4.Repository {
 
         public int DvDocumento(int Numero) {
             string sFromN = Numero.ToString("00000000");
-            int nTotPosAtual = 0;
+            int nTotPosAtual ;
 
             nTotPosAtual = Convert.ToInt32(sFromN.Substring(0, 1)) * 7;
             nTotPosAtual += Convert.ToInt32(sFromN.Substring(1, 1)) * 3;
@@ -52,7 +53,7 @@ namespace GTI_v4.Repository {
                 var prmDtA = new SqlParameter { ParameterName = "@DataNow", SqlDbType = SqlDbType.SmallDateTime, SqlValue = Data_Atualizacao == null ? DateTime.Now : Data_Atualizacao };
                 var prmUser = new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, SqlValue = Usuario };
 
-                var result = db.SpExtrato.SqlQuery("EXEC spEXTRATONEW @CodReduz1, @CodReduz2, @AnoExercicio1 ,@AnoExercicio2 ,@CodLancamento1 ,@CodLancamento2, @SeqLancamento1 ,@SeqLancamento2, @NumParcela1, @NumParcela2, @CodComplemento1, @CodComplemento2, @Status1, @Status2, @DataNow, @Usuario ",
+                List<SpExtrato> result = db.SpExtrato.SqlQuery("EXEC spEXTRATONEW @CodReduz1, @CodReduz2, @AnoExercicio1 ,@AnoExercicio2 ,@CodLancamento1 ,@CodLancamento2, @SeqLancamento1 ,@SeqLancamento2, @NumParcela1, @NumParcela2, @CodComplemento1, @CodComplemento2, @Status1, @Status2, @DataNow, @Usuario ",
                     prmCod1, prmCod2, prmAno1, prmAno2, prmLanc1, prmLanc2, prmSeq1, prmSeq2, prmPc1, prmPc2, prmCp1, prmCp2, prmSta1, prmSta2, prmDtA, prmUser).ToList();
 
                 List<SpExtrato> ListaDebito = new List<SpExtrato>();

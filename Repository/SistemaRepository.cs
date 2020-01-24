@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace GTI_v4.Repository {
     public class SistemaRepository:ISistemaRepository {
-        IImobiliarioRepository imobiliarioRepository = new ImobiliarioRepository(GtiCore.Connection_Name());
-        IEnderecoRepository enderecoRepository = new EnderecoRepository(GtiCore.Connection_Name());
-        IEmpresaRepository empresaRepository = new EmpresaRepository(GtiCore.Connection_Name());
-        ICidadaoRepository cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
+        readonly IImobiliarioRepository imobiliarioRepository = new ImobiliarioRepository(GtiCore.Connection_Name());
+        readonly IEnderecoRepository enderecoRepository = new EnderecoRepository(GtiCore.Connection_Name());
+        readonly IEmpresaRepository empresaRepository = new EmpresaRepository(GtiCore.Connection_Name());
+        readonly ICidadaoRepository cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
 
         public string Connection { get; }
 
@@ -177,11 +177,13 @@ namespace GTI_v4.Repository {
 
         public Contribuinte_Header Contribuinte_Header(int _codigo, bool _principal = false) {
             string _nome = "", _inscricao = "", _endereco = "", _complemento = "", _bairro = "", _cidade = "", _uf = "", _cep = "", _quadra = "", _lote = "";
+
             string _endereco_entrega = "", _complemento_entrega = "", _bairro_entrega = "", _cidade_entrega = "", _uf_entrega = "", _cep_entrega = "";
             string _cpf_cnpj = "", _atividade = "", _rg = "", _endereco_abreviado = "", _endereco_entrega_abreviado = "";
             int _numero = 0, _numero_entrega = 0;
-            GtiCore.TipoEndereco _tipo_end = GtiCore.TipoEndereco.Local;
             bool _ativo = false;
+            GtiCore.TipoEndereco _tipo_end = GtiCore.TipoEndereco.Local;
+            
             GtiCore.TipoCadastro _tipo_cadastro;
             _tipo_cadastro = _codigo < 100000 ? GtiCore.TipoCadastro.Imovel : (_codigo >= 100000 && _codigo < 500000) ? GtiCore.TipoCadastro.Empresa : GtiCore.TipoCadastro.Cidadao;
 
@@ -251,7 +253,7 @@ namespace GTI_v4.Repository {
                         _uf_entrega = regEntrega.Uf ?? "";
                         _cidade_entrega = regEntrega.Desccidade;
                         _bairro_entrega = regEntrega.Descbairro;
-                        _cep_entrega = regEntrega.Cep == null ? "00000-000" : Convert.ToInt32(dalCore.RetornaNumero(regEntrega.Cep).ToString()).ToString("00000-000");
+                        _cep_entrega = regEntrega.Cep == null ? "00000-000" : Convert.ToInt32(GtiCore.RetornaNumero(regEntrega.Cep).ToString()).ToString("00000-000");
                     }
                 } else {
                     CidadaoStruct _cidadao = cidadaoRepository.Dados_Cidadao(_codigo);
