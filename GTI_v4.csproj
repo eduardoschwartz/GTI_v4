@@ -143,6 +143,12 @@
     <Compile Include="Forms\ErrorBox.Designer.cs">
       <DependentUpon>ErrorBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Foto_Imovel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Foto_Imovel.Designer.cs">
+      <DependentUpon>Foto_Imovel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Imovel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -328,6 +334,7 @@
     <Compile Include="Models\proprietario.cs" />
     <Compile Include="Models\security_event.cs" />
     <Compile Include="Models\situacao.cs" />
+    <Compile Include="Models\spextrato.cs" />
     <Compile Include="Models\tabelaiss.cs" />
     <Compile Include="Models\testada.cs" />
     <Compile Include="Models\testadacondominio.cs" />

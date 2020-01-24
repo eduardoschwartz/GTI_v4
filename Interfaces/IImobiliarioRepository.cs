@@ -18,7 +18,7 @@ namespace GTI_v4.Interfaces {
         bool Existe_Face_Quadra(int Distrito, int Setor, int Quadra, int Face);
         bool Existe_Imovel(int nCodigo);
         int Existe_Imovel(int distrito, int setor, int quadra, int lote, int unidade, int subunidade);
-        List<Foto_Imovel> Lista_Foto_Imovel(int Codigo);
+        List<Foto_imovel> Lista_Foto_Imovel(int Codigo);
         Exception Incluir_Area(List<Areas> areas);
         Exception Incluir_Area_Condominio(List<Condominioarea> areas);
         Exception Incluir_Comunicado_Isencao(Comunicado_Isencao Reg);

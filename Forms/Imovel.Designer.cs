@@ -24,11 +24,11 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup25 = new System.Windows.Forms.ListViewGroup("Proprietários", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup26 = new System.Windows.Forms.ListViewGroup("Proprietário Solidário", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup13 = new System.Windows.Forms.ListViewGroup("Proprietários", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("Proprietário Solidário", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Imovel));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.AdicionarProprietarioMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ProprietarioPrincipalMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ProprietarioSolidarioMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -355,13 +355,13 @@
             this.ProprietarioListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.ProprietarioListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            listViewGroup25.Header = "Proprietários";
-            listViewGroup25.Name = "groupPP";
-            listViewGroup26.Header = "Proprietário Solidário";
-            listViewGroup26.Name = "groupPS";
+            listViewGroup13.Header = "Proprietários";
+            listViewGroup13.Name = "groupPP";
+            listViewGroup14.Header = "Proprietário Solidário";
+            listViewGroup14.Name = "groupPS";
             this.ProprietarioListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup25,
-            listViewGroup26});
+            listViewGroup13,
+            listViewGroup14});
             this.ProprietarioListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.ProprietarioListView.HideSelection = false;
             this.ProprietarioListView.HoverSelection = true;
@@ -650,6 +650,7 @@
             this.FotoButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Tip.SetToolTip(this.FotoButton, "Imagens do imóvel");
             this.FotoButton.UseVisualStyleBackColor = true;
+            this.FotoButton.Click += new System.EventHandler(this.FotoButton_Click);
             // 
             // ResideCheck
             // 
@@ -670,6 +671,7 @@
             this.AreaConstruida.Name = "AreaConstruida";
             this.AreaConstruida.Size = new System.Drawing.Size(74, 20);
             this.AreaConstruida.TabIndex = 29;
+            this.AreaConstruida.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AreaConstruida_KeyPress);
             // 
             // SubUnidade
             // 
@@ -1087,6 +1089,7 @@
             this.AddHistoricoButton.Size = new System.Drawing.Size(23, 22);
             this.AddHistoricoButton.Text = "toolStripButton1";
             this.AddHistoricoButton.ToolTipText = "Adicionar histórico";
+            this.AddHistoricoButton.Click += new System.EventHandler(this.AddHistoricoButton_Click);
             // 
             // EditHistoricoButton
             // 
@@ -1097,6 +1100,7 @@
             this.EditHistoricoButton.Size = new System.Drawing.Size(23, 22);
             this.EditHistoricoButton.Text = "toolStripButton1";
             this.EditHistoricoButton.ToolTipText = "Alterar o histórico selecionado";
+            this.EditHistoricoButton.Click += new System.EventHandler(this.EditHistoricoButton_Click);
             // 
             // DelHistoricoButton
             // 
@@ -1107,6 +1111,7 @@
             this.DelHistoricoButton.Size = new System.Drawing.Size(23, 22);
             this.DelHistoricoButton.Text = "toolStripButton2";
             this.DelHistoricoButton.ToolTipText = "Excluir histórico selecionado";
+            this.DelHistoricoButton.Click += new System.EventHandler(this.DelHistoricoButton_Click);
             // 
             // ZoomHistoricoButton
             // 
@@ -1117,6 +1122,7 @@
             this.ZoomHistoricoButton.Size = new System.Drawing.Size(23, 22);
             this.ZoomHistoricoButton.Text = "toolStripButton3";
             this.ZoomHistoricoButton.ToolTipText = "Visualizar histórico selecionado";
+            this.ZoomHistoricoButton.Click += new System.EventHandler(this.ZoomHistoricoButton_Click);
             // 
             // HistoricoListView
             // 
@@ -1163,6 +1169,7 @@
             this.IPTUButton.Text = "Visualizar dados do ITPU";
             this.IPTUButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.IPTUButton.UseVisualStyleBackColor = true;
+            this.IPTUButton.Click += new System.EventHandler(this.IPTUButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -1220,6 +1227,7 @@
             this.InativarButton.Name = "InativarButton";
             this.InativarButton.Size = new System.Drawing.Size(23, 22);
             this.InativarButton.ToolTipText = "Tornar o i móvel inativo";
+            this.InativarButton.Click += new System.EventHandler(this.InativarButton_Click);
             // 
             // LocalizarButton
             // 
@@ -1229,6 +1237,7 @@
             this.LocalizarButton.Name = "LocalizarButton";
             this.LocalizarButton.Size = new System.Drawing.Size(23, 22);
             this.LocalizarButton.ToolTipText = "Consultar";
+            this.LocalizarButton.Click += new System.EventHandler(this.LocalizarButton_Click);
             // 
             // ImprimirButton
             // 
@@ -1238,6 +1247,7 @@
             this.ImprimirButton.Name = "ImprimirButton";
             this.ImprimirButton.Size = new System.Drawing.Size(23, 22);
             this.ImprimirButton.ToolTipText = "Imprimir";
+            this.ImprimirButton.Click += new System.EventHandler(this.ImprimirButton_Click);
             // 
             // SairButton
             // 
@@ -1321,6 +1331,7 @@
             this.QtdePavimentos.Name = "QtdePavimentos";
             this.QtdePavimentos.Size = new System.Drawing.Size(74, 20);
             this.QtdePavimentos.TabIndex = 36;
+            this.QtdePavimentos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.QtdePavimentos_KeyPress);
             // 
             // ProcessoArea
             // 
@@ -1329,6 +1340,7 @@
             this.ProcessoArea.Name = "ProcessoArea";
             this.ProcessoArea.Size = new System.Drawing.Size(74, 20);
             this.ProcessoArea.TabIndex = 34;
+            this.ProcessoArea.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ProcessoArea_KeyPress);
             // 
             // OkAreaButton
             // 
@@ -1345,6 +1357,7 @@
             this.OkAreaButton.TabIndex = 37;
             this.Tip.SetToolTip(this.OkAreaButton, "Incluir área");
             this.OkAreaButton.UseVisualStyleBackColor = false;
+            this.OkAreaButton.Click += new System.EventHandler(this.OkAreaButton_Click);
             // 
             // label51
             // 
@@ -1460,6 +1473,7 @@
             this.CancelAreaButton.TabIndex = 38;
             this.Tip.SetToolTip(this.CancelAreaButton, "Cancelar");
             this.CancelAreaButton.UseVisualStyleBackColor = false;
+            this.CancelAreaButton.Click += new System.EventHandler(this.CancelAreaButton_Click);
             // 
             // tabPage1
             // 
@@ -1474,18 +1488,19 @@
             // 
             // IptuChart
             // 
-            chartArea13.Name = "ChartArea1";
-            this.IptuChart.ChartAreas.Add(chartArea13);
+            chartArea7.Name = "ChartArea1";
+            this.IptuChart.ChartAreas.Add(chartArea7);
             this.IptuChart.Location = new System.Drawing.Point(6, 11);
             this.IptuChart.Name = "IptuChart";
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series13.Name = "Series1";
-            this.IptuChart.Series.Add(series13);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Name = "Series1";
+            this.IptuChart.Series.Add(series7);
             this.IptuChart.Size = new System.Drawing.Size(733, 243);
             this.IptuChart.TabIndex = 180;
             this.IptuChart.Text = "chart1";
             this.IptuChart.Visible = false;
+            this.IptuChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.IptuChart_MouseMove);
             // 
             // ImovelTab
             // 
@@ -1693,6 +1708,7 @@
             this.End3Option.TabIndex = 13;
             this.End3Option.Text = "Entrega";
             this.End3Option.UseVisualStyleBackColor = true;
+            this.End3Option.CheckedChanged += new System.EventHandler(this.End3Option_CheckedChanged);
             // 
             // End1Option
             // 
@@ -1707,6 +1723,7 @@
             this.End1Option.TabStop = true;
             this.End1Option.Text = "Imóvel";
             this.End1Option.UseVisualStyleBackColor = true;
+            this.End1Option.CheckedChanged += new System.EventHandler(this.End1Option_CheckedChanged);
             // 
             // End2Option
             // 
@@ -1719,6 +1736,7 @@
             this.End2Option.TabIndex = 12;
             this.End2Option.Text = "Proprietário";
             this.End2Option.UseVisualStyleBackColor = true;
+            this.End2Option.CheckedChanged += new System.EventHandler(this.End2Option_CheckedChanged);
             // 
             // Bairro_EE
             // 
@@ -1957,6 +1975,7 @@
             this.AddAreaButton.Name = "AddAreaButton";
             this.AddAreaButton.Size = new System.Drawing.Size(23, 22);
             this.AddAreaButton.Text = "Adicionar área";
+            this.AddAreaButton.Click += new System.EventHandler(this.AddAreaButton_Click);
             // 
             // EditAreaButton
             // 
@@ -1966,6 +1985,7 @@
             this.EditAreaButton.Name = "EditAreaButton";
             this.EditAreaButton.Size = new System.Drawing.Size(23, 22);
             this.EditAreaButton.Text = "Alterar área selecionada";
+            this.EditAreaButton.Click += new System.EventHandler(this.EditAreaButton_Click);
             // 
             // DelAreaButton
             // 
@@ -1975,6 +1995,7 @@
             this.DelAreaButton.Name = "DelAreaButton";
             this.DelAreaButton.Size = new System.Drawing.Size(23, 22);
             this.DelAreaButton.Text = "Excluir área selecionada";
+            this.DelAreaButton.Click += new System.EventHandler(this.DelAreaButton_Click);
             // 
             // SomaArea
             // 
@@ -2184,6 +2205,7 @@
             this.FracaoIdeal.Name = "FracaoIdeal";
             this.FracaoIdeal.Size = new System.Drawing.Size(71, 20);
             this.FracaoIdeal.TabIndex = 27;
+            this.FracaoIdeal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FracaoIdeal_KeyPress);
             // 
             // AreaTerreno
             // 
@@ -2192,6 +2214,7 @@
             this.AreaTerreno.Name = "AreaTerreno";
             this.AreaTerreno.Size = new System.Drawing.Size(71, 20);
             this.AreaTerreno.TabIndex = 20;
+            this.AreaTerreno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AreaTerreno_KeyPress);
             // 
             // Pedologia
             // 

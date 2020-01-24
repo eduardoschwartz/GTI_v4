@@ -9,6 +9,8 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace GTI_v4.Forms {
     public partial class Imovel : Form {
@@ -16,6 +18,7 @@ namespace GTI_v4.Forms {
         readonly ICidadaoRepository cidadaoRepository = new CidadaoRepository(GtiCore.Connection_Name());
         readonly ISistemaRepository sistemaRepository = new SistemaRepository(GtiCore.Connection_Name());
         readonly IImobiliarioRepository imobiliarioRepository = new ImobiliarioRepository(GtiCore.Connection_Name());
+        readonly ITributarioRepository tributarioRepository = new TributarioRepository(GtiCore.Connection_Name());
 
         Point? prevPosition = null;
         ToolTip tooltip = new ToolTip();
@@ -793,6 +796,169 @@ namespace GTI_v4.Forms {
                 TestadaListView.SelectedItems[0].Remove();
         }
 
+        private void CancelAreaButton_Click(object sender, EventArgs e) {
+            AreaPnl.Visible = false;
+            TopPanel.Enabled = true;
+            ImovelTab.Enabled = true;
+            BarToolStrip.Enabled = true;
+        }
+
+        private void ProcessoArea_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar != (char)Keys.Return && e.KeyChar != (char)Keys.Tab) {
+                const char Delete = (char)8;
+                const char Minus = (char)45;
+                const char Barra = (char)47;
+                if (e.KeyChar == Minus && ProcessoArea.Text.Contains("-"))
+                    e.Handled = true;
+                else {
+                    if (e.KeyChar == Barra && ProcessoArea.Text.Contains("/"))
+                        e.Handled = true;
+                    else
+                        e.Handled = !Char.IsDigit(e.KeyChar) && e.KeyChar != Delete && e.KeyChar != Barra && e.KeyChar != Minus;
+                }
+            }
+        }
+
+        private void QtdePavimentos_KeyPress(object sender, KeyPressEventArgs e) {
+            const char Delete = (char)8;
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != Delete;
+        }
+
+        private void AreaTerreno_KeyPress(object sender, KeyPressEventArgs e) {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 44)) {
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyChar == 44) {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
+
+        private void FracaoIdeal_KeyPress(object sender, KeyPressEventArgs e) {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 44)) {
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyChar == 44) {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
+
+        private void AreaConstruida_KeyPress(object sender, KeyPressEventArgs e) {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 44)) {
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyChar == 44) {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
+
+        private void FotoButton_Click(object sender, EventArgs e) {
+            if (!bAddNew) {
+                int _codigo = Convert.ToInt32(Codigo.Text);
+                List<Foto_imovel> Lista = imobiliarioRepository.Lista_Foto_Imovel(_codigo);
+                if (Lista.Count > 0) {
+                    Foto_Imovel frm = new Foto_Imovel(_codigo);
+                    frm.ShowDialog(this);
+                } else
+                    MessageBox.Show("Não existem fotos cadastradas para este imóvel.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LocalizarButton_Click(object sender, EventArgs e) {
+            using (var form = new Imovel_Lista()) {
+                var result = form.ShowDialog(this);
+                if (result == DialogResult.OK) {
+                    int val = form.ReturnValue;
+                    ClearFields();
+                    CarregaImovel(val);
+                }
+            }
+        }
+
+        private void ImprimirButton_Click(object sender, EventArgs e) {
+            //TODO: Imprimir dados do imóvel
+        }
+
+        private void OkAreaButton_Click(object sender, EventArgs e) {
+            decimal area = 0;
+            int Pavimento = 0;
+
+            try {
+                area = decimal.Parse(AreaConstruida.Text);
+            } catch {
+                MessageBox.Show("Digite o valor da área.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (area == 0) {
+                MessageBox.Show("Digite o valor da área.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!GtiCore.IsEmptyDate(DataAprovacao.Text) && !GtiCore.IsDate(DataAprovacao.Text)) {
+                MessageBox.Show("Data de aprovação inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(ProcessoArea.Text)) {
+                Exception ex = protocoloRepository.Valida_Processo(ProcessoArea.Text);
+                if (ex != null) {
+                    ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                    eBox.ShowDialog();
+                    return;
+                }
+                int Numero = protocoloRepository.Extract_Numero_ProcessoNoDV(ProcessoArea.Text);
+                int Ano = protocoloRepository.Extract_Ano_Processo(ProcessoArea.Text);
+                bool Existe = protocoloRepository.Existe_Processo(Ano, Numero);
+                if (!Existe) {
+                    MessageBox.Show("Número de processo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            try {
+                Pavimento = int.Parse(QtdePavimentos.Text);
+            } catch {
+                QtdePavimentos.Text = "1";
+            }
+
+            if (bNovaArea) {
+                ListViewItem lvItem = new ListViewItem("00");
+                lvItem.SubItems.Add(string.Format("{0:0.00}", area));
+                lvItem.SubItems.Add(UsoConstrucaoList.Text);
+                lvItem.SubItems.Add(TipoConstrucaoList.Text);
+                lvItem.SubItems.Add(CategoriaConstrucaoList.Text);
+                lvItem.SubItems.Add(QtdePavimentos.Text);
+                lvItem.SubItems.Add(DataAprovacao.Text);
+                lvItem.SubItems.Add(ProcessoArea.Text);
+                lvItem.SubItems[2].Tag = UsoConstrucaoList.SelectedValue.ToString();
+                lvItem.SubItems[3].Tag = TipoConstrucaoList.SelectedValue.ToString();
+                lvItem.SubItems[4].Tag = CategoriaConstrucaoList.SelectedValue.ToString();
+                AreaListView.Items.Add(lvItem);
+            } else {
+                int idx = AreaListView.SelectedItems[0].Index;
+                AreaListView.Items[idx].SubItems[1].Text = string.Format("{0:0.00}", area);
+                AreaListView.Items[idx].SubItems[2].Text = UsoConstrucaoList.Text;
+                AreaListView.Items[idx].SubItems[3].Text = TipoConstrucaoList.Text;
+                AreaListView.Items[idx].SubItems[4].Text = CategoriaConstrucaoList.Text;
+                AreaListView.Items[idx].SubItems[5].Text = QtdePavimentos.Text;
+                AreaListView.Items[idx].SubItems[6].Text = DataAprovacao.Text;
+                AreaListView.Items[idx].SubItems[7].Text = ProcessoArea.Text;
+                AreaListView.Items[idx].SubItems[2].Tag = UsoConstrucaoList.SelectedValue.ToString();
+                AreaListView.Items[idx].SubItems[3].Tag = TipoConstrucaoList.SelectedValue.ToString();
+                AreaListView.Items[idx].SubItems[4].Tag = CategoriaConstrucaoList.SelectedValue.ToString();
+            }
+            Renumera_Sequencia_Area();
+
+            AreaPnl.Visible = false;
+            TopPanel.Enabled = true;
+            ImovelTab.Enabled = true;
+            BarToolStrip.Enabled = true;
+        }
+
         private bool ValidateReg() {
             if (ProprietarioListView.Items.Count == 0) {
                 MessageBox.Show("Cadastre o(s) proprietário(s) do imóvel.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -854,7 +1020,492 @@ namespace GTI_v4.Forms {
             return true;
         }
 
+       private void Renumera_Sequencia_Area() {
+            int n = 1;
+            foreach (ListViewItem item in AreaListView.Items) {
+                item.Text = n.ToString("00");
+                n++;
+            }
+        }
 
+        private void InativarButton_Click(object sender, EventArgs e) {
+            int Codigo = Convert.ToInt32(this.Codigo.Text);
+            if (Codigo == 0)
+                MessageBox.Show("Selecione um imóvel.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else {
+                bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroImovel_Inativar);
+                if (!bAllow)
+                    MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else {
+                    if (Ativo.Text == "INATIVO")
+                        MessageBox.Show("Este imóvel já esta inativo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else {
+                        if (MessageBox.Show("Inativar este imóvel?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+                            Exception ex = imobiliarioRepository.Inativar_Imovel(Codigo);
+                            if (ex != null) {
+                                ErrorBox eBox = new ErrorBox("Atenção", ex.Message, ex);
+                                eBox.ShowDialog();
+                            } else {
+                                Ativo.Text = "INATIVO";
+                                Ativo.ForeColor = Color.Red;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void AddHistoricoButton_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroImovel_Alterar_Historico);
+            if (bAllow) {
+                if (HistoricoListView.SelectedItems.Count > 0) {
+                    string sData = DateTime.Now.ToString("dd/MM/yyyy");
+                    ZoomBox f1 = new ZoomBox("Histórico do imóvel de " + sData, this, "", false);
+                    f1.ShowDialog();
+                    if (f1.ReturnText != "") {
+                        ListViewItem lvItem = new ListViewItem((HistoricoListView.Items.Count + 1).ToString("000"));
+                        lvItem.SubItems.Add(sData);
+                        lvItem.SubItems.Add(f1.ReturnText);
+                        string sLogin = Properties.Settings.Default.LastUser;
+                        lvItem.SubItems.Add(sistemaRepository.Retorna_User_FullName(sLogin));
+                        lvItem.Tag = sistemaRepository.Retorna_User_LoginId(sLogin).ToString();
+                        HistoricoListView.Items.Add(lvItem);
+                    }
+                } else
+                    MessageBox.Show("Selecione um histórico.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void DelHistoricoButton_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroImovel_Alterar_Historico);
+            if (bAllow) {
+                if (HistoricoListView.SelectedItems.Count > 0) {
+                    HistoricoListView.Items.Remove(HistoricoListView.SelectedItems[0]);
+                } else
+                    MessageBox.Show("Selecione um histórico.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void DelAreaButton_Click(object sender, EventArgs e) {
+            if (AreaListView.Items.Count == 0 || AreaListView.SelectedItems.Count == 0)
+                MessageBox.Show("Selecione uma área.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else {
+                if (MessageBox.Show("Remover esta área?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+                    AreaListView.SelectedItems[0].Remove();
+                    Renumera_Sequencia_Area();
+                }
+            }
+        }
+
+        private void AddAreaButton_Click(object sender, EventArgs e) {
+            AreaConstruida.Text = "";
+            UsoConstrucaoList.SelectedIndex = 0;
+            TipoConstrucaoList.SelectedIndex = 0;
+            CategoriaConstrucaoList.SelectedIndex = 0;
+            QtdePavimentos.Text = "";
+            DataAprovacao.Text = "";
+            ProcessoArea.Text = "";
+            bNovaArea = true;
+            ImovelTab.Enabled = false;
+            BarToolStrip.Enabled = false;
+            TopPanel.Enabled = false;
+            AreaPnl.Visible = true;
+            AreaPnl.BringToFront();
+            AreaConstruida.Focus();
+        }
+
+        private void EditAreaButton_Click(object sender, EventArgs e) {
+            if (AreaListView.Items.Count == 0 || AreaListView.SelectedItems.Count == 0)
+                MessageBox.Show("Selecione uma área.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else {
+                bNovaArea = false;
+                ImovelTab.Enabled = false;
+                BarToolStrip.Enabled = false;
+                TopPanel.Enabled = false;
+                AreaPnl.Visible = true;
+                AreaPnl.BringToFront();
+                ListViewItem item = AreaListView.SelectedItems[0];
+                AreaConstruida.Text = item.SubItems[1].Text;
+                UsoConstrucaoList.SelectedValue = Convert.ToInt16(item.SubItems[2].Tag.ToString());
+                TipoConstrucaoList.SelectedValue = Convert.ToInt16(item.SubItems[3].Tag.ToString());
+                CategoriaConstrucaoList.SelectedValue = Convert.ToInt16(item.SubItems[4].Tag.ToString());
+                QtdePavimentos.Text = item.SubItems[5].Text;
+                DataAprovacao.Text = item.SubItems[6].Text;
+                ProcessoArea.Text = item.SubItems[7].Text;
+                AreaConstruida.Focus();
+            }
+        }
+
+        private void IptuChart_MouseMove(object sender, MouseEventArgs e) {
+            var pos = e.Location;
+            if (prevPosition.HasValue && pos == prevPosition.Value)
+                return;
+            tooltip.RemoveAll();
+            prevPosition = pos;
+            var results = IptuChart.HitTest(pos.X, pos.Y, false, ChartElementType.DataPoint);
+            foreach (var result in results) {
+                if (result.ChartElementType == ChartElementType.DataPoint) {
+                    var prop = result.Object as DataPoint;
+                    if (prop != null) {
+                        var pointXPixel = result.ChartArea.AxisX.ValueToPixelPosition(prop.XValue);
+                        var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
+
+                        // check if the cursor is really close to the point (2 pixels around the point)
+                        if (Math.Abs(pos.X - pointXPixel) < 10 &&
+                            Math.Abs(pos.Y - pointYPixel) < 10) {
+                            tooltip.Show("Exercício: " + prop.XValue + Environment.NewLine + ", Valor: R$" + string.Format("{0:0.00}", prop.YValues[0]), this.IptuChart,
+                                            pos.X, pos.Y - 15);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ZoomHistoricoButton_Click(object sender, EventArgs e) {
+            if (HistoricoListView.SelectedItems.Count > 0) {
+                string sData = HistoricoListView.SelectedItems[0].SubItems[1].Text;
+                string sTexto = HistoricoListView.SelectedItems[0].SubItems[2].Text;
+                ZoomBox f1 = new ZoomBox("Histórico do imóvel de " + sData, this, sTexto, true);
+                f1.ShowDialog();
+            } else
+                MessageBox.Show("Selecione um histórico.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void EditHistoricoButton_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroImovel_Alterar_Historico);
+            if (bAllow) {
+                if (HistoricoListView.SelectedItems.Count > 0) {
+                    string sData = HistoricoListView.SelectedItems[0].SubItems[1].Text;
+                    string sTexto = HistoricoListView.SelectedItems[0].SubItems[2].Text;
+                    ZoomBox f1 = new ZoomBox("Histórico do imóvel de " + sData, this, sTexto, false);
+                    f1.ShowDialog();
+                    string sLogin = Properties.Settings.Default.LastUser;
+                    HistoricoListView.SelectedItems[0].SubItems[1].Text = DateTime.Now.ToString("dd/MM/yyyy");
+                    HistoricoListView.SelectedItems[0].SubItems[2].Text = f1.ReturnText;
+                    HistoricoListView.SelectedItems[0].SubItems[3].Text = sistemaRepository.Retorna_User_FullName(sLogin);
+                    HistoricoListView.SelectedItems[0].Tag = sistemaRepository.Retorna_User_LoginId(sLogin).ToString();
+                } else
+                    MessageBox.Show("Selecione um histórico.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void End1Option_CheckedChanged(object sender, EventArgs e) {
+            if (End1Option.Checked) {
+                Limpa_endereco_Entrega();
+                Carrega_Endereco_Entrega_Imovel();
+                EndEntregaButton.Enabled = false;
+            }
+        }
+
+        private void End2Option_CheckedChanged(object sender, EventArgs e) {
+            if (End2Option.Checked) {
+                if (ProprietarioListView.Items.Count == 0) {
+                    MessageBox.Show("Selecione antes os proprietários do imóvel", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    End1Option.Checked = true;
+                } else {
+                    int nCodigo = Convert.ToInt32(ProprietarioListView.Items[0].Tag.ToString());
+                    Limpa_endereco_Entrega();
+                    Carrega_Endereco_Entrega_Proprietario(nCodigo);
+                    EndEntregaButton.Enabled = false;
+                }
+            }
+        }
+
+        private void End3Option_CheckedChanged(object sender, EventArgs e) {
+            if (End3Option.Checked) {
+                Limpa_endereco_Entrega();
+                EndEntregaButton.Enabled = true;
+            }
+        }
+
+        private void CarregaImovel(int Codigo) {
+            if (string.IsNullOrEmpty(this.Codigo.Text)) return;
+            
+            ImovelStruct regImovel = imobiliarioRepository.Dados_Imovel(Codigo);
+            if (regImovel.Codigo == 0)
+                MessageBox.Show("Imóvel não cadastrado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else {
+                this.Codigo.Text = Codigo.ToString("000000");
+                StringBuilder sInscricao = new StringBuilder();
+                sInscricao.Append(regImovel.Distrito.ToString() + ".");
+                sInscricao.Append(regImovel.Setor.ToString("00") + ".");
+                sInscricao.Append(regImovel.Quadra.ToString("0000") + ".");
+                sInscricao.Append(regImovel.Lote.ToString("00000") + ".");
+                sInscricao.Append(regImovel.Seq.ToString("00") + ".");
+                sInscricao.Append(regImovel.Unidade.ToString("00") + ".");
+                sInscricao.Append(regImovel.SubUnidade.ToString("000"));
+                Inscricao.Text = sInscricao.ToString();
+                Condominio.Text = "[" + regImovel.NomeCondominio.ToString() + "]";
+                ImuneCheck.Checked = Convert.ToBoolean(regImovel.Imunidade);
+                IsentoCIPCheck.Checked = Convert.ToBoolean(regImovel.Cip);
+                ConjugadoCheck.Checked = Convert.ToBoolean(regImovel.Conjugado);
+                ResideCheck.Checked = Convert.ToBoolean(regImovel.ResideImovel);
+                if (Convert.ToBoolean(regImovel.Inativo)) {
+                    Ativo.Text = "INATIVO";
+                    Ativo.ForeColor = Color.Red;
+                } else {
+                    Ativo.Text = "ATIVO";
+                    Ativo.ForeColor = Color.Green;
+                }
+
+                MT1Check.Checked = regImovel.TipoMat == "M" ? true : false;
+                MT2Check.Checked = regImovel.TipoMat == "T" ? true : false;
+                Matricula.Text = regImovel.NumMatricula.ToString();
+                Distrito.Text = regImovel.Distrito.ToString();
+                Setor.Text = regImovel.Setor.ToString("00");
+                Face.Text = regImovel.Seq.ToString("00");
+                Quadra.Text = regImovel.Quadra.ToString("0000");
+                Lote.Text = regImovel.Lote.ToString("00000");
+                Face.Text = regImovel.Seq.ToString("00");
+                Unidade.Text = regImovel.Unidade.ToString("00");
+                SubUnidade.Text = regImovel.SubUnidade.ToString("000");
+                Complemento.Text = regImovel.Complemento.ToString();
+                Numero.Text = regImovel.Numero.ToString();
+                Logradouro.Text = regImovel.NomeLogradouro.ToString();
+                Logradouro.Tag = regImovel.CodigoLogradouro.ToString();
+                Bairro.Text = regImovel.NomeBairro.ToString();
+                Bairro.Tag = regImovel.CodigoBairro.ToString();
+                Quadras.Text = regImovel.QuadraOriginal.ToString();
+                Lotes.Text = regImovel.LoteOriginal.ToString();
+                Cep.Text =  Convert.ToInt32(regImovel.Cep.ToString()).ToString("00000-000");
+                FracaoIdeal.Text = string.Format("{0:0.00}", regImovel.FracaoIdeal);
+                AreaTerreno.Text = string.Format("{0:0.00}", regImovel.Area_Terreno);
+                BenfeitoriaList.SelectedValue = regImovel.Benfeitoria == 0 ? -1 : regImovel.Benfeitoria;
+                CategoriaTerrenoList.SelectedValue = regImovel.Categoria == 0 ? -1 : regImovel.Categoria;
+                PedologiaList.SelectedValue = regImovel.Pedologia == 0 ? -1 : regImovel.Pedologia;
+                SituacaoList.SelectedValue = regImovel.Situacao == 0 ? -1 : regImovel.Situacao;
+                TopografiaList.SelectedValue = regImovel.Topografia == 0 ? -1 : regImovel.Topografia;
+                UsoTerrenoList.SelectedValue = regImovel.Uso_terreno == 0 ? -1 : regImovel.Uso_terreno;
+                Benfeitoria.Text = regImovel.Benfeitoria_Nome;
+                Categoria.Text = regImovel.Categoria_Nome;
+                Pedologia.Text = regImovel.Pedologia_Nome;
+                Situacao.Text = regImovel.Situacao_Nome;
+                Topografia.Text = regImovel.Topografia_Nome;
+                UsoTerreno.Text = regImovel.Uso_terreno_Nome;
+
+                //Carrega proprietário
+                List<ProprietarioStruct> Lista = imobiliarioRepository.Lista_Proprietario(Codigo);
+                foreach (ProprietarioStruct reg in Lista) {
+                    ListViewItem lvItem = new ListViewItem();
+                    if (reg.Tipo == "P")
+                        lvItem.Group = ProprietarioListView.Groups["groupPP"];
+                    else
+                        lvItem.Group = ProprietarioListView.Groups["groupPS"];
+                    if (reg.Principal == true)
+                        lvItem.Text = reg.Nome + " (Principal)";
+                    else
+                        lvItem.Text = reg.Nome;
+                    lvItem.Tag = reg.Codigo.ToString();
+                    ProprietarioListView.Items.Add(lvItem);
+                }
+
+                //Carrega testada
+                List<Models.Testada> ListaT = imobiliarioRepository.Lista_Testada(Codigo);
+                foreach (Models.Testada reg in ListaT) {
+                    ListViewItem lvItem = new ListViewItem(reg.Numface.ToString("00"));
+                    lvItem.SubItems.Add(string.Format("{0:0.00}", (decimal)reg.Areatestada));
+                    TestadaListView.Items.Add(lvItem);
+                }
+
+                //Carrega Endereço de Entrega
+                End1Option.Checked = false;End2Option.Checked = false;End3Option.Checked = false;
+                if (regImovel.EE_TipoEndereco == 0)
+                    End1Option.Checked = true;
+                else if (regImovel.EE_TipoEndereco == 1)
+                    End2Option.Checked = true;
+                else
+                    End3Option.Checked = true;
+
+                GtiCore.TipoEndereco Tipoend = regImovel.EE_TipoEndereco == 0 ? GtiCore.TipoEndereco.Local : regImovel.EE_TipoEndereco == 1 ? GtiCore.TipoEndereco.Proprietario : GtiCore.TipoEndereco.Entrega;
+                EnderecoStruct regEntrega = imobiliarioRepository.Dados_Endereco(Codigo, Tipoend);
+                if (regEntrega != null) {
+                    Logradouro_EE.Text = regEntrega.Endereco.ToString();
+                    Logradouro_EE.Tag = regEntrega.CodLogradouro.ToString();
+                    Numero_EE.Text = regEntrega.Numero.ToString();
+                    Complemento_EE.Text = regEntrega.Complemento??"";
+                    UF_EE.Text = regEntrega.UF.ToString();
+                    Cidade_EE.Text = regEntrega.NomeCidade.ToString();
+                    Cidade_EE.Tag = regEntrega.CodigoCidade.ToString();
+                    Bairro_EE.Text = regEntrega.NomeBairro.ToString();
+                    Bairro_EE.Tag = regEntrega.CodigoBairro.ToString();
+                    CEP_EE.Text = regEntrega.Cep==null?"00000-000":  Convert.ToInt32(regEntrega.Cep.ToString()).ToString("00000-000");
+                }
+
+                //Carrega Área
+                short n = 1;
+                decimal SomaArea = 0;
+                List<AreaStruct> ListaA = imobiliarioRepository.Lista_Area(Codigo);
+                foreach (AreaStruct reg in ListaA) {
+                    ListViewItem lvItem = new ListViewItem(n.ToString("00"));
+                    lvItem.SubItems.Add(string.Format("{0:0.00}", (decimal)reg.Area));
+                    lvItem.SubItems.Add(reg.Uso_Nome);
+                    lvItem.SubItems.Add(reg.Tipo_Nome);
+                    lvItem.SubItems.Add(reg.Categoria_Nome);
+                    lvItem.SubItems.Add(reg.Pavimentos.ToString());
+                    if(reg.Data_Aprovacao!=null)
+                        lvItem.SubItems.Add(Convert.ToDateTime(reg.Data_Aprovacao).ToString("dd/MM/yyyy"));
+                    else
+                        lvItem.SubItems.Add("");
+                    if (string.IsNullOrWhiteSpace(reg.Numero_Processo))
+                        lvItem.SubItems.Add("");
+                    else {
+                        if (reg.Numero_Processo.Contains("-"))//se já tiver DV não precisa inserir novamente
+                            lvItem.SubItems.Add(reg.Numero_Processo);
+                        else {
+                            lvItem.SubItems.Add(protocoloRepository.Retorna_Processo_com_DV(reg.Numero_Processo));//corrige o DV
+                        }
+                    }
+                    lvItem.Tag = reg.Seq.ToString();
+                    lvItem.SubItems[2].Tag = reg.Uso_Codigo.ToString();
+                    lvItem.SubItems[3].Tag = reg.Tipo_Codigo.ToString();
+                    lvItem.SubItems[4].Tag = reg.Categoria_Codigo.ToString();
+                    AreaListView.Items.Add(lvItem);
+                    SomaArea += reg.Area;
+                    n++;
+                }
+                if (AreaListView.Items.Count > 0)
+                    AreaListView.Items[0].Selected = true;
+                this.SomaArea.Text = string.Format("{0:0.00}", SomaArea);
+
+                //Carrega Histórico
+                n = 1;
+                List<HistoricoStruct> ListaH = imobiliarioRepository.Lista_Historico(Codigo);
+                foreach (HistoricoStruct reg in ListaH) {
+                    ListViewItem lvItem = new ListViewItem(n.ToString("000"));
+                    lvItem.SubItems.Add( Convert.ToDateTime(reg.Data).ToString("dd/MM/yyyy"));
+                    lvItem.SubItems.Add(reg.Descricao);
+                    lvItem.SubItems.Add(reg.Usuario_Nome);
+                    lvItem.Tag = reg.Usuario_Codigo.ToString();
+                    HistoricoListView.Items.Add(lvItem);
+                    n++;
+                }
+                if (HistoricoListView.Items.Count > 0)
+                    HistoricoListView.Items[0].Selected = true;
+            }
+        }
+
+        private void Carrega_Endereco_Entrega_Imovel() {
+            Logradouro_EE.Text = Logradouro.Text;
+            Logradouro_EE.Tag = Logradouro.Tag;
+            Numero_EE.Text = Numero.Text;
+            Complemento_EE.Text = Complemento.Text;
+            Bairro_EE.Text = Bairro.Text;
+            Bairro_EE.Tag = Bairro.Tag;
+            CEP_EE.Text = Cep.Text;
+            Cidade_EE.Text = "JABOTICABAL";
+            Cidade_EE.Tag = "413";
+            UF_EE.Text = "SP";
+        }
+
+        private void IPTUButton_Click(object sender, EventArgs e) {
+            bool bAllow = GtiCore.GetBinaryAccess((int)TAcesso.CadastroImovel_IPTU);
+            if (bAllow) {
+                int nCodigo = Convert.ToInt32(Codigo.Text);
+                if (nCodigo > 0) {
+                    DrawGraph(nCodigo);
+                    IPTUButton.Visible = false;
+                    IptuChart.Visible = true;
+                }
+            } else
+                MessageBox.Show("Acesso não permitido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void Carrega_Endereco_Entrega_Proprietario(int Codigo_Proprietario) {
+            CidadaoStruct _cidadao = cidadaoRepository.LoadReg(Codigo_Proprietario);
+            if (_cidadao.EtiquetaC == "S") {
+                Logradouro_EE.Text = _cidadao.EnderecoC;
+                Logradouro_EE.Tag = _cidadao.CodigoLogradouroC;
+                Numero_EE.Text = _cidadao.NumeroC.ToString();
+                Complemento_EE.Text = _cidadao.ComplementoC;
+                Bairro_EE.Text = _cidadao.NomeBairroC;
+                Bairro_EE.Tag = _cidadao.CodigoBairroC.ToString();
+                CEP_EE.Text = _cidadao.CepC.ToString();
+                Cidade_EE.Text = _cidadao.NomeCidadeC;
+                Cidade_EE.Tag = _cidadao.CodigoCidadeC.ToString();
+                UF_EE.Text = _cidadao.UfC;
+            } else {
+                Logradouro_EE.Text = _cidadao.EnderecoR;
+                Logradouro_EE.Tag = _cidadao.CodigoLogradouroR;
+                Numero_EE.Text = _cidadao.NumeroR.ToString();
+                Complemento_EE.Text = _cidadao.ComplementoR;
+                Bairro_EE.Text = _cidadao.NomeBairroR;
+                Bairro_EE.Tag = _cidadao.CodigoBairroR.ToString();
+                CEP_EE.Text = _cidadao.CepR.ToString();
+                Cidade_EE.Text = _cidadao.NomeCidadeR;
+                Cidade_EE.Tag = _cidadao.CodigoCidadeR.ToString();
+                UF_EE.Text = _cidadao.UfR;
+            }
+        }
+
+        private void DrawGraph(int Codigo) {
+            GtiCore.Ocupado(this);
+            IptuChart.Update();
+            Series seriesTraffic = new Series();
+            IptuChart.ChartAreas[0].Area3DStyle.Enable3D = true;
+            seriesTraffic.ChartType = SeriesChartType.Bubble;
+            seriesTraffic.BorderWidth = 2;
+
+            List<SpExtrato> listaExtrato = tributarioRepository.Lista_Extrato_Tributo(Codigo: Codigo);
+            int[] xValues = new int[0];
+            decimal[] yValues = new decimal[0];
+            int nSize = 0;
+            foreach (SpExtrato item in listaExtrato) {
+                bool bFind = false;
+                for (int i = 0; i < xValues.Length; i++) {
+                    if (xValues[i] == item.Anoexercicio) {
+                        bFind = true;
+                        break;
+                    }
+                }
+                if (!bFind) {
+                    Array.Resize(ref xValues, nSize + 1);
+                    Array.Resize(ref yValues, nSize + 1);
+                    xValues[nSize] = item.Anoexercicio;
+                    nSize++;
+                }
+            }
+
+            for (int i = 0; i < xValues.Length; i++) {
+                decimal nSoma = 0;
+                foreach (SpExtrato item in listaExtrato) {
+                    if (item.Anoexercicio == xValues[i] && (item.Codlancamento == 1 || item.Codlancamento == 29) && item.Numparcela > 0 && item.Statuslanc != 5)
+                        nSoma += item.Valortributo;
+                    else {
+                        if (item.Anoexercicio > xValues[i])
+                            break;
+                    }
+                }
+                yValues[i] = nSoma;
+            }
+
+            for (int i = 0; i < xValues.Length; i++) {
+                seriesTraffic.Points.AddXY(xValues[i], yValues[i]);
+            }
+            if (xValues.Length > 0) {
+                IptuChart.BackGradientStyle = GradientStyle.TopBottom;
+                IptuChart.BackColor = Color.LightSkyBlue;
+                IptuChart.BackSecondaryColor = Color.WhiteSmoke;
+                IptuChart.ChartAreas[0].BackColor = Color.LightSalmon;
+                IptuChart.ChartAreas[0].AxisY.Minimum = 0;
+                IptuChart.ChartAreas[0].AxisX.Minimum = xValues[0];
+                IptuChart.ChartAreas[0].AxisX.Maximum = xValues[xValues.Length - 1];
+                IptuChart.Series.Add(seriesTraffic);
+                IptuChart.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightSteelBlue;
+                IptuChart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightSeaGreen;
+                IptuChart.ChartAreas[0].AxisX.LabelStyle.Enabled = true;
+                IptuChart.ChartAreas[0].AxisY.LabelStyle.Enabled = true;
+                IptuChart.ChartAreas[0].AxisX.IsStartedFromZero = false;
+                IptuChart.ChartAreas[0].AxisY.LabelStyle.Format = "R$ #0.00";
+                IptuChart.Series[0].IsValueShownAsLabel = true;
+                IptuChart.ChartAreas[0].AxisX.Interval = 1;
+                IptuChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
+                IptuChart.Series[0].LabelAngle = 90;
+            }
+            GtiCore.Liberado(this);
+        }
 
 
 

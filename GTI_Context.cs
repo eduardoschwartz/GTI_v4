@@ -55,7 +55,7 @@ namespace GTI_v4 {
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Escritoriocontabil> Escritoriocontabil { get; set; }
         public DbSet<Facequadra> Facequadra { get; set; }
-        public DbSet<Foto_Imovel> Foto_Imovel { get; set; }
+        public DbSet<Foto_imovel> Foto_Imovel { get; set; }
         public DbSet<Historico> Historico { get; set; }
         public DbSet<Historicocidadao> HistoricoCidadao { get; set; }
         public DbSet<Horario_funcionamento> Horario_Funcionamento { get; set; }
@@ -86,6 +86,7 @@ namespace GTI_v4 {
         public DbSet<Security_event> Security_Event { get; set; }
         public DbSet<sil> Sil { get; set; }
         public DbSet<Situacao> Situacao { get; set; }
+        public DbSet<SpExtrato> SpExtrato { get; set; }
         public DbSet<Tabelaiss> Tabelaiss { get; set; }
         public DbSet<Testadacondominio> Testadacondominio { get; set; }
         public DbSet<Testada> Testada { get; set; }

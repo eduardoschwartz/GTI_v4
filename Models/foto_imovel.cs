@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GTI_v4.Models {
-    public class Foto_Imovel {
+    public class Foto_imovel {
         [Key]
         [Column(Order = 1)]
         public int Codigo { get; set; }

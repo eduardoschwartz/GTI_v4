@@ -1289,7 +1289,7 @@ namespace GTI_v4.Repository {
             }
         }
 
-        public List<Foto_Imovel> Lista_Foto_Imovel(int Codigo) {
+        public List<Foto_imovel> Lista_Foto_Imovel(int Codigo) {
             using (GTI_Context db = new GTI_Context(_connection)) {
                 return (from f in db.Foto_Imovel where f.Codigo == Codigo select f).ToList();
             }
