@@ -78,6 +78,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -112,6 +113,18 @@
     <Compile Include="Forms\Cidadao_Historico.Designer.cs">
       <DependentUpon>Cidadao_Historico.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Cidadao_Lista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cidadao_Lista.Designer.cs">
+      <DependentUpon>Cidadao_Lista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Condominio_Lista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Condominio_Lista.Designer.cs">
+      <DependentUpon>Condominio_Lista.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Config.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +142,30 @@
     </Compile>
     <Compile Include="Forms\ErrorBox.Designer.cs">
       <DependentUpon>ErrorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Foto_Imovel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Foto_Imovel.Designer.cs">
+      <DependentUpon>Foto_Imovel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Imovel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Imovel.Designer.cs">
+      <DependentUpon>Imovel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Imovel_Lista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Imovel_Lista.Designer.cs">
+      <DependentUpon>Imovel_Lista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Imovel_Novo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Imovel_Novo.Designer.cs">
+      <DependentUpon>Imovel_Novo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InputBox.cs">
       <SubType>Form</SubType>
@@ -234,31 +271,57 @@
     <Compile Include="Interfaces\IProtocoloRepository.cs" />
     <Compile Include="Interfaces\ISistemaRepository.cs" />
     <Compile Include="Interfaces\ITributarioRepository.cs" />
+    <Compile Include="Models\alvara_funcionamento.cs" />
     <Compile Include="Models\anexo.cs" />
     <Compile Include="Models\anexolog.cs" />
     <Compile Include="Models\areas.cs" />
     <Compile Include="Models\assunto.cs" />
     <Compile Include="Models\assuntocc.cs" />
     <Compile Include="Models\assuntodoc.cs" />
+    <Compile Include="Models\atividade.cs" />
+    <Compile Include="Models\atividadeiss.cs" />
     <Compile Include="Models\bairro.cs" />
     <Compile Include="Models\benfeitoria.cs" />
     <Compile Include="Models\cadimob.cs" />
+    <Compile Include="Models\categconstr.cs" />
     <Compile Include="Models\categprop.cs" />
     <Compile Include="Models\centrocusto.cs" />
     <Compile Include="Models\cep.cs" />
+    <Compile Include="Models\certidao_inscricao.cs" />
     <Compile Include="Models\cidadao.cs" />
     <Compile Include="Models\cidade.cs" />
+    <Compile Include="Models\cnaecriterio.cs" />
+    <Compile Include="Models\cnaecriteriodesc.cs" />
+    <Compile Include="Models\cnaesubclasse.cs" />
+    <Compile Include="Models\cnae_criterio.cs" />
+    <Compile Include="Models\comuicadoisencao.cs" />
     <Compile Include="Models\condominio.cs" />
+    <Compile Include="Models\condominioarea.cs" />
+    <Compile Include="Models\condominiounidade.cs" />
+    <Compile Include="Models\contribuinte_header.cs" />
+    <Compile Include="Models\debitoparcela.cs" />
+    <Compile Include="Models\dempresa.cs" />
     <Compile Include="Models\despacho.cs" />
     <Compile Include="Models\documento.cs" />
     <Compile Include="Models\endentrega.cs" />
     <Compile Include="Models\endereco.cs" />
+    <Compile Include="Models\escritoriocontabil.cs" />
     <Compile Include="Models\facequadra.cs" />
+    <Compile Include="Models\foto_imovel.cs" />
+    <Compile Include="Models\historico.cs" />
     <Compile Include="Models\historico_cidadao.cs" />
+    <Compile Include="Models\horariofunc.cs" />
+    <Compile Include="Models\isencao.cs" />
+    <Compile Include="Models\laseriptu.cs" />
     <Compile Include="Models\logradouro.cs" />
     <Compile Include="Models\mobiliario.cs" />
+    <Compile Include="Models\mobiliariocnae.cs" />
     <Compile Include="Models\mobiliarioendentrega.cs" />
+    <Compile Include="Models\mobiliarioevento.cs" />
+    <Compile Include="Models\mobiliariohist.cs" />
+    <Compile Include="Models\mobiliarioplaca.cs" />
     <Compile Include="Models\mobiliarioproprietario.cs" />
+    <Compile Include="Models\mobiliariovs.cs" />
     <Compile Include="Models\obscidadao.cs" />
     <Compile Include="Models\pais.cs" />
     <Compile Include="Models\pedologia.cs" />
@@ -271,10 +334,16 @@
     <Compile Include="Models\proprietario.cs" />
     <Compile Include="Models\security_event.cs" />
     <Compile Include="Models\situacao.cs" />
+    <Compile Include="Models\spextrato.cs" />
+    <Compile Include="Models\tabelaiss.cs" />
+    <Compile Include="Models\testada.cs" />
+    <Compile Include="Models\testadacondominio.cs" />
+    <Compile Include="Models\tipoconstr.cs" />
     <Compile Include="Models\topografia.cs" />
     <Compile Include="Models\tramitacao.cs" />
     <Compile Include="Models\tramitacaocc.cs" />
     <Compile Include="Models\uf.cs" />
+    <Compile Include="Models\usoconstr.cs" />
     <Compile Include="Models\usoterreno.cs" />
     <Compile Include="Models\usuario.cs" />
     <Compile Include="Models\usuariocc.cs" />
@@ -319,10 +388,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Repository\CidadaoRepository.cs" />
+    <Compile Include="Models\cnae.cs" />
     <Compile Include="Repository\EmpresaRepository.cs" />
     <Compile Include="Repository\EnderecoRepository.cs" />
+    <Compile Include="Models\horario_funcionamento.cs" />
     <Compile Include="Repository\ImobiliarioRepository.cs" />
+    <Compile Include="Models\mobiliarioatividadeiss.cs" />
+    <Compile Include="Models\periodomei.cs" />
     <Compile Include="Repository\ProtocoloRepository.cs" />
+    <Compile Include="Models\sil.cs" />
     <Compile Include="Repository\SistemaRepository.cs" />
     <Compile Include="Repository\TributarioRepository.cs" />
     <EmbeddedResource Include="Forms\Bairro.resx">
@@ -342,6 +416,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ErrorBox.resx">
       <DependentUpon>ErrorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Imovel.resx">
+      <DependentUpon>Imovel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Imovel_Lista.resx">
+      <DependentUpon>Imovel_Lista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Imovel_Novo.resx">
+      <DependentUpon>Imovel_Novo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>

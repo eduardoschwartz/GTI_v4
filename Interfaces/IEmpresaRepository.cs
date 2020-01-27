@@ -1,9 +1,81 @@
-﻿using System;
-
+﻿using GTI_v4.Models;
+using System;
+using System.Collections.Generic;
 
 namespace GTI_v4.Interfaces {
     public interface IEmpresaRepository {
+        decimal Aliquota_Taxa_Licenca(int _codigo);
+        Alvara_funcionamento Alvara_Funcionamento_gravado(string Controle);
+        Exception Alterar_Empresa(Mobiliario reg);
+        Exception Alterar_escritorio(Escritoriocontabil reg);
+        bool Atividade_tem_Alvara(int Codigo_Atividade);
+        SilStructure CarregaSil(int Codigo);
+        Certidao_inscricao Certidao_inscricao_gravada(int Ano, int Numero);
+        EscritoriocontabilStruct Dados_Escritorio_Contabil(int Codigo);
+        Exception Delete_DEmpresa(int nSid);
+        bool Empresa_tem_VS(int nCodigo);
+        Exception Excluir_Atividade(int id_atividade);
+        bool Existe_Atividade_Empresa(int id_Atividade);
         bool Existe_Bairro(string UF, int Cidade, int Bairro);
         bool Existe_Bairro_Entrega(string UF, int Cidade, int Bairro);
+        bool Existe_Cnae_Criterio_Empresa(string _cnae, int _criterio);
+        bool Existe_Debito_TaxaLicenca(int Codigo, int Ano);
+        bool Existe_Empresa(int nCodigo);
+        int Existe_EmpresaCnpj(string sCNPJ);
+        int Existe_EmpresaCpf(string sCPF);
+        bool Empresa_Alvara_Automatico(int Codigo_Atividade);
+        Mobiliarioendentrega Empresa_Endereco_entrega(int Codigo);
+        bool Empresa_Escritorio(int id_escritorio);
+        bool Empresa_tem_Alvara(int nCodigo);
+        bool Empresa_tem_TL(int nCodigo);
+        bool Empresa_Mei(int nCodigo);
+        bool Empresa_Simples(int Codigo, DateTime Data);
+        Exception Excluir_Cnae_Criterio(string _cnae, int _criterio);
+        Exception Excluir_Escritorio(int Codigo);
+        Exception Incluir_Cnae_Criterio(Cnae_criterio reg);
+        Exception Incluir_DEmp(List<DEmpresa> Lista);
+        Exception Incluir_Empresa(Mobiliario reg);
+        Exception Incluir_Empresa_AtividadeISS(List<Mobiliarioatividadeiss> Lista, int Codigo);
+        Exception Incluir_Empresa_AtividadeVS(List<Mobiliariovs> Lista, int Codigo);
+        Exception Incluir_Empresa_CNAE(List<CnaeStruct> Lista, int Codigo);
+        Exception Incluir_Empresa_Historico(List<MobiliarioHistoricoStruct> historicos);
+        Exception Incluir_Empresa_Placa(List<mobiliarioplaca> Lista, int Codigo);
+        Exception Incluir_Empresa_Proprietario(List<Mobiliarioproprietario> Lista, int Codigo);
+        Exception Incluir_escritorio(Escritoriocontabil reg);
+        List<Atividade> Lista_Atividade();
+        List<AtividadeIssStruct> Lista_AtividadeISS();
+        List<MobiliarioAtividadeISSStruct> Lista_AtividadeISS_Empresa(int nCodigo);
+        List<CnaeStruct> Lista_Cnae();
+        List<Cnaecriteriodesc> Lista_Cnae_Criterio();
+        List<CnaecriterioStruct> Lista_Cnae_Criterio(string Cnae);
+        List<CnaeStruct> Lista_Cnae_Empresa(int nCodigo);
+        List<CnaeStruct> Lista_Cnae_Empresa_VS(int nCodigo);
+        List<DEmpresa> ListaDEmpresa(int nSid);
+        List<int> Lista_Empresas_Ativas();
+        List<MobiliarioHistoricoStruct> Lista_Empresa_Historico(int Codigo);
+        List<Mobiliarioatividadeiss> Lista_Empresas_ISS_Fixo();
+        List<MobiliarioproprietarioStruct> Lista_Empresa_Proprietario(int Codigo);
+        List<int> Lista_Empresas_Suspensas();
+        List<EmpresaStruct> Lista_Empresa(EmpresaStruct Filter);
+        List<EmpresaStruct> Lista_Empresas_Taxa_Licenca();
+        List<MobiliariovsStruct> Lista_Empresas_Vigilancia_Sanitaria();
+        List<Escritoriocontabil> Lista_Escritorio_Contabil();
+        List<Horariofunc> Lista_Horario();
+        List<string> Lista_Placas(int Codigo);
+        List<sil> Lista_Sil(int Codigo);
+        List<CidadaoStruct> Lista_Socio(int nCodigo);
+        int Qtde_Parcelas_TLL_Vencidas(int Codigo);
+        string Regime_Empresa(int nCodigo);
+        int Retorna_Alvara_Disponivel(int Ano);
+        int Retorna_Codigo_Disponivel();
+        List<int> Retorna_Codigo_por_CPF(string CPF);
+        List<int> Retorna_Codigo_por_CNPJ(string CNPJ);
+        string Retorna_Descricao_Cnae(string cnae);
+        EmpresaStruct Retorna_Empresa(int Codigo);
+        Horario_funcionamento Retorna_Horario_Funcionamento(int Codigo_Atividade);
+        string Retorna_Nome_Atividade(int id_atividade);
+        int Retorna_Ultimo_Codigo_Escritorio();
+
+
     }
 }

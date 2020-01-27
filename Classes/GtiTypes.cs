@@ -28,7 +28,7 @@ namespace GTI_v4.Classes {
             public bool _ativo { get; set; }
 
             public CustomListBoxItem2(string name, int value,bool ativo) {
-                _name = name;
+                _name = name; 
                 _value = value;
                 _ativo = ativo;
             }

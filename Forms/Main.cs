@@ -10,7 +10,7 @@ namespace GTI_v4.Forms {
     public partial class Main : Form {
 
         private readonly IProtocoloRepository _protocoloRepository = new ProtocoloRepository(GtiCore.Connection_Name());
-        private readonly ITributarioRepository _tributarioRepository = new TributarioRepository();
+        private readonly ITributarioRepository _tributarioRepository = new TributarioRepository(GtiCore.Connection_Name());
         private const int CP_NOCLOSE_BUTTON = 0x200;
         protected override CreateParams CreateParams {
             get {

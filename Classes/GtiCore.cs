@@ -15,7 +15,7 @@ namespace GTI_v4.Classes {
     public static class GtiCore {
 
         public enum ETweakMode { Normal, AllLetters, AllLettersAllCaps, AllLettersAllSmall, AlphaNumeric, AlphaNumericAllCaps, AlphaNumericAllSmall, IntegerPositive, DecimalPositive };
-        public enum LocalEndereco { Imovel, Empresa, Cidadao }
+        public enum TipoCadastro { Imovel, Empresa, Cidadao }
         public enum EventoForm { Nenhum = 0, Insert = 1, Edit = 2, Delete = 3, Print = 4 }
         public enum TipoEndereco { Local, Proprietario, Entrega }
 
@@ -182,11 +182,10 @@ namespace GTI_v4.Classes {
         public static string Connection_Name() {
             string connString = "";
             Ul = "gtisys"; Up = "everest";
-            Main f1 = (Main)Application.OpenForms["Main"];
             try {
-                BaseDados = f1.DataBaseToolStripStatus.Text;
+                BaseDados = "Tributacao";
                 connString = CreateConnectionString(Properties.Settings.Default.ServerName, Properties.Settings.Default.DataBaseReal, Ul, Up);//Base de testes por enquanto
-            } catch (Exception) {
+            } catch (Exception ex) {
             }
             return connString;
         }
@@ -528,6 +527,23 @@ namespace GTI_v4.Classes {
                 return "0";
             else
                 return Regex.Replace(Numero, @"[^\d]", "");
+        }
+
+        public static string Unifica_Cnae(int _divisao, int _grupo, int _classe, int _subclasse) {
+            return _divisao.ToString("00") + _grupo.ToString("0") + _classe.ToString("00").Substring(0, 1) + "-" + _classe.ToString("00").Substring(1, 1) + "/" + _subclasse.ToString("00");
+        }
+
+        public static string Mask(string sSqlField) {
+            return sSqlField.Replace("'", "''");
+        }
+
+        public static string Truncate(string str, int maxLength, string suffix) {
+            if (str.Length > maxLength) {
+                str = str.Substring(0, maxLength + 1);
+                str = str.Substring(0, Math.Min(str.Length, str.LastIndexOf(" ") == -1 ? 0 : str.LastIndexOf(" ")));
+                str = str + suffix;
+            }
+            return str.Trim();
         }
 
     }

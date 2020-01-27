@@ -3,12 +3,16 @@ using GTI_v4.Interfaces;
 using GTI_v4.Models;
 using GTI_v4.Repository;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace GTI_v4.Forms {
     public partial class Login : Form {
+        
 
         #region Shadow
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -272,6 +276,34 @@ namespace GTI_v4.Forms {
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        private void ReadDatFile() {
+            List<ArrayList> aDatResult;
+            int _File_Version = 1;
+            string sDir = AppDomain.CurrentDomain.BaseDirectory;
+            string sFileName = "\\gti000.dat";
+            if (!File.Exists(sDir + sFileName)) 
+                SaveDatFile();
+            else {
+                try {
+                    aDatResult = GtiCore.ReadFromDatFile(sDir + sFileName, "ZZ");
+                    if (Convert.ToInt32(aDatResult[0][0].ToString()) != _File_Version) {
+                        return;
+                    }
+                } catch {
+                }
+            }
+        }
+
+        private void SaveDatFile() {
+            string sDir = AppDomain.CurrentDomain.BaseDirectory;
+            List<string> aLista = new List<string>();
+            aLista.Add(GtiCore.ConvertDatReg("ZZ", "1".Split())); //Versão do arquivo
+            aLista.Add(GtiCore.ConvertDatReg("NS", new[] { "SKYNET" }));
+            GtiCore.CreateDatFile(sDir + "\\gti000.dat", aLista);
+            ReadDatFile();
+        }
+
 
 
     }

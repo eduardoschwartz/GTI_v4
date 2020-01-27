@@ -9,6 +9,7 @@ namespace GTI_v4.Interfaces {
     public interface ISistemaRepository {
         Exception Alterar_Senha(Usuario reg);
         Exception Alterar_Usuario(Usuario reg);
+        Contribuinte_Header Contribuinte_Header(int _codigo, bool _principal = false);
         int GetSizeofBinary();
         string GetUserBinary(int id);
         List<Security_event> Lista_Sec_Eventos();
